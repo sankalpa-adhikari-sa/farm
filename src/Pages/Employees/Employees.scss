@@ -1,0 +1,21 @@
+.Accordian {
+    display: flex;
+    gap: 30px;
+    margin: 0px 10px;
+    .EmployeeCount {
+        background-color: #F0f0f0;
+        border-radius: 5px;
+        margin: 0px 10px;
+        box-sizing: border-box;
+        padding: 8px;
+        cursor: pointer;
+
+        .CountLabel{
+            font-size: 12px;
+        }
+        .CountValue {
+            font-weight: 600;
+            margin:10px
+        }
+    }
+}

@@ -1,0 +1,21 @@
+[
+    {
+      "Name": "John Doe",
+      "Age": 30,
+      "Email": "john.doe@example.com",
+      "Status": "Work"
+    },
+    {
+      "Name": "Jane Smith",
+      "Age": 25,
+      "Email": "jane.smith@example.com",
+      "Status": "Work"
+    },
+    {
+      "Name": "Bob Johnson",
+      "Age": 35,
+      "Email": "bob.johnson@example.com",
+      "Status": "Leave"
+    }
+]
+  

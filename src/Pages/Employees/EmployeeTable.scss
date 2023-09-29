@@ -1,0 +1,71 @@
+.NoEmployee {
+   display: flex;
+   flex-wrap: wrap;
+   color: rgb(89, 88, 88);
+   font-size: 14px;
+   align-items: center;
+   justify-content: center;
+   background-color: #F0F0F0;
+   border-radius: 10px ;
+   height: 200px;
+   margin: 20px 10px;
+}
+.TableSearchWrapper {
+   background-color: #F0F0F0;
+   display: flex;
+   flex-direction: row;
+   justify-content: space-between;
+   align-items: center;
+   width: fit-content;
+   box-sizing: border-box;
+   padding: 5px;
+   margin: 20px 10px;
+   height: 30px;
+   border-radius: 5px;
+}
+.TableSearch{
+   border-radius: 5px;
+   border: transparent;
+   background-color: #F0F0F0;
+   height: 100%;
+   z-index: 10;
+   
+
+}
+.Table {
+   // background-color: black;
+   background-color: #F0F0F0;
+   // border-collapse: collapse;
+   box-sizing: border-box;
+   margin: 10px;
+   padding: 10px;
+   border-radius: 10px;
+   width: calc(100% - 20px);
+   border-spacing: 0px 10px;
+
+}
+.TableData{
+   display: flex;
+   justify-content: center;
+   font-size: 14px;
+   margin: 5px 0px;
+}
+.ActionWrapper {
+   display: flex;
+   justify-content: center;
+   gap: 10px;
+}
+.TableRow{
+   background-color: white;
+   line-height: 30px;
+   
+}
+tr:first-child td:first-child { border-top-left-radius: 10px;
+                                border-bottom-left-radius: 10px;  }
+tr:first-child td:last-child { border-top-right-radius: 10px; 
+                                 border-bottom-right-radius: 10px;  }
+
+tr:last-child td:first-child { border-top-left-radius: 10px;
+                                 border-bottom-left-radius: 10px; }
+tr:last-child td:last-child { border-top-right-radius: 10px;
+                              border-bottom-right-radius: 10px; }

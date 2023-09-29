@@ -10,7 +10,8 @@ import "react-toastify/dist/ReactToastify.css"
 function LivestockAdd() {
     const form= useForm({
       defaultValues:{
-        dam_id:null
+        dam_id:null,
+  
       }
     })
     const dispatch= useDispatch()
@@ -34,6 +35,7 @@ function LivestockAdd() {
       dispatch(addLivestock(livestockWithId))
       form.reset()
       form.clearErrors();
+     
       notify()
 
     }

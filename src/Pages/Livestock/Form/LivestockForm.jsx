@@ -3,17 +3,18 @@ import Button from '../../../UI Components/Button';
 import { MdDelete, MdOutlineCleaningServices} from 'react-icons/md'
 import { GiBroom} from 'react-icons/gi'
 import { useDispatch,useSelector } from 'react-redux';
-
+import Select from 'react-select'
+import { Controller } from 'react-hook-form';
 function LivestockForm(props) {
   const dispatch= useDispatch()
   const livestock = useSelector(state => state.livestock.Livestock_Info);
 
-  const ItemLivestock= livestock.map((items,id)=>{
-   return([items.tag_no, items.livestock_id])
+  const DamOptions= livestock.map((items)=>{
+   return({label:items.tag_no, value:items.livestock_id})
   })
-  console.log(ItemLivestock)
+  console.log(livestock)
 
-  const {register, handleSubmit,formState:{errors},reset, clearErrors}= props.form
+  const {register, control, handleSubmit,formState:{errors},reset, clearErrors}= props.form
   const handleReset = (e) => {
     e.preventDefault()
     reset();
@@ -105,17 +106,26 @@ function LivestockForm(props) {
               {livestock.length >0 && 
                   (<div className="FormControl">
                   <label htmlFor="dam_id">Dam</label>
-                  <select name="dam_id" 
-                          id="dam_id"
-                          {...register('dam_id'
-                          )}>
-                        {livestock.map((items,id)=>{
+                  <Controller name="dam_id" 
+                    control={control} 
+                    render={({ field }) => ( 
+                      
+                      <Select className='CustomSelect' {...field} 
+                      value={field.value !== null ? DamOptions.find(option => option.value === field.value) : null}
+                      // value={DamOptions.find(option => option.value === field.value)} 
+                      onChange={(selectedOption) => field.onChange(selectedOption?.value)} 
+                      options={DamOptions}
+                      
+                      isSearchable />
+                    )}/>
+                  
+                        {/* {livestock.map((items,id)=>{
                           return(
                             <option key={items.livestock_id} value={items.livestock_id}>{items.tag_no}</option>
                         
                             )
-                          })}
-                  </select>
+                          })} */}
+                  
                   {errors.dam_id ? <p className='ErrorClass'>{errors.dam_id?.message}</p>: null}  
                 </div>)
               }

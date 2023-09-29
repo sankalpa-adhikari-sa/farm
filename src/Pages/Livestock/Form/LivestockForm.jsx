@@ -14,74 +14,85 @@ function LivestockForm(props) {
     <div>
         <form className="FormWrapper" onSubmit={handleSubmit(props.onSubmit)}>
           {/* -------Form Control------ */}
-          <div className="FormControlGroup">
-            
-          </div>
-          <div className="FormStep">Basic Information</div>
-          <div className="FormControl">
-            <label htmlFor="tag_no">Tag Number</label>
-            <input type="text" id='tag_no'
-              {...register('tag_no',
-                          {required: {
-                          value: true,
-                          message: "Name is required"}
-                          })
-              } />
-            {errors.tag_no ? <p className='ErrorClass'>{errors.tag_no?.message}</p>: null}  
-          </div>
-          {/* -------Form Control------ */}
-          <div className="FormControl">
-            <label htmlFor="color">Color</label>
-            <input type="text" id='color'
-              {...register('color',
-                          {required: {
-                          value: true,
-                          message: "Color is required"}
-                          })
-              } />
-            {errors.color ? <p className='ErrorClass'>{errors.color?.message}</p>: null}  
-          </div>
-          {/* -------Form Control------ */}
-          <div className="FormControl">
-            <label htmlFor="breed">Breed</label>
-            <input type="text" id='breed'
-              {...register('breed',
-                          {required: {
-                          value: true,
-                          message: "Breed is required"}
-                          })
-              } />
-            {errors.breed ? <p className='ErrorClass'>{errors.breed?.message}</p>: null}  
-          </div>
-          {/* -------Form Control------ */}
-          <div className="FormControl">
-            <label htmlFor="cattle_type">Cattle Type</label>
-            <select name="cattle_type" 
-                    id="cattle_type"
-                    {...register('cattle_type',
-                    {required:{value:true,
-                              message:"Cattle Type is Required"}}
-                    )}>
-              <option value="cows/buffalo">Cows/Buffalo</option>
-              <option value="poultry">Poultry</option>
-            </select>
-            {errors.cattle_type ? <p className='ErrorClass'>{errors.cattle_type?.message}</p>: null}  
+          <div className="FormGroup">
+
+            <div className="FormGroupTitle">
+              <div className="FormStep">Basic Information</div>
+            </div>
+
+            <div className="FormGroupBody">
+              {/* -------Form Control------ */}
+              <div className="FormControl">
+                <label htmlFor="tag_no">Tag Number</label>
+                <input type="text" id='tag_no'
+                  {...register('tag_no',
+                              {required: {
+                              value: true,
+                              message: "Name is required"}
+                              })
+                  } />
+                {errors.tag_no ? <p className='ErrorClass'>{errors.tag_no?.message}</p>: null}  
+              </div>
+
+              {/* -------Form Control------ */}
+              <div className="FormControl">
+                <label htmlFor="color">Color</label>
+                <input type="text" id='color'
+                  {...register('color',
+                              {required: {
+                              value: true,
+                              message: "Color is required"}
+                              })
+                  } />
+                {errors.color ? <p className='ErrorClass'>{errors.color?.message}</p>: null}  
+              </div>
+
+              <div className="InputGroup">
+                {/* -------Form Control------ */}
+                <div className="FormControl">
+                  <label htmlFor="breed">Breed</label>
+                  <input type="text" id='breed'
+                    {...register('breed',
+                                {required: {
+                                value: true,
+                                message: "Breed is required"}
+                                })
+                    } />
+                  {errors.breed ? <p className='ErrorClass'>{errors.breed?.message}</p>: null}  
+                </div>
+                {/* -------Form Control------ */}
+                <div className="FormControl">
+                  <label htmlFor="cattle_type">Cattle Type</label>
+                  <select name="cattle_type" 
+                          id="cattle_type"
+                          {...register('cattle_type',
+                          {required:{value:true,
+                                    message:"Cattle Type is Required"}}
+                          )}>
+                    <option value="cows/buffalo">Cows/Buffalo</option>
+                    <option value="poultry">Poultry</option>
+                  </select>
+                  {errors.cattle_type ? <p className='ErrorClass'>{errors.cattle_type?.message}</p>: null}  
+                </div>
+              </div>
+              
+              {/* -------Form Control------ */}
+              <div className="FormControl">
+                <label htmlFor="gender">Gender</label>
+                <select name="gender" 
+                        id="gender"
+                        {...register('gender',
+                        {required:{value:true,
+                                  message:"Gender is Required"}}
+                        )}>
+                  <option value="male">Male</option>
+                  <option value="female">Female</option>
+                </select>
+                {errors.gender ? <p className='ErrorClass'>{errors.gender?.message}</p>: null}  
+              </div>
+            </div>
           </div>
           
-          {/* -------Form Control------ */}
-          <div className="FormControl">
-            <label htmlFor="gender">Gender</label>
-            <select name="gender" 
-                    id="gender"
-                    {...register('gender',
-                    {required:{value:true,
-                              message:"Gender is Required"}}
-                    )}>
-              <option value="male">Males</option>
-              <option value="female">Female</option>
-            </select>
-            {errors.gender ? <p className='ErrorClass'>{errors.gender?.message}</p>: null}  
-          </div>
 
           
           <div className="FormButtonWrapper">

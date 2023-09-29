@@ -15,12 +15,12 @@ function Livestock() {
         <Button onClick={()=>{navigate("/livestock/list")}} size="sm" >Livestock LIst</Button>
         <Button onClick={()=>{navigate("/livestock/add")}} variant="success" icon={<MdPersonAdd size={15} />} size="sm" >Add Livestock</Button>
         <Button onClick={()=>{navigate("/livestock/add")}} variant="success" icon={<MdPersonAdd size={15} />} size="sm" >Add Herd</Button>
-        <div className="EmployeeCount">
-          {/* <span className='CountLabel'>Total Employees :</span><span className='CountValue'> {employee_count}</span>  */}
-        </div>
+        {/* <div className="EmployeeCount">
+          <span className='CountLabel'>Total Employees :</span><span className='CountValue'> {employee_count}</span> 
+        </div> */}
       </div>
       <Outlet/>
-        {/* <EmployeeTable/>         */}
+        
     </div>
   )
 }

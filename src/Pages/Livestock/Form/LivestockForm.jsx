@@ -2,7 +2,16 @@ import React from 'react'
 import Button from '../../../UI Components/Button';
 import { MdDelete, MdOutlineCleaningServices} from 'react-icons/md'
 import { GiBroom} from 'react-icons/gi'
+import { useDispatch,useSelector } from 'react-redux';
+
 function LivestockForm(props) {
+  const dispatch= useDispatch()
+  const livestock = useSelector(state => state.livestock.Livestock_Info);
+
+  const ItemLivestock= livestock.map((items,id)=>{
+   return([items.tag_no, items.livestock_id])
+  })
+  console.log(ItemLivestock)
 
   const {register, handleSubmit,formState:{errors},reset, clearErrors}= props.form
   const handleReset = (e) => {
@@ -18,6 +27,7 @@ function LivestockForm(props) {
 
             <div className="FormGroupTitle">
               <div className="FormStep">Basic Information</div>
+            <hr className='FormStepUnderline'/>
             </div>
 
             <div className="FormGroupBody">
@@ -90,6 +100,26 @@ function LivestockForm(props) {
                 </select>
                 {errors.gender ? <p className='ErrorClass'>{errors.gender?.message}</p>: null}  
               </div>
+             
+              {/* -------Form Control------ */}
+              {livestock.length >0 && 
+                  (<div className="FormControl">
+                  <label htmlFor="dam_id">Dam</label>
+                  <select name="dam_id" 
+                          id="dam_id"
+                          {...register('dam_id'
+                          )}>
+                        {livestock.map((items,id)=>{
+                          return(
+                            <option key={items.livestock_id} value={items.livestock_id}>{items.tag_no}</option>
+                        
+                            )
+                          })}
+                  </select>
+                  {errors.dam_id ? <p className='ErrorClass'>{errors.dam_id?.message}</p>: null}  
+                </div>)
+              }
+
             </div>
           </div>
           

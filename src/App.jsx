@@ -13,6 +13,7 @@ import Farm from './Pages/Farm/Farm';
 import Livestock from './Pages/Livestock/Livestock'
 import EmployeeAdd from './Pages/Employees/EmployeeAdd';
 import LivestockAdd from './Pages/Livestock/LivestockAdd';
+import LivestockTable from './Pages/Livestock/LivestockTable';
 function App() {
   const [count, setCount] = useState(0)
 
@@ -26,8 +27,11 @@ function App() {
         <Route path='/employees/:id' element={<EmployeeDetails/>}/>
         <Route path='/employees/:id/edit' element={<EmployeeUpdate/>}/>
         <Route path='/farm' element ={<Farm/>} />
-        <Route path='/livestock' element ={<Livestock/>} />
-        <Route path='/livestock/add' element ={<LivestockAdd/>} />
+        <Route path='/livestock' element ={<Livestock/>} >
+          <Route index element={<LivestockTable />} />
+          <Route path='list' element ={<LivestockTable/>} />
+          <Route path='add' element ={<LivestockAdd/>} />
+        </Route>
 
         <Route path="*" element={<PageNotFound/>} />
       </Routes>

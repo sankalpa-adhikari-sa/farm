@@ -14,6 +14,10 @@ function LivestockForm(props) {
     <div>
         <form className="FormWrapper" onSubmit={handleSubmit(props.onSubmit)}>
           {/* -------Form Control------ */}
+          <div className="FormControlGroup">
+            
+          </div>
+          <div className="FormStep">Basic Information</div>
           <div className="FormControl">
             <label htmlFor="tag_no">Tag Number</label>
             <input type="text" id='tag_no'

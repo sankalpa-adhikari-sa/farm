@@ -3,7 +3,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { useDispatch,useSelector } from 'react-redux';
 import { addEmployee } from '../../Features/Employees/EmployeeSlice';
 import {useForm} from 'react-hook-form'
-import LivestockForm from './Form.jsx/LivestockForm';
+import LivestockForm from './Form/LivestockForm';
 
 function LivestockAdd() {
     const form= useForm()

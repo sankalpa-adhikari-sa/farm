@@ -73,7 +73,7 @@ function LivestockForm(props) {
                     {required:{value:true,
                               message:"Gender is Required"}}
                     )}>
-              <option value="male">Male</option>
+              <option value="male">Males</option>
               <option value="female">Female</option>
             </select>
             {errors.gender ? <p className='ErrorClass'>{errors.gender?.message}</p>: null}  

@@ -7,16 +7,18 @@ import Select from 'react-select'
 import { Controller } from 'react-hook-form';
 import TextField from '@mui/material/TextField';
 import InputAdornment from '@mui/material/InputAdornment';
-import { IconButton, InputLabel } from '@mui/material';
+import { Autocomplete, IconButton, InputLabel } from '@mui/material';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import FormGroup from '@mui/material/FormGroup';
 function LivestockForm(props) {
   const dispatch= useDispatch()
   const livestock = useSelector(state => state.livestock.Livestock_Info);
 
   const DamOptions= livestock.map((items)=>{
-   return({label:items.tag_no, value:items.livestock_id})
+   return({label:items.tag_no, id:items.livestock_id})
   })
   console.log(livestock)
+  console.log(DamOptions)
 
   const {register, control, handleSubmit,formState:{errors},reset, clearErrors}= props.form
   const handleReset = (e) => {
@@ -55,27 +57,24 @@ function LivestockForm(props) {
         <form className="FormWrapper" onSubmit={handleSubmit(props.onSubmit)}>
           {/* -------Form Control------ */}
           <div className="FormGroup">
-
             <div className="FormGroupTitle">
               <div className="FormStep">Basic Information</div>
             <hr className='FormStepUnderline'/>
             </div>
-
+            
             <div className="FormGroupBody">
               {/* -------Form Control------ */}
               <div className="FormControl">
-                <InputLabel 
+                <InputLabel sx={{mb:2}}
                             error={!!errors.tag_no}
                             htmlFor="tag_no" >Tag Number</InputLabel>
-                <TextField variant='outlined' 
+                <TextField sx={{m:1}} variant='outlined' 
                            type="text" 
                            id='tag_no'
-                           label="Tag Number"
                            placeholder='A001'
-
-                           
                            InputProps={{
-                             endAdornment:
+                            sx:{height:'40px'},
+                            endAdornment:
                               <InputAdornment position="end">
                                 <IconButton
                                   aria-label="toggle password visibility"
@@ -164,29 +163,60 @@ function LivestockForm(props) {
                   <label htmlFor="dam_id">Dam</label>
                   <Controller name="dam_id" 
                     control={control} 
-                    render={({ field }) => ( 
-                      
-                      <Select  {...field} 
-                      value={field.value !== null ? DamOptions.find(option => option.value === field.value) : null}
-                      // value={DamOptions.find(option => option.value === field.value)} 
-                      onChange={(selectedOption) => field.onChange(selectedOption?.value)} 
-                      options={DamOptions}
-                      styles={styles}
-                      className="basic-multi-select"
-                      classNamePrefix="select"
-                      isSearchable />
-                    )}/>
+                    render={({ field }) => { 
+                      const {onChange,value,ref} = field;
+                      return(
+                        <Autocomplete
+                        value={value ? DamOptions.find((option) => 
+                                              {return value === option.id})?? null : null}
+                                              
+                                              getOptionLabel={(option) => option.label}
+                                              onChange={(event,newValue) =>{
+                                                onChange(newValue? newValue.id:null)
+                                              }}
+                                              options={DamOptions}
+                                              renderInput={(params) => (
+                          <TextField {...params}
+                                label="Dam"
+                                variant='outlined'
+                                error ={!!errors.dam_id}
+                                helperText={errors.dam_id?.message}/>
+                        )} />)
+                    }} />
                   
-                        {/* {livestock.map((items,id)=>{
-                          return(
-                            <option key={items.livestock_id} value={items.livestock_id}>{items.tag_no}</option>
-                        
-                            )
-                          })} */}
                   
-                  {errors.dam_id ? <p className='ErrorClass'>{errors.dam_id?.message}</p>: null}  
                 </div>)
               }
+              
+              {livestock.length >0 && <p>hi</p>
+                //   (<div className="FormControl">
+                //   <label htmlFor="dam_id">Dam</label>
+                //   <Controller name="dam_id" 
+                //     control={control} 
+                //     render={({ field }) => ( 
+                      
+                //       <Select  {...field} 
+                //       value={field.value !== null ? DamOptions.find(option => option.value === field.value) : null}
+                //       // value={DamOptions.find(option => option.value === field.value)} 
+                //       onChange={(selectedOption) => field.onChange(selectedOption?.value)} 
+                //       options={DamOptions}
+                //       styles={styles}
+                //       className="basic-multi-select"
+                //       classNamePrefix="select"
+                //       isSearchable />
+                //     )}/>
+                  
+                //         {/* {livestock.map((items,id)=>{
+                //           return(
+                //             <option key={items.livestock_id} value={items.livestock_id}>{items.tag_no}</option>
+                        
+                //             )
+                //           })} */}
+                  
+                //   {errors.dam_id ? <p className='ErrorClass'>{errors.dam_id?.message}</p>: null}  
+                // </div>)
+              }
+              
 
             </div>
           </div>

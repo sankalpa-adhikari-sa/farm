@@ -44,7 +44,7 @@ function Navbar() {
   const handleSidebar = ()=>{
     dispatch(toggleSidebar(!SidebarOpen))
   }
-  const ig="#9747FF"
+ 
 
   return (
     <>

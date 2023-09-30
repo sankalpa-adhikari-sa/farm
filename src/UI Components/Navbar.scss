@@ -1,19 +1,15 @@
 
 
 .NavbarWrapper {
-    // display: flex;
-    // box-sizing: border-box;
-    // align-items: center;
-    // padding: 10px;
-    // gap: 20px;
-    // height: 40px;
     &.dark-theme {
+      
         a {
           color: #ffffff; 
         }
       }
     
       &.light-theme {
+        background-color: white;
         a {
           color: #000000; 
         }

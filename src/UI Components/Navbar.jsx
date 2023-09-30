@@ -19,14 +19,16 @@ const AppBar = styled(MuiAppBar, {
 })(({ theme, open }) => ({
   transition: theme.transitions.create(["margin", "width"], {
     easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.leavingScreen
+    duration: theme.transitions.duration.leavingScreen,
+    
   }),
   ...(open && {
     width: `calc(100% - ${drawerWidth}px)`,
     marginLeft: `${drawerWidth}px`,
     transition: theme.transitions.create(["margin", "width"], {
       easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.enteringScreen
+      duration: theme.transitions.duration.enteringScreen,
+      
     })
   })
 }));
@@ -48,8 +50,8 @@ function Navbar() {
     <>
     <AppBar  open={SidebarOpen} color="default" 
             className={`NavbarWrapper ${mode === 'dark' ? 'dark-theme' : 'light-theme'}`}
-            position='fixed'>
-      <Toolbar variant='dense'>
+            position='fixed' elevation={0}>
+      <Toolbar variant='dense' sx={{boxShadow:"none"}}>
       <IconButton onClick={handleSidebar} aria-label="sidebar"  color="primary">
         <MenuIcon />
       </IconButton>

@@ -5,6 +5,8 @@ import { GiBroom} from 'react-icons/gi'
 import { useDispatch,useSelector } from 'react-redux';
 import Select from 'react-select'
 import { Controller } from 'react-hook-form';
+import TextField from '@mui/material/TextField';
+
 function LivestockForm(props) {
   const dispatch= useDispatch()
   const livestock = useSelector(state => state.livestock.Livestock_Info);
@@ -61,13 +63,18 @@ function LivestockForm(props) {
               {/* -------Form Control------ */}
               <div className="FormControl">
                 <label htmlFor="tag_no">Tag Number</label>
-                <input type="text" id='tag_no'
-                  {...register('tag_no',
-                              {required: {
-                              value: true,
-                              message: "Name is required"}
-                              })
-                  } />
+                <TextField variant='outlined' 
+                           type="text" 
+                           id='tag_no'
+                           label="Tag Number"
+                           {...register('tag_no',
+                                      {required: {
+                                      value: true,
+                                      message: "Name is required"}
+                                      })
+                           } 
+                           error={!!errors.tag_no} 
+                           helperText={errors.tag_no?.message}/>
                 {errors.tag_no ? <p className='ErrorClass'>{errors.tag_no?.message}</p>: null}  
               </div>
 

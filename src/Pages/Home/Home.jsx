@@ -7,7 +7,28 @@ function Home() {
     <div>
       Home
       <BaseButton variant='contained'>
-        hi
+        primary
+      </BaseButton>
+      <BaseButton color='secondary' variant='contained'>
+      secondary
+      </BaseButton>
+      <BaseButton color='tertiary' variant='contained'>
+      tertiary
+      </BaseButton>
+      <BaseButton color='error' variant='contained'>
+        wrror
+      </BaseButton>
+      <BaseButton color='warning' variant='contained'>
+        warning
+      </BaseButton>
+      <BaseButton color='info' variant='contained'>
+        info
+      </BaseButton>
+      <BaseButton color='success' variant='contained'>
+        success
+      </BaseButton>
+      <BaseButton color='alert' variant='contained'>
+        alert
       </BaseButton>
       <RouterBtn sx={{width:"100px"}} variant='contained' startIcon={<HomeIcon/>} >
         Home

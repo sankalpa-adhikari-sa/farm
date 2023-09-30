@@ -11,6 +11,7 @@ const BaseButton= styled(Button) (()=>({
 const RouterBtn= styled(BaseButton) (({theme})=>({
     borderRadius:theme.spacing(1),
     backgroundColor: ModeStyle(theme,"black","white"),
+    color:ModeStyle(theme,"white","black"),
     fontSize: theme.spacing(3),
     justifyContent:"left",
     gap:theme.spacing(2),

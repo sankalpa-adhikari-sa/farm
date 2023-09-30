@@ -1,5 +1,5 @@
 import React from 'react'
-import './EmployeeForm.scss'
+// import './EmployeeForm.scss'
 
 import Button from '../../../UI Components/Button';
 import { MdDelete, MdOutlineCleaningServices} from 'react-icons/md'

@@ -1,20 +1,27 @@
-$primary-color-lightx: #FAF1E4;
-$primary-color-light: #CEDEBD;
-$primary-color-regular: #79AC78;
-$primary-color-medium: #9EB384;
-$primary-color-bold: #435334;
+
 
 .NavbarWrapper {
-    display: flex;
-    box-sizing: border-box;
-    align-items: center;
-    padding: 10px;
-    gap: 20px;
-    height: 40px;
+    // display: flex;
+    // box-sizing: border-box;
+    // align-items: center;
+    // padding: 10px;
+    // gap: 20px;
+    // height: 40px;
+    &.dark-theme {
+        a {
+          color: #ffffff; 
+        }
+      }
+    
+      &.light-theme {
+        a {
+          color: #000000; 
+        }
+      }
     
     a {
         text-decoration: none;
-        color:black;
+        // color:black;
         font-size: 14px;
     }
     .NavAct {

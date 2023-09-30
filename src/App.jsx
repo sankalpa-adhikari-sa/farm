@@ -2,40 +2,51 @@ import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
-import { Route, Routes} from 'react-router-dom';
-import Home from './Pages/Home/Home';
-import PageNotFound from './Pages/404/PageNotFound';
 import Navbar from './UI Components/Navbar';
-import Employees from './Pages/Employees/Employees';
-import EmployeeDetails from './Pages/Employees/EmployeeDetails';
-import EmployeeUpdate from './Pages/Employees/EmployeeUpdate';
-import Farm from './Pages/Farm/Farm';
-import Livestock from './Pages/Livestock/Livestock'
-import EmployeeAdd from './Pages/Employees/EmployeeAdd';
-import LivestockAdd from './Pages/Livestock/LivestockAdd';
-import LivestockTable from './Pages/Livestock/LivestockTable';
+import {useSelector} from 'react-redux'
+//Material UI Imports
+import CssBaseline from '@mui/material/CssBaseline';
+import { ThemeProvider } from '@emotion/react';
+import { createTheme } from '@mui/material';
+import Body from './Pages/Body';
+import Sidebar from './UI Components/Sidebar';
+import Box from '@mui/material/Box';
+
 function App() {
-  const [count, setCount] = useState(0)
+
+  const darkMode= useSelector(state => state.ui.mode)
+  const SidebarOpen= useSelector(state => state.ui.SidebarOpen)
+  const theme= createTheme({
+    components: {
+      MuiToolbar: {
+          styleOverrides: {
+              dense: {
+                  height: 48,
+                  minHeight: 48,
+                  
+              }
+          }
+      }
+  },
+    spacing:4,
+    palette:{
+      mode:darkMode,
+    },
+    
+  })
 
   return (
     <>
-    <Navbar/>
-      <Routes>
-        <Route path='/' element={<Home/>}/>
-        <Route path='/employees' element={<Employees/>}/>
-        <Route path='/employees/add' element={<EmployeeAdd/>}/>
-        <Route path='/employees/:id' element={<EmployeeDetails/>}/>
-        <Route path='/employees/:id/edit' element={<EmployeeUpdate/>}/>
-        <Route path='/farm' element ={<Farm/>} />
-        <Route path='/livestock' element ={<Livestock/>} >
-          <Route index element={<LivestockTable />} />
-          <Route path='list' element ={<LivestockTable/>} />
-          <Route path='add' element ={<LivestockAdd/>} />
-        </Route>
+    <ThemeProvider theme={theme}>
+    <CssBaseline />
+    <Box sx={{display:"flex"}}>
+      <Sidebar/>
+      <Navbar/>
+      <Body/>
+    </Box>
 
-        <Route path="*" element={<PageNotFound/>} />
-      </Routes>
-        
+      
+      </ThemeProvider>
     </>
   )
 }

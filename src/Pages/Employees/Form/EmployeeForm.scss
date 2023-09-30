@@ -81,3 +81,34 @@
 .FormStepUnderline {
     color: #f0f0f0;
 }
+.basic-multi-select{
+    width: 100%;
+    border-radius: 5px;
+    display: flex;
+    font-size: 14px;
+    box-sizing: border-box;
+    background-color: #cbc9c9;}
+.select__control {
+    display: flex;
+    flex-direction: row;
+}
+.select__indicators{
+    justify-content: flex-end;
+    
+}
+    
+// }
+// .css-13cymwt-control{
+//     background-color: #cbc9c9 !important;
+//     border-radius: 5px;
+// }
+// .css-w9q2zk-Input2 {
+//     margin: 0px;
+//     padding:0px;
+//     height:20px;
+// }
+// .css-art2ul-ValueContainer2{
+//     height: 20px;
+//     margin: 0px;
+//     padding:0px
+// }

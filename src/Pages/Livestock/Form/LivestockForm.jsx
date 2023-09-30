@@ -20,6 +20,32 @@ function LivestockForm(props) {
     reset();
     clearErrors();
   }
+  const styles = {
+    valueContainer: (base) => ({
+      ...base,
+      // height: 20,
+      
+      
+      justifyContent:"center",
+      overflowY: "hidden"
+    }),
+    control: (base) => ({
+      ...base,
+      minHeight:20,
+      width:"100%",
+      ZIndex:10000,
+      height:20,
+      margin:0,
+      padding:0,
+      display:"flex",
+      flexDirection:"column",
+      backgroundColor:"#cbc9c9",
+      borderRadius:5,
+      justifyContent:"center",
+      overflowY: "auto"
+    }),
+  };
+
   return (
     <div>
         <form className="FormWrapper" onSubmit={handleSubmit(props.onSubmit)}>
@@ -110,12 +136,14 @@ function LivestockForm(props) {
                     control={control} 
                     render={({ field }) => ( 
                       
-                      <Select className='CustomSelect' {...field} 
+                      <Select  {...field} 
                       value={field.value !== null ? DamOptions.find(option => option.value === field.value) : null}
                       // value={DamOptions.find(option => option.value === field.value)} 
                       onChange={(selectedOption) => field.onChange(selectedOption?.value)} 
                       options={DamOptions}
-                      
+                      styles={styles}
+                      className="basic-multi-select"
+                      classNamePrefix="select"
                       isSearchable />
                     )}/>
                   

@@ -4,9 +4,12 @@ import { createSlice } from '@reduxjs/toolkit'
 const initialState = {
     darkMode: false,
     mode:"light",
-    SidebarOpen:true,
-    SidebarWidth:150
+    SidebarOpen:JSON.parse(localStorage.getItem("SidebarOpen"))||
+                false,
+    SidebarWidth:180
 }
+console.log(initialState.SidebarOpen)
+console.log(JSON.parse(localStorage.getItem("SidebarOpen")))
 const uiSlice= createSlice({
     name:"ui",
     initialState,
@@ -17,6 +20,10 @@ const uiSlice= createSlice({
         },
         toggleSidebar:(state) => {
             state.SidebarOpen= !state.SidebarOpen
+            localStorage.setItem("SidebarOpen",state.SidebarOpen) 
+            // Workflow: state.SidebarOpen= !state.SidebarOpen 
+            //already set the state and then localstorage is accessing it
+           
         },
     }
 })

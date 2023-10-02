@@ -10,9 +10,6 @@ function LivestockTable() {
   return (
     <div>
       Livestock table
-      <ActionBtnBlack color='primary' startIcon={<PersonAddIcon sx={{fontWeight:"600",height:16}}/>}>Livestock list</ActionBtnBlack>
-      <ActionBtnBlack color='primary'>Livestock list</ActionBtnBlack>
-      <ActionBtn sx={{px:2}}color='success' variant='contained' startIcon={<PersonAddIcon sx={{fontWeight:"600",height:16}}/>}>Livestock list</ActionBtn>
     </div>
   )
 }

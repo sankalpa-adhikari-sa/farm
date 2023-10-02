@@ -50,6 +50,12 @@ function Sidebar() {
             isPending ? "NavPen": isActive ? "NavAct": ""}>
         <RouterBtn sx={{ m:3, width:`calc(100% - ${theme.spacing(3*2)})`, gap:5}} variant='contained' startIcon={<HomeIcon/>}>Employees</RouterBtn>
         </NavLink>
+        <NavLink 
+            to="/inventory"
+            className={({isActive, isPending}) =>
+            isPending ? "NavPen": isActive ? "NavAct": ""}>
+        <RouterBtn sx={{ m:3, width:`calc(100% - ${theme.spacing(3*2)})`, gap:5}} variant='contained' startIcon={<HomeIcon/>}>Inventory</RouterBtn>
+        </NavLink>
     </Drawer>
   )
 }

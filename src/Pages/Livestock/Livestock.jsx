@@ -1,10 +1,10 @@
 import React from 'react'
 import { useState } from 'react'
-import Button from '../../UI Components/Button'
-import { MdPersonAdd } from 'react-icons/md'
 import './Livestock.scss'
 import { Outlet } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
+import { ActionBtnBlack,ActionBtn } from '../../UI Components/CustomButtom'
+import PersonAddIcon from '@mui/icons-material/PersonAdd';
 function Livestock() {
   const [Item, ShowItem]= useState(false)
   const navigate= useNavigate()
@@ -12,10 +12,11 @@ function Livestock() {
   return (
     <div className='LivestockWrapper'>
       <div className="Accordian">
-        <Button onClick={()=>{navigate("/livestock/list")}} size="sm" >Livestock LIst</Button>
-        <Button onClick={()=>{navigate("/livestock/add")}} variant="success" icon={<MdPersonAdd size={15} />} size="sm" >Add Livestock</Button>
-        <Button onClick={()=>{navigate("/livestock/add")}} variant="success" icon={<MdPersonAdd size={15} />} size="sm" >Add Herd</Button>
-        {/* <div className="EmployeeCount">
+        <ActionBtnBlack onClick={()=>{navigate("/livestock/list")}} color='primary' >Livestock list</ActionBtnBlack>
+        <ActionBtn onClick={()=>{navigate("/livestock/add")}} sx={{px:2,}}color='success' variant='contained' startIcon={<PersonAddIcon sx={{fontWeight:"600",height:16}}/>}>Add Livestock</ActionBtn>
+        <ActionBtn sx={{px:2}}color='success' variant='contained' startIcon={<PersonAddIcon sx={{fontWeight:"600",height:16}}/>}>Add Herd</ActionBtn>
+
+              {/* <div className="EmployeeCount">
           <span className='CountLabel'>Total Employees :</span><span className='CountValue'> {employee_count}</span> 
         </div> */}
       </div>

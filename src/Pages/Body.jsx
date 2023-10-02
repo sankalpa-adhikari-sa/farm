@@ -10,10 +10,15 @@ import Livestock from './Livestock/Livestock'
 import EmployeeAdd from './Employees/EmployeeAdd';
 import LivestockAdd from './Livestock/LivestockAdd';
 import LivestockTable from './Livestock/LivestockTable';
+import InventoryTable from './Inventory/InventoryTable';
+import InventoryAdd from './Inventory/InventoryAdd';
+
+
 import { useDispatch, useSelector } from 'react-redux';
 
 import { styled, useTheme } from '@mui/material/styles';
 import { Box } from '@mui/material';
+import Inventory from './Inventory/Inventory';
 
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
   ({ theme, open, sidebarwidth }) => ({
@@ -53,6 +58,11 @@ function Body() {
           <Route index element={<LivestockTable />} />
           <Route path='list' element ={<LivestockTable/>} />
           <Route path='add' element ={<LivestockAdd/>} />
+        </Route>
+        <Route path='/inventory' element={<Inventory/>}>
+          <Route index element={<InventoryTable/>} />
+          <Route path='list' element ={<InventoryTable/>} />
+          <Route path='add' element ={<InventoryAdd/>} />
         </Route>
 
         <Route path="*" element={<PageNotFound/>} />

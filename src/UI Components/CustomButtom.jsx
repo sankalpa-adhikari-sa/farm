@@ -8,33 +8,43 @@ const ModeStyle = (theme, onLightMode, onDarkMode) =>
 const BaseButton= styled(Button) (()=>({
     
 }))
-
-const ActionBtnBlack= styled(BaseButton)(({theme}) =>({
-    borderRadius:theme.spacing(1),
+const ActionBtn= styled(BaseButton)(({theme}) =>({
+  borderRadius:theme.spacing(1),
+  fontWeight:600,
+  fontSize: theme.spacing(2.5),
+  height:theme.spacing(6),
+  textTransform:"capitalize",
+  paddingTop:"7px",
+  
+  '.MuiButton-startIcon':{
+    marginRight:theme.spacing(1)
+  },
+  '&:hover':{
+    boxShadow:"none"},
+}))
+const ActionBtnBlack= styled(ActionBtn)(({theme}) =>({
     backgroundColor: ModeStyle(theme,"black","white"),
     color:ModeStyle(theme,"white","black"),
-    fontWeight:600,
-    fontSize: theme.spacing(2.5),
-    height:theme.spacing(6),
-    textTransform:"capitalize",
-    paddingTop:"7px",
 
     '&:hover':{
       backgroundColor: ModeStyle(theme,"black","white"),
-      boxShadow:"none"},
+    },
 }))
-const ActionBtn= styled(BaseButton)(({theme}) =>({
-    borderRadius:theme.spacing(1),
-    fontWeight:600,
-    fontSize: theme.spacing(2.5),
-    height:theme.spacing(6),
-    textTransform:"capitalize",
-    // justifyContent:"left",
-    paddingTop:"7px",
+// const ActionBtnBlack= styled(BaseButton)(({theme}) =>({
+//     borderRadius:theme.spacing(1),
+//     backgroundColor: ModeStyle(theme,"black","white"),
+//     color:ModeStyle(theme,"white","black"),
+//     fontWeight:600,
+//     fontSize: theme.spacing(2.5),
+//     height:theme.spacing(6),
+//     textTransform:"capitalize",
+//     paddingTop:"7px",
 
-    '&:hover':{
-      boxShadow:"none"},
-}))
+//     '&:hover':{
+//       backgroundColor: ModeStyle(theme,"black","white"),
+//       boxShadow:"none"},
+// }))
+
 const RouterBtn= styled(BaseButton) (({theme})=>({
     borderRadius:theme.spacing(1),
     backgroundColor: ModeStyle(theme,"black","white"),

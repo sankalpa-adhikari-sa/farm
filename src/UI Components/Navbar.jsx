@@ -56,30 +56,8 @@ function Navbar() {
       <IconButton onClick={handleSidebar} aria-label="sidebar"  color="primary">
         <MenuIcon />
       </IconButton>
-        <NavLink 
-            to="/"
-            className={({isActive, isPending}) =>
-            isPending ? "NavPen": isActive ? "NavAct": ""}>
-                Home
-        </NavLink>
-        <NavLink 
-            to="/farm"
-            className={({isActive, isPending}) =>
-            isPending ? "NavPen": isActive ? "NavAct": ""}>
-                Farm
-        </NavLink>
-        <NavLink 
-            to="/livestock"
-            className={({isActive, isPending}) =>
-            isPending ? "NavPen": isActive ? "NavAct": ""}>
-                Livestock
-        </NavLink>
-        <NavLink 
-            to="/employees"
-            className={({isActive, isPending}) =>
-            isPending ? "NavPen": isActive ? "NavAct": ""}>
-                Employees
-        </NavLink>
+
+        
         <IconButton sx={{ ml: 1,float:"right" }} onClick={handleModeChange} color="inherit">
             {mode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
         </IconButton>

@@ -266,9 +266,13 @@ function LivestockForm(props) {
           
 
           
-            <Grid container item className="FormButtonWrapper">
-              <Button size="sm">{props.submitBtnText}</Button>
-              <Button onClick={handleReset} size="sm" variant="warning" icon={<GiBroom fontSize={16} color='white'/>} />
+            <Grid container item spacing={{xs:8, sm:15}} direction="row" justifyContent='flex-end' className="FormButtonWrapper">
+              <Grid item>
+                <Button size="sm">{props.submitBtnText}</Button>
+              </Grid>
+              <Grid item>
+                <Button onClick={handleReset} size="sm" variant="warning" icon={<GiBroom fontSize={16} color='white'/>} />
+              </Grid>
             </Grid>
         </Grid>
       </form>

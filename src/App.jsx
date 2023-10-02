@@ -19,6 +19,9 @@ function App() {
  
   const theme= createTheme({
     spacing:4,
+    typography: {
+      fontFamily: 'Poppins, sans-serif',
+    },
     palette:{
       mode:darkMode,
       primary: {
@@ -26,10 +29,6 @@ function App() {
       },
       secondary:{
         main:"#afff47",
-      },
-      tertiary:{
-        // main:"#ffffff",
-        main:"#000000",
       },
       success:{
         main:"#238636"

@@ -12,9 +12,7 @@ function Home() {
       <BaseButton color='secondary' variant='contained'>
       secondary
       </BaseButton>
-      <BaseButton color='tertiary' variant='contained'>
-      tertiary
-      </BaseButton>
+
       <BaseButton color='error' variant='contained'>
         wrror
       </BaseButton>
@@ -27,7 +25,7 @@ function Home() {
       <BaseButton color='success' variant='contained'>
         success
       </BaseButton>
-      <BaseButton color='alert' variant='contained'>
+      <BaseButton  color='alert' variant='contained'>
         alert
       </BaseButton>
       <RouterBtn sx={{width:"100px"}} variant='contained' startIcon={<HomeIcon/>} >

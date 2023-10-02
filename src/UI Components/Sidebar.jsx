@@ -3,16 +3,17 @@ import { useSelector } from 'react-redux';
 import { Drawer } from '@mui/material'
 import { useTheme } from '@emotion/react';
 function Sidebar() {
-  const drawerWidth = 150;
+  const sidebarWidth= useSelector(state => state.ui.SidebarWidth)
+  
   const SidebarOpen= useSelector(state => state.ui.SidebarOpen)
   const theme= useTheme()
   return (
     <Drawer
     sx={{
-      width: drawerWidth,
+      width: sidebarWidth,
       flexShrink: 0,
       "& .MuiDrawer-paper": {
-        width: drawerWidth,
+        width: `${sidebarWidth}px`,
         boxSizing: "border-box",
 
         backgroundColor: "#313131",

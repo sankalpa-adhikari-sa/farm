@@ -13,27 +13,28 @@ import MuiAppBar  from '@mui/material/AppBar';
 import { Toolbar } from '@mui/material';
 
 import MenuIcon from '@mui/icons-material/Menu';
-const drawerWidth= 150
+
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== "open"
-})(({ theme, open }) => ({
+})(({ theme, open, sidebarwidth }) => ({
   transition: theme.transitions.create(["margin", "width"], {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.leavingScreen,
     
   }),
   ...(open && {
-    width: `calc(100% - ${drawerWidth}px)`,
-    marginLeft: `${drawerWidth}px`,
+    width: `calc(100% - ${sidebarwidth}px)`,
+    marginLeft: `${sidebarwidth}px`,
     transition: theme.transitions.create(["margin", "width"], {
       easing: theme.transitions.easing.easeOut,
       duration: theme.transitions.duration.enteringScreen,
-      
     })
   })
 }));
 
 function Navbar() {
+  const sidebarWidth= useSelector(state => state.ui.SidebarWidth)
+  console.log(sidebarWidth)
 
   const dispatch= useDispatch()
   const mode= useSelector(state => state.ui.mode)
@@ -48,7 +49,7 @@ function Navbar() {
 
   return (
     <>
-    <AppBar  open={SidebarOpen} color="default" 
+    <AppBar sidebarwidth={sidebarWidth}  open={SidebarOpen} color="default" 
             className={`NavbarWrapper ${mode === 'dark' ? 'dark-theme' : 'light-theme'}`}
             position='fixed' elevation={0}>
       <Toolbar variant='dense' sx={{boxShadow:"none"}}>

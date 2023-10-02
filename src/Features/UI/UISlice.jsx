@@ -5,7 +5,7 @@ const initialState = {
     darkMode: false,
     mode:"light",
     SidebarOpen:true,
-    SidebarWidth:"150px"
+    SidebarWidth:150
 }
 const uiSlice= createSlice({
     name:"ui",

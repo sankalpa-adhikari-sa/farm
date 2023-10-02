@@ -63,12 +63,12 @@ function LivestockForm(props) {
   return (
 
         <form className="FormWrapper" onSubmit={handleSubmit(props.onSubmit)}>
-          <Grid container>
+          <Grid container >
           {/* -------Form Control------ */}
             <Grid container item  className="FormGroup">
               <div className="FormStep">Basic Information</div>
             </Grid>
-            <Grid container item >
+            <Grid rowSpacing={3} columnSpacing={8} container item >
                 {/* -------Form Control------ */}
                 <Grid container item xs={12} md={6} className="FormControl">
                   <Grid item xs={12}>

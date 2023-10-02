@@ -15,9 +15,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { styled, useTheme } from '@mui/material/styles';
 import { Box } from '@mui/material';
 
-const drawerWidth = 150;
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
-  ({ theme, open }) => ({
+  ({ theme, open, sidebarwidth }) => ({
     flexGrow: 1,
     padding: theme.spacing(3),
     marginTop: theme.spacing(12),
@@ -25,7 +24,7 @@ const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
-    marginLeft: `-${drawerWidth}px`,
+    marginLeft: `-${sidebarwidth}px`,
     ...(open && {
       transition: theme.transitions.create('margin', {
         easing: theme.transitions.easing.easeOut,
@@ -37,12 +36,12 @@ const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
 );
 
 function Body() {
-   
+  const sidebarWidth= useSelector(state => state.ui.SidebarWidth)
     const SidebarOpen= useSelector(state => state.ui.SidebarOpen)
 
 
   return (
-    <Main open={SidebarOpen}>
+    <Main sidebarwidth={sidebarWidth} open={SidebarOpen}>
         <Routes>
         <Route path='/' element={<Home/>}/>
         <Route path='/employees' element={<Employees/>}/>

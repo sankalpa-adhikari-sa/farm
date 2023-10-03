@@ -13,7 +13,7 @@ import { v4 as uuidv4 } from 'uuid';
 import {useForm} from 'react-hook-form'
 import {ToastContainer, toast} from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
-import { LocalizationProvider } from '@mui/x-date-pickers';
+import { DateTimePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { DatePicker } from '@mui/x-date-pickers';
 import { DateTimeField } from '@mui/x-date-pickers';
@@ -41,7 +41,12 @@ function FeedInputInventoryForm(props) {
     // dispatch(addLivestock(livestockWithId))
     // form.reset()
     // form.clearErrors();
-    console.log(data)
+
+    const inputDate = new Date(data.date_time.$d);
+
+    const formattedDate = inputDate.toISOString();//for django
+        console.log(formattedDate)
+        console.log(data.date_time.$d)
    
     notify()
 
@@ -225,7 +230,7 @@ function FeedInputInventoryForm(props) {
                             render={({
                                 field: {onChange, value},
                             }) => (
-                                    <DatePicker 
+                                    <DateTimePicker 
                                       defaultValue={dayjs(new Date())}
                                       maxDate={dayjs(new Date())}
                                       sx={{width:"100%"}}

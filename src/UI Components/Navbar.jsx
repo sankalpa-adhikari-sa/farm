@@ -38,9 +38,10 @@ function Navbar() {
 
   const dispatch= useDispatch()
   const mode= useSelector(state => state.ui.mode)
+  const darkMode= useSelector(state => state.ui.darkMode)
   const SidebarOpen= useSelector(state => state.ui.SidebarOpen)
   const handleModeChange=()=>{
-    dispatch(toggleTheme(true))
+    dispatch(toggleTheme(!darkMode))
   }
   const handleSidebar = ()=>{
     dispatch(toggleSidebar(!SidebarOpen))

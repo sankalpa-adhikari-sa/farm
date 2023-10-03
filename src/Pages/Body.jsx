@@ -23,19 +23,25 @@ import Inventory from './Inventory/Inventory';
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
   ({ theme, open, sidebarwidth }) => ({
     flexGrow: 1,
+    boxSizing:"border-box",
     padding: theme.spacing(3),
     marginTop: theme.spacing(12),
+    marginRight: theme.spacing(3),
+    marginBottom: theme.spacing(3),
     transition: theme.transitions.create('margin', {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
-    marginLeft: `-${sidebarwidth}px`,
+    marginLeft: `-${sidebarwidth -12}px`,
     ...(open && {
+      // border:"1px solid #e9e9e9",
+      border:"1px solid black",
+      borderRadius: theme.spacing(3),
       transition: theme.transitions.create('margin', {
         easing: theme.transitions.easing.easeOut,
         duration: theme.transitions.duration.enteringScreen,
       }),
-      marginLeft: 0,
+      marginLeft: 3,
     }),
   }),
 );

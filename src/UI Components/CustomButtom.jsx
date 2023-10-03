@@ -1,11 +1,13 @@
 import React from 'react'
-import { Button } from '@mui/material'
+import { Button,IconButton } from '@mui/material'
 import styled from '@emotion/styled'
 
-const ModeStyle = (theme, onLightMode, onDarkMode) =>
-  theme.palette.mode === 'light' ? onLightMode : onDarkMode;
+const ModeStyle = (theme, onLightMode, onDarkMode) => {
+  return theme.palette.mode === 'light' ? onLightMode : onDarkMode;
+}
 
-const BaseButton= styled(Button) (()=>({
+const BaseButton= styled(Button) (({theme})=>({
+  textTransform: "capitalize"
     
 }))
 const ActionBtn= styled(BaseButton)(({theme}) =>({

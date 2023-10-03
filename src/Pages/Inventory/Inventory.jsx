@@ -15,7 +15,7 @@ function Inventory() {
             startIcon={
             <PersonAddIcon sx={{fontWeight:"600",height:16}}/>
             }>
-                Add Inventory
+                Add 
         </ActionBtn>
         <ActionBtnBlack 
             onClick={()=>{navigate("/inventory/list")}} 

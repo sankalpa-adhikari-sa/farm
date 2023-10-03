@@ -18,13 +18,15 @@ function Sidebar() {
       "& .MuiDrawer-paper": {
         width: `${sidebarWidth}px`,
         boxSizing: "border-box",
+        border: "none",
 
-        backgroundColor: "#313131",
-      }
+      },
+      
     }}
     variant="persistent"
     anchor="left"
     open={SidebarOpen}
+    
    
     >
       <NavLink to="/"

@@ -13,7 +13,11 @@ import { v4 as uuidv4 } from 'uuid';
 import {useForm} from 'react-hook-form'
 import {ToastContainer, toast} from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
-
+import { LocalizationProvider } from '@mui/x-date-pickers';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
+import { DatePicker } from '@mui/x-date-pickers';
+import { DateTimeField } from '@mui/x-date-pickers';
+import dayjs from 'dayjs';
 function FeedInputInventoryForm(props) {
   const form = useForm()
   const dispatch= useDispatch()
@@ -35,8 +39,9 @@ function FeedInputInventoryForm(props) {
     //   livestock_id: uuidv4(), // Generate a UUIDv4 for the employee ID
     // };    
     // dispatch(addLivestock(livestockWithId))
-    form.reset()
-    form.clearErrors();
+    // form.reset()
+    // form.clearErrors();
+    console.log(data)
    
     notify()
 
@@ -60,7 +65,8 @@ function FeedInputInventoryForm(props) {
     navigate("/inventory")
   }
   return (
-    <form className="FormWrapper" onSubmit={handleSubmit(props.onSubmit)}>
+    <LocalizationProvider dateAdapter={AdapterDayjs}>
+    <form className="FormWrapper" onSubmit={handleSubmit(onSubmit)}>
           <Grid rowSpacing={3} container >
         
             <Grid container item  className="FormGroup">
@@ -175,6 +181,71 @@ function FeedInputInventoryForm(props) {
                   </Grid>
                 
                 </Grid>
+                <Grid container item xs={12} rowSpacing={3} columnSpacing={8} >
+                    <Grid container item xs={6} className="FormControl">
+                        <Grid item xs={12}>
+                            <InputLabel required sx={{mb:2,fontSize:14, color: ModeStyle(theme,"black","white") }}
+                                        error={!!errors.quantity}
+                                        htmlFor="per_unit_price" >Per Unit Price</InputLabel>
+                        </Grid>
+
+                        <Grid item xs={12}>
+                            <TextField sx={{p:1, fontSize:14}} 
+                                        fullWidth 
+                                        variant='outlined' 
+                                        type="number" 
+                                        placeholder='10'
+                                        InputProps={{
+                                        sx:{height:'40px'},
+                                        }}
+
+                                        {...register('per_unit_price',
+                                                    {required: {
+                                                    value: true,
+                                                    message: "Per unit price is required"}
+                                                    })
+                                        } 
+                                        error={!!errors.per_unit_price} 
+                                        helperText={errors.per_unit_price?.message || "Enter per unit price"}/>
+                        </Grid>
+                    </Grid>
+
+                    <Grid container item xs={6} className="FormControl">
+                        <Grid item xs={12}>
+                            <InputLabel required sx={{mb:2,fontSize:14, color: ModeStyle(theme,"black","white") }}
+                                        htmlFor="addition_date" >Stocking Date</InputLabel>
+                        </Grid>
+
+                        <Grid item xs={12}>
+                        <FormControl fullWidth >
+                        <Controller
+                            name="date_time"
+                            control={control}
+                            defaultValue={dayjs(new Date())}
+                            render={({
+                                field: {onChange, value},
+                            }) => (
+                                    <DatePicker 
+                                      defaultValue={dayjs(new Date())}
+                                      maxDate={dayjs(new Date())}
+                                      sx={{width:"100%"}}
+                                      InputProps={{sx:{height:'40px'}}}
+                                      value={value|| null}  
+                                      control={control}
+                                      onChange={event => onChange(event)}
+                                      slotProps={{ textField: { size:"small" } }}
+                                    />
+                            )}
+                        />
+                        <FormHelperText > Enter Stocking Date</FormHelperText>
+
+                        </FormControl>
+                      </Grid>
+                    </Grid>
+
+                    
+                
+                </Grid>
 
                 <Grid container item xs={12} sm={6} className="FormControl">
                   <Grid item xs={12}>
@@ -261,7 +332,7 @@ function FeedInputInventoryForm(props) {
           
             <Grid container item spacing={{xs:8, sm:8}} direction="row" justifyContent='flex-end' className="FormButtonWrapper">
               <Grid item>
-                <BaseButton type='submit' variant='contained' color='success' size='small' >Submit</BaseButton>
+                <BaseButton  type='submit' variant='contained' color='success' size='small' >Submit</BaseButton>
               </Grid>
               <Grid item>
                 <BaseButton variant='contained' color='error' size='small' onClick={handleReset}> Cancel </BaseButton>
@@ -269,6 +340,7 @@ function FeedInputInventoryForm(props) {
             </Grid>
         </Grid>
       </form>
+      </LocalizationProvider>
   )
 }
 

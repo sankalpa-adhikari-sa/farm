@@ -34,7 +34,7 @@ const AppBar = styled(MuiAppBar, {
 
 function Navbar() {
   const sidebarWidth= useSelector(state => state.ui.SidebarWidth)
-  console.log(sidebarWidth)
+  
 
   const dispatch= useDispatch()
   const mode= useSelector(state => state.ui.mode)

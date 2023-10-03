@@ -13,7 +13,6 @@ import LivestockTable from './Livestock/LivestockTable';
 import InventoryTable from './Inventory/InventoryTable';
 
 
-
 import { useDispatch, useSelector } from 'react-redux';
 
 import { styled, useTheme } from '@mui/material/styles';

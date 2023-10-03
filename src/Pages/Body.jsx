@@ -11,7 +11,7 @@ import EmployeeAdd from './Employees/EmployeeAdd';
 import LivestockAdd from './Livestock/LivestockAdd';
 import LivestockTable from './Livestock/LivestockTable';
 import InventoryTable from './Inventory/InventoryTable';
-import InventoryAdd from './Inventory/InventoryAdd';
+
 
 
 import { useDispatch, useSelector } from 'react-redux';
@@ -19,6 +19,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { styled, useTheme } from '@mui/material/styles';
 import { Box } from '@mui/material';
 import Inventory from './Inventory/Inventory';
+import FeedInputInventoryForm from './Inventory/Forms/FeedInputInventoryForm';
 
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
   ({ theme, open, sidebarwidth }) => ({
@@ -69,7 +70,8 @@ function Body() {
         <Route path='/inventory' element={<Inventory/>}>
           <Route index element={<InventoryTable/>} />
           <Route path='list' element ={<InventoryTable/>} />
-          <Route path='add' element ={<InventoryAdd/>} />
+          <Route path='add/feed-input' element={<FeedInputInventoryForm/>}/>
+         
         </Route>
 
         <Route path="*" element={<PageNotFound/>} />

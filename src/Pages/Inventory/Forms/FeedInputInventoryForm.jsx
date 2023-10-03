@@ -3,15 +3,46 @@ import { useTheme } from '@mui/material/styles';
 import { useDispatch,useSelector } from 'react-redux';
 import { Controller } from 'react-hook-form';
 import TextField from '@mui/material/TextField';
-import { Autocomplete, FormControl, FormHelperText, IconButton, InputLabel } from '@mui/material';
+import { Autocomplete, Divider, FormControl, FormHelperText, IconButton, InputLabel, Typography } from '@mui/material';
 import { ActionBtn, BaseButton } from '../../../UI Components/CustomButtom';
 import Grid from '@mui/material/Grid';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
+import { useNavigate } from 'react-router-dom';
+import { v4 as uuidv4 } from 'uuid';
+import {useForm} from 'react-hook-form'
+import {ToastContainer, toast} from "react-toastify"
+import "react-toastify/dist/ReactToastify.css"
 
+function FeedInputInventoryForm(props) {
+  const form = useForm()
+  const dispatch= useDispatch()
+  const notify = ()=>{
+    toast.success('Livestock Added', {
+      position: "top-right",
+      autoClose: 2500,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: false,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+      });
+  }
+  const onSubmit=(data) =>{
+    // const livestockWithId = {
+    //   ...data,
+    //   livestock_id: uuidv4(), // Generate a UUIDv4 for the employee ID
+    // };    
+    // dispatch(addLivestock(livestockWithId))
+    form.reset()
+    form.clearErrors();
+   
+    notify()
 
-function InventoryForm(props) {
+  }
     const theme = useTheme();
+    const navigate= useNavigate()
     const ModeStyle = (theme, onLightMode, onDarkMode) => {
       return theme.palette.mode === 'light' ? onLightMode : onDarkMode;
     }
@@ -21,22 +52,24 @@ function InventoryForm(props) {
         handleSubmit,
         formState:{errors},
         reset, 
-        clearErrors} = props.form
+        clearErrors} = form
   const handleReset = (e) => {
     e.preventDefault()
     reset();
     clearErrors();
+    navigate("/inventory")
   }
   return (
     <form className="FormWrapper" onSubmit={handleSubmit(props.onSubmit)}>
-          <Grid container >
+          <Grid rowSpacing={3} container >
         
             <Grid container item  className="FormGroup">
-              <div className="FormStep">Basic Information</div>
+              <Typography sx={{fontWeight:600}}>Feed and Input Inventory</Typography>
             </Grid>
+              <Divider sx={{width:"100%",mt:1,mb:2, mx:0}}  orientation='horizontal' variant='middle' light/>
             <Grid rowSpacing={2} columnSpacing={8} container item >
 
-            <Grid item xs={12} md={6} className="FormControl">
+            <Grid item xs={12} sm={6} className="FormControl">
                     <InputLabel required sx={{mb:1, fontSize:14, color: ModeStyle(theme,"black","white")}}
                                 error={!!errors.inventory_type}
                                 htmlFor="inventory_type" >Inventory Type </InputLabel>
@@ -61,7 +94,7 @@ function InventoryForm(props) {
                   </Grid>
 
                 {/* -------Form Control------ */}
-                <Grid container item xs={12} md={6} className="FormControl">
+                <Grid container item xs={12} sm={6} className="FormControl">
                   <Grid item xs={12}>
                     <InputLabel required sx={{mb:1, fontSize:14, color: ModeStyle(theme,"black","white")}}
                                 error={!!errors.input_name}
@@ -143,7 +176,7 @@ function InventoryForm(props) {
                 
                 </Grid>
 
-                <Grid container item xs={6} className="FormControl">
+                <Grid container item xs={12} sm={6} className="FormControl">
                   <Grid item xs={12}>
                       <InputLabel required sx={{mb:2,fontSize:14, color: ModeStyle(theme,"black","white")}}
                                   error={!!errors.alert_level}
@@ -174,7 +207,7 @@ function InventoryForm(props) {
                 
                
                   {/* -------Form Control------ */}
-                  <Grid item xs={12} md={6} className="FormControl">
+                  <Grid item xs={12} sm={6} className="FormControl">
                     <InputLabel required sx={{mb:2, fontSize:14, color: ModeStyle(theme,"black","white")}}
                                 error={!!errors.storage_location}
                                 htmlFor="storage_location" >Storage Location </InputLabel>
@@ -197,7 +230,7 @@ function InventoryForm(props) {
                     </FormControl>
                   
                   </Grid>
-                  <Grid container item xs={6} className="FormControl">
+                  <Grid container item xs={12} className="FormControl">
                         <Grid item xs={12}>
                             <InputLabel required sx={{mb:2,fontSize:14, color: ModeStyle(theme,"black","white")}}
                                         error={!!errors.details}
@@ -239,4 +272,4 @@ function InventoryForm(props) {
   )
 }
 
-export default InventoryForm
+export default FeedInputInventoryForm

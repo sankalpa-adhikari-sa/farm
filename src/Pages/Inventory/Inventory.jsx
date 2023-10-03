@@ -63,7 +63,7 @@ function Inventory() {
       >
         <Typography sx={{ml:4}}>hi</Typography>
         <hr />
-        <MenuItem sx={{gap:4,justifyContent:"flex-start"}} onClick={()=>handleMenuItemClose("/inventory/add")}>
+        <MenuItem sx={{gap:4,justifyContent:"flex-start"}} onClick={()=>handleMenuItemClose("/inventory/add/feed-input")}>
           <Typography>
             Feed And Input
           </Typography>

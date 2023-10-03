@@ -26,6 +26,7 @@ const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
     boxSizing:"border-box",
     padding: theme.spacing(3),
     marginTop: theme.spacing(12),
+    // height: `calc(100vh - ${theme.spacing(15)})`,
     marginRight: theme.spacing(3),
     marginBottom: theme.spacing(3),
     transition: theme.transitions.create('margin', {
@@ -34,8 +35,8 @@ const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
     }),
     marginLeft: `-${sidebarwidth -12}px`,
     ...(open && {
-      // border:"1px solid #e9e9e9",
-      border:"1px solid black",
+      border:"1px solid #e9e9e9",
+      // border:"1px solid black",
       borderRadius: theme.spacing(3),
       transition: theme.transitions.create('margin', {
         easing: theme.transitions.easing.easeOut,

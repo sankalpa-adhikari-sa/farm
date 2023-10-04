@@ -232,14 +232,14 @@ function FeedInputInventoryForm(props) {
                             name="addition_date"
                             control={control}
                             // defaultValue={null}
-                            // defaultValue={dayjs(new Date())}
+                            defaultValue={dayjs(new Date())}
                             rules={{
                                required:"Addition date is required"
                                 
                             }}
                             render={({field}) =>(
                                     <DateTimePicker 
-                                      // defaultValue={dayjs(new Date())}
+                                      defaultValue={dayjs(new Date())}
                                       minDate={dayjs("2023-07-17T15:30")}
                                       maxDate={dayjs(new Date())}
                                       required

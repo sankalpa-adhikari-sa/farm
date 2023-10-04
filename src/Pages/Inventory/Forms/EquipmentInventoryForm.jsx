@@ -9,14 +9,14 @@ import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
-import { Autocomplete, Divider, FormHelperText, IconButton, InputLabel, Typography } from '@mui/material';
+import { Autocomplete, Divider, FormHelperText, IconButton, InputAdornment, InputLabel, Typography } from '@mui/material';
 import { ActionBtn, BaseButton } from '../../../UI Components/CustomButtom';
 import Grid from '@mui/material/Grid';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import { useNavigate } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
-import {useForm} from 'react-hook-form'
+import {useForm, useWatch} from 'react-hook-form'
 import {ToastContainer, toast} from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
 import { DateTimePicker, LocalizationProvider } from '@mui/x-date-pickers';
@@ -36,6 +36,7 @@ function EquipmentInventoryForm(props) {
     handleSubmit,
     formState:{errors},
     reset, 
+    restField,
     watch,
     clearErrors} = props.form()
 
@@ -47,7 +48,10 @@ function EquipmentInventoryForm(props) {
     clearErrors();
     navigate("/inventory")
   }
-
+  const ownership = useWatch({ control, name: 'ownership', defaultValue: 'purchased' });
+  const subsidy = useWatch({ control, name: 'subsidy', defaultValue: 'yes' });
+  const insurance = useWatch({ control, name: 'insurance', defaultValue: 'yes' });
+   console.log(ownership)
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
     <form className="FormWrapper" onSubmit={handleSubmit(props.onSubmit)}>
@@ -368,7 +372,7 @@ function EquipmentInventoryForm(props) {
 
 
                  {/* -------Form Control------ */}
-                <Grid item xs={12} sm={6} >
+                <Grid item xs={12} sm={12} >
                 <FormControl  error={!!errors.ownership}>
                   <FormLabel  error={!!errors.ownership} required sx={{mb:2, fontSize:14, color: ModeStyle(theme,"black","white")}} id="demo-row-radio-buttons-group-label">Ownership</FormLabel>
                   <Controller control={control}
@@ -397,7 +401,324 @@ function EquipmentInventoryForm(props) {
                   <FormHelperText>{errors.ownership?.message || "Ownership of Equipment"}</FormHelperText>
                 </FormControl>
                 </Grid>
+
+                 {/* -------Form Control------ */}
+                <Divider sx={{width:"100%",m:4}}  orientation='horizontal' variant='middle' light/>
+                {ownership ==="leased" && 
+                <>        
+                <Grid container item xs={12} rowSpacing={3} columnSpacing={8} >
+                    <Grid container item xs={6} className="FormControl">
+                        <Grid item xs={12}>
+                            <InputLabel  error={!!errors.lease_deadline} required sx={{mb:2,fontSize:14, color: ModeStyle(theme,"black","white") }}
+                                        htmlFor="lease_deadline" >Lease Deadline</InputLabel>
+                        </Grid>
+
+                        <Grid item xs={12}>
+                        <Controller
+                            name="lease_deadline"
+                            control={control}
+                            defaultValue={dayjs(new Date())}
+                            rules={{
+                               required:"Lease Deadline is required"
+                                
+                            }}
+                            render={({field}) =>(
+                                    <DateTimePicker 
+                                      defaultValue={dayjs(new Date())}
+                                     
+                                      required
+                                      sx={{width:"100%"}}
+                                      InputProps={{sx:{height:'40px'}}}
+                                      value={field.value|| null}  
+                                      control={control}
+                                      onChange={event => field.onChange(event)}
+                                      slotProps={{ textField: { size:"small", 
+                                          error: Boolean(errors.lease_deadline), 
+                                          helperText: errors.lease_deadline?.message|| "Enter Lease Deadline" } }}
+                                     
+                                    />
+                            )}
+                        />
+
+                      </Grid>
+                    </Grid>
+
+                    <Grid item xs={6} className="FormControl">
+                    <InputLabel required sx={{mb:2, fontSize:14, color: ModeStyle(theme,"black","white")}}
+                                error={!!errors.charged_by}
+                                htmlFor="charged_by" >Charged By</InputLabel>
+                    <FormControl fullWidth error={!!errors.charged_by}>
+
+                    <Select name="charged_by" 
+                            fullWidth
+                            sx={{height:'40px', mt:1, mr:1, fonSize: 14}}
+                            defaultValue="hr"
+                            {...register('charged_by',
+                            {required:{value:true,
+                                      message:"  Charged By is Required"}}
+                            )}
+                            >
+
+                      <MenuItem sx={{fontSize: 14}} value="hr">Hour</MenuItem>
+                      <MenuItem sx={{fontSize:14}} value="day">Day</MenuItem>
+                      <MenuItem sx={{fontSize:14}} value="month">Month</MenuItem>
+                      <MenuItem sx={{fontSize:14}} value="year">Year</MenuItem>
+                    </Select>
+                    <FormHelperText > {errors.charged_by?.message || "Enter  Charged By"}</FormHelperText>
+                    </FormControl>
+                  </Grid>
                 
+                </Grid>
+                <Grid  item xs={6} className="FormControl">
+                    <InputLabel required sx={{mb:2, fontSize:14, color: ModeStyle(theme,"black","white")}}
+                                error={!!errors.lease_status}
+                                htmlFor="lease_status" >Lease Status</InputLabel>
+                    <FormControl fullWidth error={!!errors.lease_status}>
+
+                    <Select name="lease_status" 
+                            fullWidth
+                            sx={{height:'40px', mt:1, mr:1, fonSize: 14}}
+                            defaultValue="using"
+                            {...register('lease_status',
+                            {required:{value:true,
+                                      message:"  Lease Status  is Required"}}
+                            )}
+                            >
+
+                      <MenuItem sx={{fontSize: 14}} value="using">Using</MenuItem>
+                      <MenuItem sx={{fontSize:14}} value="returned">Returned</MenuItem>
+                      
+                    </Select>
+                    <FormHelperText > {errors.lease_status?.message || "Enter  Lease Status"}</FormHelperText>
+                    </FormControl>
+                </Grid>
+                  <Grid  item xs={6} className="FormControl">
+
+                  </Grid>
+                  </>
+                 }
+
+                {ownership ==="purchased" && 
+
+                <>
+                <Grid item xs={12} sm={6} className="FormControl">
+                    <InputLabel required sx={{mb:2, fontSize:14, color: ModeStyle(theme,"black","white")}}
+                                error={!!errors.purchase_condition}
+                                htmlFor="purchase_condition" >Purchased Condition</InputLabel>
+                    <FormControl fullWidth error={!!errors.purchase_condition}>
+
+                    <Select name="purchase_condition" 
+                            fullWidth
+                            sx={{height:'40px',mt:1, mr:1, fontSize:14}}
+                            defaultValue="new"
+                            {...register('purchase_condition',
+                            {required:{value:true,
+                                      message:"Purchased Condition is Required"}}
+                            )}
+                            >
+
+                      <MenuItem sx={{fontSize: 14}} value="new">New</MenuItem>
+                      <MenuItem sx={{fontSize:14}} value="old">Old</MenuItem>
+                    </Select>
+                    <FormHelperText > {errors.purchase_condition?.message || "Enter Purchased Condition"}</FormHelperText>
+                    </FormControl>
+                  
+                  </Grid>
+
+                  <Grid container item xs={12} sm={6} className="FormControl">
+                      <Grid item xs={12}>
+                          <InputLabel required sx={{mb:2,fontSize:14, color: ModeStyle(theme,"black","white") }}
+                                      error={!!errors.servicing_interval}
+                                      htmlFor="servicing_interval" >Servicing Interval</InputLabel>
+                      </Grid>
+
+                      <Grid item xs={12}>
+                          <TextField sx={{p:1, fontSize:14}} 
+                                      fullWidth 
+                                      variant='outlined' 
+                                      type="number" 
+                                      placeholder='90'
+                                      InputProps={{
+                                      sx:{height:'40px'},
+                                      endAdornment: <InputAdornment position="start">Days</InputAdornment>
+                                      }}
+                                      
+
+                                      {...register('servicing_interval',
+                                                  {required: {
+                                                  value: true,
+                                                  message: "Servising Interval is required"},
+                                                  valueAsNumber:true
+                                                  },
+                                                  
+                                                  )
+                                      } 
+                                      error={!!errors.servicing_interval} 
+                                      helperText={errors.servicing_interval?.message || "Enter Servicing Interval in days"}/>
+                      </Grid>
+                    </Grid>
+
+                    <Grid item xs={12} sm={12} >
+                      <FormControl  error={!!errors.subsidy}>
+                        <FormLabel  error={!!errors.subsidy} required sx={{mb:2, fontSize:14, color: ModeStyle(theme,"black","white")}} id="demo-row-radio-buttons-group-label">Subsidy</FormLabel>
+                        <Controller control={control}
+                            name="subsidy"
+                            defaultValue="yes"
+                            rules={{required:"subsidy must be defined"}}
+                            render= {({field}) => (
+                              <RadioGroup {...field}
+                                sx={{height:"45px"}}
+                                row
+                                defaultValue="purchased"
+                                aria-labelledby="demo-row-radio-buttons-group-label"
+                                name="row-radio-buttons-group"
+                                
+                              >
+                                <FormControlLabel  value="yes" 
+                                control={<Radio sx={{'& .MuiSvgIcon-root': {fontSize: 20,},}} />}
+                                label={<span style={{fontSize:"14px"}}>Yes</span>} />
+                                <FormControlLabel value="no" 
+                                control={<Radio sx={{'& .MuiSvgIcon-root': {fontSize: 20,},}}  />} 
+                                label={<span style={{fontSize:"14px"}}>No</span>} />
+                              </RadioGroup>
+
+                            )} />
+                        
+                        <FormHelperText>{errors.subsidy?.message || "subsidy of Equipment"}</FormHelperText>
+                      </FormControl>
+                    </Grid>
+
+                    {subsidy ==="yes" && 
+                    
+                      <Grid container item xs={12} sm={6} className="FormControl">
+                      <Grid item xs={12}>
+                        <InputLabel required sx={{mb:1, fontSize:14, color: ModeStyle(theme,"black","white")}}
+                                    error={!!errors.input_name}
+                                    htmlFor="subsidy_amount" >Subsidy Amount</InputLabel>
+                      </Grid>
+                      <Grid item xs={12}>
+                      <TextField sx={{p:1, fontSize:14}} 
+                                fullWidth 
+                                variant='outlined' 
+                                type="number" 
+                                placeholder='50000'
+                                InputProps={{
+                                  sx:{height:'40px'},
+                                }}
+
+                                {...register('subsidy_amount',
+                                            {required: {
+                                            value: true,
+                                            message: "Subsidy Amount is required"},
+                                            valueAsNumber:true,
+                                            })
+                                } 
+                                error={!!errors.subsidy_amount} 
+                                helperText={errors.subsidy_amount?.message || "Enter Subsidy Amount"}
+                                />
+                      </Grid>
+                    </Grid>
+                    
+                    }
+                    <Grid item xs={12} sm={12} >
+                      <FormControl  error={!!errors.insurance}>
+                        <FormLabel  error={!!errors.insurance} 
+                                    required sx={{mb:2, fontSize:14, color: ModeStyle(theme,"black","white")}} >
+                            Insurance
+                        </FormLabel>
+                        <Controller control={control}
+                            name="insurance"
+                            defaultValue="yes"
+                            rules={{required:"Insurance must be defined"}}
+                            render= {({field}) => (
+                              <RadioGroup {...field}
+                                sx={{height:"45px"}}
+                                row
+                                defaultValue="purchased"
+                                aria-labelledby="demo-row-radio-buttons-group-label"
+                                name="row-radio-buttons-group"
+                                
+                              >
+                                <FormControlLabel  value="yes" 
+                                control={<Radio sx={{'& .MuiSvgIcon-root': {fontSize: 20,},}} />}
+                                label={<span style={{fontSize:"14px"}}>Yes</span>} />
+                                <FormControlLabel value="no" 
+                                control={<Radio sx={{'& .MuiSvgIcon-root': {fontSize: 20,},}}  />} 
+                                label={<span style={{fontSize:"14px"}}>No</span>} />
+                              </RadioGroup>
+
+                            )} />
+                        
+                        <FormHelperText>{errors.insurance?.message || "Insurance of Equipment"}</FormHelperText>
+                      </FormControl>
+                    </Grid>
+
+                    {insurance ==="yes" && 
+                    <Grid container item xs={12}>
+                      <Grid container item xs={12} sm={6} className="FormControl">
+                        <Grid item xs={12}>
+                          <InputLabel required sx={{mb:1, fontSize:14, color: ModeStyle(theme,"black","white")}}
+                                      error={!!errors.insurance_amount}
+                                      htmlFor="insurance_amount" >Insurance Amount</InputLabel>
+                        </Grid>
+                        <Grid item xs={12}>
+                          <TextField sx={{p:1, fontSize:14}} 
+                                  fullWidth 
+                                  variant='outlined' 
+                                  type="number" 
+                                  placeholder='4000'
+                                  InputProps={{
+                                    sx:{height:'40px'},
+                                  }}
+
+                                  {...register('insurance_amount',
+                                              {required: {
+                                              value: true,
+                                              message: "Insurance Amount is required"},
+                                              valueAsNumber:true,
+                                              })
+                                  } 
+                                  error={!!errors.insurance_amount} 
+                                  helperText={errors.insurance_amount?.message || "Enter Insurance Amount"}
+                                  />
+                        </Grid>
+                      </Grid>
+                    
+                      <Grid container item xs={12} sm={6} className="FormControl">
+                      <Grid item xs={12}>
+                        <InputLabel required sx={{mb:1, fontSize:14, color: ModeStyle(theme,"black","white")}}
+                                    error={!!errors.insurance_number}
+                                    htmlFor="insurance_number" >Insurance Number</InputLabel>
+                      </Grid>
+                        <Grid item xs={12}>
+                          <TextField sx={{p:1, fontSize:14}} 
+                                fullWidth 
+                                variant='outlined' 
+                                type="text" 
+                                placeholder='A00245034348c534'
+                                InputProps={{
+                                  sx:{height:'40px'},
+                                }}
+
+                                {...register('insurance_number',
+                                            {required: {
+                                            value: true,
+                                            message: "Insurance Number is required"}
+                                            })
+                                } 
+                                error={!!errors.insurance_number} 
+                                helperText={errors.insurance_number?.message || "Enter Insurance Number"}
+                                />
+                        </Grid>
+                      </Grid>
+                    </Grid>
+                    
+                    }
+                
+                
+                </>
+                }
+                 <Divider sx={{width:"100%", m:4}}  orientation='horizontal' variant='middle' light/>
                
                   {/* -------Form Control------ */}
                   <Grid item xs={12} sm={6} className="FormControl">
@@ -423,6 +744,31 @@ function EquipmentInventoryForm(props) {
                     </FormControl>
                   
                   </Grid>
+
+                  <Grid  item xs={6} className="FormControl">
+                    <InputLabel required sx={{mb:2, fontSize:14, color: ModeStyle(theme,"black","white")}}
+                                error={!!errors.equipment_status}
+                                htmlFor="equipment_status" >Equipment Status</InputLabel>
+                    <FormControl fullWidth error={!!errors.equipment_status}>
+
+                    <Select name="equipment_status" 
+                            fullWidth
+                            sx={{height:'40px', mt:1, mr:1, fonSize: 14}}
+                            defaultValue="active"
+                            {...register('equipment_status',
+                            {required:{value:true,
+                                      message:"  Equipment Status  is Required"}}
+                            )}
+                            >
+
+                      <MenuItem sx={{fontSize: 14}} value="active">Active</MenuItem>
+                      <MenuItem sx={{fontSize:14}} value="inactive">Inactive</MenuItem>
+                      <MenuItem sx={{fontSize:14}} value="maintainance">Maintainance</MenuItem>
+                      
+                    </Select>
+                    <FormHelperText > {errors.equipment_status?.message || "Enter  Equipment Status"}</FormHelperText>
+                    </FormControl>
+                </Grid>
                  
                   <Grid container item xs={12} className="FormControl">
                         <Grid item xs={12}>

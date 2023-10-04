@@ -25,7 +25,13 @@ import ChemicalInventoryForm from './Inventory/Forms/ChemicalInventoryForm'
 import MedicalInventoryForm from './Inventory/Forms/MedicalInventoryForm'
 import OtherInventoryForm from './Inventory/Forms/OtherInventoryForm' 
 
-import { handleFeedAdd,RHFAddFeed_input,handleWarehouseAdd,RHFAddWarehouse } from './FormProps';
+import {handleFeedAdd,handleFeedUpdate,RHFAddFeed_input,RHFUpdateFeed_input,
+  handleWarehouseAdd,handleWarehouseUpdate,RHFAddWarehouse,RHFUpdateWarehouse,
+  handleOtherInventoryAdd,handleOtherInventoryUpdate,RHFAddOtherInventory,RHFUpdateOtherInventory,
+  handleEquipmentAdd,handleEquipmentUpdate,RHFAddEquipment,RHFUpdateEquipment,
+  handleMedicalInventoryAdd,handleMedicalInventoryUpdate,RHFAddMedicalInventory,RHFUpdateMedicalInventory,
+  handleChemicalInventoryAdd,handleChemicalInventoryUpdate,RHFAddChemicalInventory,RHFUpdateChemicalInventory,
+} from './FormProps';
 
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
   ({ theme, open, sidebarwidth }) => ({
@@ -84,10 +90,18 @@ function Body() {
           <Route path='add/warehouse' element={<WarehouseForm
                                              onSubmit={handleWarehouseAdd}
                                              form={RHFAddWarehouse}/>}/>
-          <Route path='add/equipment' element={<EquipmentInventoryForm/>}/>
-          <Route path='add/chemical' element={<ChemicalInventoryForm/>}/>
-          <Route path='add/other' element={<OtherInventoryForm/>}/>
-          <Route path='add/medical' element={<MedicalInventoryForm/>}/>
+          <Route path='add/equipment' element={<EquipmentInventoryForm 
+                                             onSubmit={handleEquipmentAdd}
+                                             form={RHFAddEquipment}/>}/>
+          <Route path='add/chemical' element={<ChemicalInventoryForm 
+                                             onSubmit={handleChemicalInventoryAdd}
+                                             form={RHFAddChemicalInventory}/>}/>
+          <Route path='add/other' element={<OtherInventoryForm 
+                                             onSubmit={handleOtherInventoryAdd}
+                                             form={RHFAddOtherInventory}/>}/>
+          <Route path='add/medical' element={<MedicalInventoryForm           
+                                              onSubmit={handleMedicalInventoryAdd}
+                                              form={RHFAddMedicalInventory}/>}/>
          
         </Route>
 

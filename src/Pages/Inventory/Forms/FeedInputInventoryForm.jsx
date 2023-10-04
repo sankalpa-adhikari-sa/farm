@@ -20,10 +20,30 @@ import { DatePicker } from '@mui/x-date-pickers';
 import { DateTimeField } from '@mui/x-date-pickers';
 import dayjs from 'dayjs';
 function FeedInputInventoryForm(props) {
-  const form = useForm()
+  //Themeing
+  const theme = useTheme();
+  const ModeStyle = (theme, onLightMode, onDarkMode) => {
+    return theme.palette.mode === 'light' ? onLightMode : onDarkMode;
+  }
+  //React-Hook-Form
+  const {register, 
+    control, 
+    handleSubmit,
+    formState:{errors},
+    reset, 
+    watch,
+    clearErrors} = props.form()
+
+  const navigate= useNavigate()
   const dispatch= useDispatch()
+  const handleReset = (e) => {
+    e.preventDefault()
+    reset();
+    clearErrors();
+    navigate("/inventory")
+  }
   const notify = ()=>{
-    toast.success('Livestock Added', {
+    toast.success('Inventory Added', {
       position: "top-right",
       autoClose: 2500,
       hideProgressBar: false,
@@ -34,7 +54,9 @@ function FeedInputInventoryForm(props) {
       theme: "light",
       });
   }
+
   const onSubmit=(data) =>{
+    notify()
     // const livestockWithId = {
     //   ...data,
     //   livestock_id: uuidv4(), // Generate a UUIDv4 for the employee ID
@@ -49,35 +71,22 @@ function FeedInputInventoryForm(props) {
     // //for django and also in react-hook-form use this as minimum value for date picker
     //     console.log(formattedDate)
     //     console.log(data.date_time.$d)
-        console.log(data)
-   
-    notify()
-
+    console.log(data)
+    
+    console.log("skipped notify")
   }
     
-    const theme = useTheme();
-    const navigate= useNavigate()
-    const ModeStyle = (theme, onLightMode, onDarkMode) => {
-      return theme.palette.mode === 'light' ? onLightMode : onDarkMode;
-    }
+  
+  
 
-    const {register, 
-        control, 
-        handleSubmit,
-        formState:{errors},
-        reset, 
-        watch,
-        clearErrors} = form
-    const watchedFieldValue = watch('quantity')
-  const handleReset = (e) => {
-    e.preventDefault()
-    reset();
-    clearErrors();
-    navigate("/inventory")
-  }
+
+
+   
+
+
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
-    <form className="FormWrapper" onSubmit={handleSubmit(onSubmit)}>
+    <form className="FormWrapper" onSubmit={handleSubmit(props.onSubmit)}>
           <Grid rowSpacing={3} container >
         
             <Grid container item  className="FormGroup">
@@ -160,8 +169,10 @@ function FeedInputInventoryForm(props) {
                                         {...register('quantity',
                                                     {required: {
                                                     value: true,
-                                                    message: "Quantity is required"}
-                                                    })
+                                                    message: "Quantity is required"},
+                                                    valueAsNumber:true
+                                                    },
+                                                    )
                                         } 
                                         error={!!errors.quantity} 
                                         helperText={errors.quantity?.message || "Enter Quantity"}/>
@@ -213,7 +224,8 @@ function FeedInputInventoryForm(props) {
                                         {...register('per_unit_price',
                                                     {required: {
                                                     value: true,
-                                                    message: "Per unit price is required"}
+                                                    message: "Per unit price is required"},
+                                                    valueAsNumber:true
                                                     })
                                         } 
                                         error={!!errors.per_unit_price} 
@@ -231,7 +243,6 @@ function FeedInputInventoryForm(props) {
                         <Controller
                             name="addition_date"
                             control={control}
-                            // defaultValue={null}
                             defaultValue={dayjs(new Date())}
                             rules={{
                                required:"Addition date is required"
@@ -283,7 +294,8 @@ function FeedInputInventoryForm(props) {
                                   {...register('alert_level',
                                               {required: {
                                               value: true,
-                                              message: "Alert Level is required"}
+                                              message: "Alert Level is required"},
+                                              valueAsNumber:true
                                               })
                                   } 
                                   // disabled={!watchedFieldValue}
@@ -318,6 +330,33 @@ function FeedInputInventoryForm(props) {
                     </FormControl>
                   
                   </Grid>
+                  <Grid container item xs={12} sm={6} className="FormControl">
+                  <Grid item xs={12}>
+                    <InputLabel required sx={{mb:1, fontSize:14, color: ModeStyle(theme,"black","white")}}
+                                error={!!errors.vendor}
+                                htmlFor="vendor" >Vendor</InputLabel>
+                  </Grid>
+                  <Grid item xs={12}>
+                  <TextField sx={{p:1, fontSize:14}} 
+                            fullWidth 
+                            variant='outlined' 
+                            type="text" 
+                            placeholder='Generic AgroMart'
+                            InputProps={{
+                              sx:{height:'40px'},
+                            }}
+
+                            {...register('vendor',
+                                        {required: {
+                                        value: true,
+                                        message: "Input Name is required"}
+                                        })
+                            } 
+                            error={!!errors.vendor} 
+                            helperText={errors.vendor?.message || "Enter Input Name"}
+                            />
+                  </Grid>
+                </Grid>
                   <Grid container item xs={12} className="FormControl">
                         <Grid item xs={12}>
                             <InputLabel required sx={{mb:2,fontSize:14, color: ModeStyle(theme,"black","white")}}

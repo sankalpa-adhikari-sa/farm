@@ -11,7 +11,7 @@ import { createTheme } from '@mui/material/styles';
 import Body from './Pages/Body';
 import Sidebar from './UI Components/Sidebar';
 import Box from '@mui/material/Box';
-
+import { ToastContainer } from 'react-toastify';
 function App() {
   
   const darkMode= useSelector(state => state.ui.mode)
@@ -63,6 +63,18 @@ function App() {
       <Sidebar/>
       <Navbar/>
       <Body/>
+      <ToastContainer
+               
+               position="bottom-right"
+               autoClose={2500}
+               hideProgressBar={false}
+               newestOnTop={false}
+               closeOnClick
+               rtl={false}
+               pauseOnFocusLoss
+               draggable
+               pauseOnHover={false}
+       />
     </Box>
 
       

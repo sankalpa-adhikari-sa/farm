@@ -19,6 +19,13 @@ import { styled, useTheme } from '@mui/material/styles';
 import { Box } from '@mui/material';
 import Inventory from './Inventory/Inventory';
 import FeedInputInventoryForm from './Inventory/Forms/FeedInputInventoryForm';
+import WarehouseForm from './Inventory/Forms/WarehouseForm';
+import EquipmentInventoryForm from './Inventory/Forms/EquipmentInventoryForm'
+import ChemicalInventoryForm from './Inventory/Forms/ChemicalInventoryForm'
+import MedicalInventoryForm from './Inventory/Forms/MedicalInventoryForm'
+import OtherInventoryForm from './Inventory/Forms/OtherInventoryForm' 
+
+import { handleFeedAdd,feed_inputSubmitForm } from './FormProps';
 
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
   ({ theme, open, sidebarwidth }) => ({
@@ -69,7 +76,16 @@ function Body() {
         <Route path='/inventory' element={<Inventory/>}>
           <Route index element={<InventoryTable/>} />
           <Route path='list' element ={<InventoryTable/>} />
-          <Route path='add/feed-input' element={<FeedInputInventoryForm/>}/>
+          <Route path='add/feed-input' element={
+                                  <FeedInputInventoryForm
+                                    onSubmit={handleFeedAdd}
+                                    form={feed_inputSubmitForm}/>
+                                  }/>
+          <Route path='add/warehouse' element={<WarehouseForm/>}/>
+          <Route path='add/equipment' element={<EquipmentInventoryForm/>}/>
+          <Route path='add/chemical' element={<ChemicalInventoryForm/>}/>
+          <Route path='add/other' element={<OtherInventoryForm/>}/>
+          <Route path='add/medical' element={<MedicalInventoryForm/>}/>
          
         </Route>
 

@@ -68,29 +68,35 @@ function Inventory() {
             Feed And Input
           </Typography>
         </MenuItem>
-        <MenuItem sx={{gap:4,justifyContent:"flex-start"}} onClick={()=>handleMenuItemClose("/inventory/add")}>
+        <MenuItem sx={{gap:4,justifyContent:"flex-start"}} onClick={()=>handleMenuItemClose("/inventory/add/equipment")}>
           <AgricultureIcon/>
           <Typography>
             Equipment
           </Typography>
           
         </MenuItem>
-        <MenuItem sx={{gap:4,justifyContent:"flex-start"}} onClick={()=>handleMenuItemClose("/inventory/add")}>
+        <MenuItem sx={{gap:4,justifyContent:"flex-start"}} onClick={()=>handleMenuItemClose("/inventory/add/chemical")}>
           <Typography>
             Fertilizer
           </Typography>
         </MenuItem>
-        <MenuItem sx={{gap:3,justifyContent:"flex-start"}} onClick={()=>handleMenuItemClose("/inventory/add")}>
+        <MenuItem sx={{gap:3,justifyContent:"flex-start"}} onClick={()=>handleMenuItemClose("/inventory/add/medical")}>
         <AgricultureIcon/>
         
           <Typography>
             Medical
           </Typography>
         </MenuItem>
-        <MenuItem sx={{gap:4,justifyContent:"flex-start"}} onClick={()=>handleMenuItemClose("/inventory/add")}>
+        <MenuItem sx={{gap:4,justifyContent:"flex-start"}} onClick={()=>handleMenuItemClose("/inventory/add/other")}>
         <GiCow  size={24}/>
           <Typography>
             Others
+          </Typography>
+        </MenuItem>
+        <MenuItem sx={{gap:4,justifyContent:"flex-start"}} onClick={()=>handleMenuItemClose("/inventory/add/warehouse")}>
+        <GiCow  size={24}/>
+          <Typography>
+            Warehouse
           </Typography>
         </MenuItem>
       </Menu>

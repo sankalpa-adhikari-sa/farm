@@ -224,10 +224,13 @@ function LivestockForm(props) {
                       render={({ field }) => { 
                         const {onChange,value,ref} = field;
                         return(
-                          <Autocomplete sx={{'& .MuiInputBase-root': {
-                            height: '40px',
+                          <Autocomplete 
+                          size='small'
+                          slotProps={{ textField: { size:"small", }}}
+                          // sx={{'& .MuiInputBase-root': {
+                          //   height: '40px',
                             
-                          },}}
+                          // },}}
                          
                           value={value ? DamOptions.find((option) => 
                                                 {return value === option.id})?? null : null}
@@ -240,6 +243,7 @@ function LivestockForm(props) {
                                                 renderInput={(params) => (
                             <TextField sx={{m:1}} 
                                   fullWidth 
+                                 
                                   InputProps={{
                                   sx:{height:'40px'}}}
                                   InputLabelProps={{

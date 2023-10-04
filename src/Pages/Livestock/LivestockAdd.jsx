@@ -45,18 +45,7 @@ function LivestockAdd() {
         New Livestock Form
       </div>
         <LivestockForm form= {form} onSubmit={onSubmit}  submitBtnText="Submit"/>
-        <ToastContainer
-               
-                position="bottom-right"
-                autoClose={2500}
-                hideProgressBar={false}
-                newestOnTop={false}
-                closeOnClick
-                rtl={false}
-                pauseOnFocusLoss
-                draggable
-                pauseOnHover={false}
-        />
+
     </div>
   )
 }

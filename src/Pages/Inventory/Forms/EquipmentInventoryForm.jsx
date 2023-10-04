@@ -369,11 +369,12 @@ function EquipmentInventoryForm(props) {
 
                  {/* -------Form Control------ */}
                 <Grid item xs={12} sm={6} >
-                <FormControl>
-                  <FormLabel required sx={{mb:2, fontSize:14, color: ModeStyle(theme,"black","white")}} id="demo-row-radio-buttons-group-label">Ownership</FormLabel>
+                <FormControl  error={!!errors.ownership}>
+                  <FormLabel  error={!!errors.ownership} required sx={{mb:2, fontSize:14, color: ModeStyle(theme,"black","white")}} id="demo-row-radio-buttons-group-label">Ownership</FormLabel>
                   <Controller control={control}
                       name="ownership"
-                      rules={{required:true}}
+                      defaultValue="purchased"
+                      rules={{required:"Ownership must be defined"}}
                       render= {({field}) => (
                         <RadioGroup {...field}
                           sx={{height:"45px"}}
@@ -393,7 +394,7 @@ function EquipmentInventoryForm(props) {
 
                       )} />
                   
-                  <FormHelperText>Ownership must be defined</FormHelperText>
+                  <FormHelperText>{errors.ownership?.message || "Ownership of Equipment"}</FormHelperText>
                 </FormControl>
                 </Grid>
                 

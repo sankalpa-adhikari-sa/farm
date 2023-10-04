@@ -162,6 +162,7 @@ function FeedInputInventoryForm(props) {
                   </Grid>
                 
                 </Grid>
+                {/* -------Form Control------ */}
                 <Grid container item xs={12} rowSpacing={3} columnSpacing={8} >
                     <Grid container item xs={6} className="FormControl">
                         <Grid item xs={12}>

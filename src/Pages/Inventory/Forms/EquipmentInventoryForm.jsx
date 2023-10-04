@@ -4,7 +4,12 @@ import { useTheme } from '@mui/material/styles';
 import { useDispatch,useSelector } from 'react-redux';
 import { Controller } from 'react-hook-form';
 import TextField from '@mui/material/TextField';
-import { Autocomplete, Divider, FormControl, FormHelperText, IconButton, InputLabel, Typography } from '@mui/material';
+import Radio from '@mui/material/Radio';
+import RadioGroup from '@mui/material/RadioGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import FormControl from '@mui/material/FormControl';
+import FormLabel from '@mui/material/FormLabel';
+import { Autocomplete, Divider, FormHelperText, IconButton, InputLabel, Typography } from '@mui/material';
 import { ActionBtn, BaseButton } from '../../../UI Components/CustomButtom';
 import Grid from '@mui/material/Grid';
 import Select from '@mui/material/Select';
@@ -112,7 +117,7 @@ function EquipmentInventoryForm(props) {
                 
 
                 <Grid container item xs={12} rowSpacing={3} columnSpacing={8} >
-                    <Grid container item xs={6} className="FormControl">
+                    <Grid container item xs={12} sm={6} className="FormControl">
                         <Grid item xs={12}>
                             <InputLabel required sx={{mb:2,fontSize:14, color: ModeStyle(theme,"black","white") }}
                                         error={!!errors.quantity}
@@ -142,28 +147,33 @@ function EquipmentInventoryForm(props) {
                         </Grid>
                     </Grid>
 
-                    <Grid item xs={6} className="FormControl">
-                    <InputLabel required sx={{mb:2, fontSize:14, color: ModeStyle(theme,"black","white")}}
-                                error={!!errors.unit}
-                                htmlFor="unit" >Unit</InputLabel>
-                    <FormControl fullWidth error={!!errors.unit}>
-
-                    <Select name="unit" 
-                            fullWidth
-                            sx={{height:'40px', mt:1, mr:1, fonSize: 14}}
-                            defaultValue="kg"
-                            {...register('unit',
-                            {required:{value:true,
-                                      message:" Quantity unit is Required"}}
-                            )}
-                            >
-
-                      <MenuItem sx={{fontSize: 14}} value="kg">Kg</MenuItem>
-                      <MenuItem sx={{fontSize:14}} value="liter">Liter</MenuItem>
-                    </Select>
-                    <FormHelperText > {errors.unit?.message || "Enter Quantity unit"}</FormHelperText>
-                    </FormControl>
+                    <Grid container item xs={12} sm={6} className="FormControl">
+                  <Grid item xs={12}>
+                    <InputLabel required sx={{mb:1, fontSize:14, color: ModeStyle(theme,"black","white")}}
+                                error={!!errors.vendor}
+                                htmlFor="vendor" >Vendor</InputLabel>
                   </Grid>
+                  <Grid item xs={12}>
+                  <TextField sx={{p:1, fontSize:14}} 
+                            fullWidth 
+                            variant='outlined' 
+                            type="text" 
+                            placeholder='Generic AgroMart'
+                            InputProps={{
+                              sx:{height:'40px'},
+                            }}
+
+                            {...register('vendor',
+                                        {required: {
+                                        value: true,
+                                        message: "Vender Name is required"}
+                                        })
+                            } 
+                            error={!!errors.vendor} 
+                            helperText={errors.vendor?.message || "Enter Vender Name"}
+                            />
+                  </Grid>
+                </Grid>
                 
                 </Grid>
                 <Grid container item xs={12} rowSpacing={3} columnSpacing={8} >
@@ -177,6 +187,7 @@ function EquipmentInventoryForm(props) {
                         <Grid item xs={12}>
                             <TextField sx={{p:1, fontSize:14}} 
                                         fullWidth 
+                                        name="company"
                                         variant='outlined' 
                                         type="text" 
                                         placeholder='Mahendra'
@@ -234,36 +245,36 @@ function EquipmentInventoryForm(props) {
                     <Grid container item xs={6} className="FormControl">
                         <Grid item xs={12}>
                             <InputLabel required sx={{mb:2,fontSize:14, color: ModeStyle(theme,"black","white") }}
-                                        error={!!errors.quantity}
-                                        htmlFor="per_unit_price" >Per Unit Price</InputLabel>
+                                        error={!!errors.number_plate}
+                                        htmlFor="number_plate" >Number Plate</InputLabel>
                         </Grid>
 
                         <Grid item xs={12}>
                             <TextField sx={{p:1, fontSize:14}} 
                                         fullWidth 
                                         variant='outlined' 
-                                        type="number" 
-                                        placeholder='10'
+                                        type="text" 
+                                        placeholder='Ba 1 kha 2222'
                                         InputProps={{
                                         sx:{height:'40px'},
                                         }}
 
-                                        {...register('per_unit_price',
+                                        {...register('number_plate',
                                                     {required: {
                                                     value: true,
-                                                    message: "Per unit price is required"},
-                                                    valueAsNumber:true
+                                                    message: "Number plate is required"},
+                                                   
                                                     })
                                         } 
-                                        error={!!errors.per_unit_price} 
-                                        helperText={errors.per_unit_price?.message || "Enter per unit price"}/>
+                                        error={!!errors.number_plate} 
+                                        helperText={errors.number_plate?.message || "Enter Number Plate"}/>
                         </Grid>
                     </Grid>
 
                     <Grid container item xs={6} className="FormControl">
                         <Grid item xs={12}>
                             <InputLabel  error={!!errors.addition_date} required sx={{mb:2,fontSize:14, color: ModeStyle(theme,"black","white") }}
-                                        htmlFor="addition_date" >Stocking Date</InputLabel>
+                                        htmlFor="addition_date" >Acquired Date</InputLabel>
                         </Grid>
 
                         <Grid item xs={12}>
@@ -272,7 +283,7 @@ function EquipmentInventoryForm(props) {
                             control={control}
                             defaultValue={dayjs(new Date())}
                             rules={{
-                               required:"Addition date is required"
+                               required:"Acquired date is required"
                                 
                             }}
                             render={({field}) =>(
@@ -288,7 +299,7 @@ function EquipmentInventoryForm(props) {
                                       onChange={event => field.onChange(event)}
                                       slotProps={{ textField: { size:"small", 
                                           error: Boolean(errors.addition_date), 
-                                          helperText: errors.addition_date?.message|| "Enter addition date" } }}
+                                          helperText: errors.addition_date?.message|| "Enter Acquired date" } }}
                                      
                                     />
                             )}
@@ -296,41 +307,95 @@ function EquipmentInventoryForm(props) {
 
                       </Grid>
                     </Grid>
+                </Grid>
 
-                    
+                {/* -------Form Control------ */}
+                <Grid container item xs={12} rowSpacing={3} columnSpacing={8} >
+                    <Grid container item xs={6} className="FormControl">
+                        <Grid item xs={12}>
+                            <InputLabel required sx={{mb:2,fontSize:14, color: ModeStyle(theme,"black","white") }}
+                                        error={!!errors.cost_price}
+                                        htmlFor="cost_price" >Cost Price</InputLabel>
+                        </Grid>
+
+                        <Grid item xs={12}>
+                            <TextField sx={{p:1, fontSize:14}} 
+                                        fullWidth 
+                                        variant='outlined' 
+                                        type="number" 
+                                        placeholder='30000'
+                                        InputProps={{
+                                        sx:{height:'40px'},
+                                        }}
+
+                                        {...register('cost_price',
+                                                    {required: {
+                                                    value: true,
+                                                    message: "cost price is required"},
+                                                    valueAsNumber:true
+                                                    },
+                                                    )
+                                        } 
+                                        error={!!errors.cost_price} 
+                                        helperText={errors.cost_price?.message || "Enter cost price"}/>
+                        </Grid>
+                    </Grid>
+
+                    <Grid item xs={6} className="FormControl">
+                    <InputLabel required sx={{mb:2, fontSize:14, color: ModeStyle(theme,"black","white")}}
+                                error={!!errors.currency}
+                                htmlFor="currency" >Currency</InputLabel>
+                    <FormControl fullWidth error={!!errors.currency}>
+
+                    <Select name="currency" 
+                            fullWidth
+                            sx={{height:'40px', mt:1, mr:1, fonSize: 14}}
+                            defaultValue="npr"
+                            {...register('currency',
+                            {required:{value:true,
+                                      message:"  currency is Required"}}
+                            )}
+                            >
+
+                      <MenuItem sx={{fontSize: 14}} value="npr">NPR</MenuItem>
+                      <MenuItem sx={{fontSize:14}} value="inr">INR</MenuItem>
+                    </Select>
+                    <FormHelperText > {errors.currency?.message || "Enter  currency"}</FormHelperText>
+                    </FormControl>
+                  </Grid>
                 
                 </Grid>
 
-                <Grid container item xs={12} sm={6} className="FormControl">
-                  <Grid item xs={12}>
-                      <InputLabel required sx={{mb:2,fontSize:14, color: ModeStyle(theme,"black","white")}}
-                                  error={!!errors.alert_level}
-                                  htmlFor="alert_level" >Alert Level</InputLabel>
-                  </Grid>
 
-                  <Grid item xs={12}>
-                      <TextField  
-                                  fullWidth 
-                                  variant='outlined' 
-                                  type="number" 
-                                  placeholder='10'
-                                  InputProps={{
-                                  sx:{height:'40px'},
-                                  }}
+                 {/* -------Form Control------ */}
+                <Grid item xs={12} sm={6} >
+                <FormControl>
+                  <FormLabel required sx={{mb:2, fontSize:14, color: ModeStyle(theme,"black","white")}} id="demo-row-radio-buttons-group-label">Ownership</FormLabel>
+                  <Controller control={control}
+                      name="ownership"
+                      rules={{required:true}}
+                      render= {({field}) => (
+                        <RadioGroup {...field}
+                          sx={{height:"45px"}}
+                          row
+                          defaultValue="purchased"
+                          aria-labelledby="demo-row-radio-buttons-group-label"
+                          name="row-radio-buttons-group"
+                          
+                        >
+                          <FormControlLabel  value="leased" 
+                          control={<Radio sx={{'& .MuiSvgIcon-root': {fontSize: 20,},}} />}
+                          label={<span style={{fontSize:"14px"}}>Leased</span>} />
+                          <FormControlLabel value="purchased" 
+                          control={<Radio sx={{'& .MuiSvgIcon-root': {fontSize: 20,},}}  />} 
+                          label={<span style={{fontSize:"14px"}}>Purchased</span>} />
+                        </RadioGroup>
 
-                                  {...register('alert_level',
-                                              {required: {
-                                              value: true,
-                                              message: "Alert Level is required"},
-                                              valueAsNumber:true
-                                              })
-                                  } 
-                                  // disabled={!watchedFieldValue}
-                                  error={!!errors.alert_level} 
-                                  helperText={errors.alert_level?.message || "Enter Alert Level"}/>
-                  </Grid>
+                      )} />
+                  
+                  <FormHelperText>Ownership must be defined</FormHelperText>
+                </FormControl>
                 </Grid>
-
                 
                
                   {/* -------Form Control------ */}
@@ -357,33 +422,7 @@ function EquipmentInventoryForm(props) {
                     </FormControl>
                   
                   </Grid>
-                  <Grid container item xs={12} sm={6} className="FormControl">
-                  <Grid item xs={12}>
-                    <InputLabel required sx={{mb:1, fontSize:14, color: ModeStyle(theme,"black","white")}}
-                                error={!!errors.vendor}
-                                htmlFor="vendor" >Vendor</InputLabel>
-                  </Grid>
-                  <Grid item xs={12}>
-                  <TextField sx={{p:1, fontSize:14}} 
-                            fullWidth 
-                            variant='outlined' 
-                            type="text" 
-                            placeholder='Generic AgroMart'
-                            InputProps={{
-                              sx:{height:'40px'},
-                            }}
-
-                            {...register('vendor',
-                                        {required: {
-                                        value: true,
-                                        message: "Input Name is required"}
-                                        })
-                            } 
-                            error={!!errors.vendor} 
-                            helperText={errors.vendor?.message || "Enter Input Name"}
-                            />
-                  </Grid>
-                </Grid>
+                 
                   <Grid container item xs={12} className="FormControl">
                         <Grid item xs={12}>
                             <InputLabel required sx={{mb:2,fontSize:14, color: ModeStyle(theme,"black","white")}}

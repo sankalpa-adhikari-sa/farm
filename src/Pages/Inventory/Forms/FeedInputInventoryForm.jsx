@@ -1,4 +1,5 @@
 import React from 'react'
+import { useEffect } from 'react';
 import { useTheme } from '@mui/material/styles';
 import { useDispatch,useSelector } from 'react-redux';
 import { Controller } from 'react-hook-form';
@@ -42,15 +43,18 @@ function FeedInputInventoryForm(props) {
     // form.reset()
     // form.clearErrors();
 
-    const inputDate = new Date(data.date_time.$d);
+    // const inputDate = new Date(data.date_time.$d);
 
-    const formattedDate = inputDate.toISOString();//for django
-        console.log(formattedDate)
-        console.log(data.date_time.$d)
+    // const formattedDate = inputDate.toISOString();
+    // //for django and also in react-hook-form use this as minimum value for date picker
+    //     console.log(formattedDate)
+    //     console.log(data.date_time.$d)
+        console.log(data)
    
     notify()
 
   }
+    
     const theme = useTheme();
     const navigate= useNavigate()
     const ModeStyle = (theme, onLightMode, onDarkMode) => {
@@ -62,7 +66,9 @@ function FeedInputInventoryForm(props) {
         handleSubmit,
         formState:{errors},
         reset, 
+        watch,
         clearErrors} = form
+    const watchedFieldValue = watch('quantity')
   const handleReset = (e) => {
     e.preventDefault()
     reset();
@@ -217,34 +223,39 @@ function FeedInputInventoryForm(props) {
 
                     <Grid container item xs={6} className="FormControl">
                         <Grid item xs={12}>
-                            <InputLabel required sx={{mb:2,fontSize:14, color: ModeStyle(theme,"black","white") }}
+                            <InputLabel  error={!!errors.addition_date} required sx={{mb:2,fontSize:14, color: ModeStyle(theme,"black","white") }}
                                         htmlFor="addition_date" >Stocking Date</InputLabel>
                         </Grid>
 
                         <Grid item xs={12}>
-                        <FormControl fullWidth >
                         <Controller
-                            name="date_time"
+                            name="addition_date"
                             control={control}
-                            defaultValue={dayjs(new Date())}
-                            render={({
-                                field: {onChange, value},
-                            }) => (
+                            // defaultValue={null}
+                            // defaultValue={dayjs(new Date())}
+                            rules={{
+                               required:"Addition date is required"
+                                
+                            }}
+                            render={({field}) =>(
                                     <DateTimePicker 
-                                      defaultValue={dayjs(new Date())}
+                                      // defaultValue={dayjs(new Date())}
+                                      minDate={dayjs("2023-07-17T15:30")}
                                       maxDate={dayjs(new Date())}
+                                      required
                                       sx={{width:"100%"}}
                                       InputProps={{sx:{height:'40px'}}}
-                                      value={value|| null}  
+                                      value={field.value|| null}  
                                       control={control}
-                                      onChange={event => onChange(event)}
-                                      slotProps={{ textField: { size:"small" } }}
+                                      onChange={event => field.onChange(event)}
+                                      slotProps={{ textField: { size:"small", 
+                                          error: Boolean(errors.addition_date), 
+                                          helperText: errors.addition_date?.message|| "Enter addition date" } }}
+                                     
                                     />
                             )}
                         />
-                        <FormHelperText > Enter Stocking Date</FormHelperText>
 
-                        </FormControl>
                       </Grid>
                     </Grid>
 
@@ -260,7 +271,7 @@ function FeedInputInventoryForm(props) {
                   </Grid>
 
                   <Grid item xs={12}>
-                      <TextField sx={{p:1, fontSize:14, color: ModeStyle(theme,"black","white")}} 
+                      <TextField  
                                   fullWidth 
                                   variant='outlined' 
                                   type="number" 
@@ -275,6 +286,7 @@ function FeedInputInventoryForm(props) {
                                               message: "Alert Level is required"}
                                               })
                                   } 
+                                  // disabled={!watchedFieldValue}
                                   error={!!errors.alert_level} 
                                   helperText={errors.alert_level?.message || "Enter Alert Level"}/>
                   </Grid>

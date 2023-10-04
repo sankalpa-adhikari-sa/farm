@@ -49,8 +49,8 @@ function EquipmentInventoryForm(props) {
     navigate("/inventory")
   }
   const ownership = useWatch({ control, name: 'ownership', defaultValue: 'purchased' });
-  const subsidy = useWatch({ control, name: 'subsidy', defaultValue: 'yes' });
-  const insurance = useWatch({ control, name: 'insurance', defaultValue: 'yes' });
+  const subsidy = useWatch({ control, name: 'subsidy', defaultValue: 'no' });
+  const insurance = useWatch({ control, name: 'insurance', defaultValue: 'no' });
    console.log(ownership)
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -61,7 +61,7 @@ function EquipmentInventoryForm(props) {
               <Typography sx={{fontWeight:600}}>Equipment Inventory</Typography>
             </Grid>
               <Divider sx={{width:"100%",mt:1,mb:2, mx:0}}  orientation='horizontal' variant='middle' light/>
-            <Grid rowSpacing={2} columnSpacing={8} container item >
+            <Grid rowSpacing={2} columnSpacing={{sm:8}} container item >
 
               {/* -------Form Control------ */}
               <Grid container item xs={12} sm={6} className="FormControl">
@@ -180,7 +180,7 @@ function EquipmentInventoryForm(props) {
                 </Grid>
                 
                 </Grid>
-                <Grid container item xs={12} rowSpacing={3} columnSpacing={8} >
+                <Grid container item xs={12} rowSpacing={3} columnSpacing={{xs:3,sm:8}} >
                     <Grid container item xs={6} className="FormControl">
                         <Grid item xs={12}>
                             <InputLabel required sx={{mb:2,fontSize:14, color: ModeStyle(theme,"black","white") }}
@@ -245,7 +245,7 @@ function EquipmentInventoryForm(props) {
 
                 
                 </Grid>
-                <Grid container item xs={12} rowSpacing={3} columnSpacing={8} >
+                <Grid container item xs={12} rowSpacing={3} columnSpacing={{xs:4,sm:8}} >
                     <Grid container item xs={6} className="FormControl">
                         <Grid item xs={12}>
                             <InputLabel required sx={{mb:2,fontSize:14, color: ModeStyle(theme,"black","white") }}
@@ -314,7 +314,7 @@ function EquipmentInventoryForm(props) {
                 </Grid>
 
                 {/* -------Form Control------ */}
-                <Grid container item xs={12} rowSpacing={3} columnSpacing={8} >
+                <Grid container item xs={12} rowSpacing={3} columnSpacing={{xs:4,sm:8}} >
                     <Grid container item xs={6} className="FormControl">
                         <Grid item xs={12}>
                             <InputLabel required sx={{mb:2,fontSize:14, color: ModeStyle(theme,"black","white") }}
@@ -417,15 +417,16 @@ function EquipmentInventoryForm(props) {
                         <Controller
                             name="lease_deadline"
                             control={control}
-                            defaultValue={dayjs(new Date())}
+                            // defaultValue={dayjs(new Date())}
+                            defaultValue={null}
                             rules={{
                                required:"Lease Deadline is required"
                                 
                             }}
                             render={({field}) =>(
                                     <DateTimePicker 
-                                      defaultValue={dayjs(new Date())}
-                                     
+                                      // defaultValue={dayjs(new Date())}
+                                     defaultValue={null}
                                       required
                                       sx={{width:"100%"}}
                                       InputProps={{sx:{height:'40px'}}}
@@ -452,7 +453,7 @@ function EquipmentInventoryForm(props) {
                     <Select name="charged_by" 
                             fullWidth
                             sx={{height:'40px', mt:1, mr:1, fonSize: 14}}
-                            defaultValue="hr"
+                            defaultValue=""
                             {...register('charged_by',
                             {required:{value:true,
                                       message:"  Charged By is Required"}}
@@ -478,10 +479,10 @@ function EquipmentInventoryForm(props) {
                     <Select name="lease_status" 
                             fullWidth
                             sx={{height:'40px', mt:1, mr:1, fonSize: 14}}
-                            defaultValue="using"
+                            defaultValue=""
                             {...register('lease_status',
                             {required:{value:true,
-                                      message:"  Lease Status  is Required"}}
+                                      message:"Lease Status  is Required"}}
                             )}
                             >
 
@@ -510,7 +511,7 @@ function EquipmentInventoryForm(props) {
                     <Select name="purchase_condition" 
                             fullWidth
                             sx={{height:'40px',mt:1, mr:1, fontSize:14}}
-                            defaultValue="new"
+                            defaultValue=''
                             {...register('purchase_condition',
                             {required:{value:true,
                                       message:"Purchased Condition is Required"}}
@@ -563,13 +564,13 @@ function EquipmentInventoryForm(props) {
                         <FormLabel  error={!!errors.subsidy} required sx={{mb:2, fontSize:14, color: ModeStyle(theme,"black","white")}} id="demo-row-radio-buttons-group-label">Subsidy</FormLabel>
                         <Controller control={control}
                             name="subsidy"
-                            defaultValue="yes"
+                            defaultValue="no"
                             rules={{required:"subsidy must be defined"}}
                             render= {({field}) => (
                               <RadioGroup {...field}
                                 sx={{height:"45px"}}
                                 row
-                                defaultValue="purchased"
+                                defaultValue="no"
                                 aria-labelledby="demo-row-radio-buttons-group-label"
                                 name="row-radio-buttons-group"
                                 
@@ -628,13 +629,13 @@ function EquipmentInventoryForm(props) {
                         </FormLabel>
                         <Controller control={control}
                             name="insurance"
-                            defaultValue="yes"
+                            defaultValue="no"
                             rules={{required:"Insurance must be defined"}}
                             render= {({field}) => (
                               <RadioGroup {...field}
                                 sx={{height:"45px"}}
                                 row
-                                defaultValue="purchased"
+                                defaultValue="no"
                                 aria-labelledby="demo-row-radio-buttons-group-label"
                                 name="row-radio-buttons-group"
                                 
@@ -745,7 +746,7 @@ function EquipmentInventoryForm(props) {
                   
                   </Grid>
 
-                  <Grid  item xs={6} className="FormControl">
+                  <Grid  item xs={12} sm={6} className="FormControl">
                     <InputLabel required sx={{mb:2, fontSize:14, color: ModeStyle(theme,"black","white")}}
                                 error={!!errors.equipment_status}
                                 htmlFor="equipment_status" >Equipment Status</InputLabel>

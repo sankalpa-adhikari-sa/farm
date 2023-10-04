@@ -25,7 +25,7 @@ import ChemicalInventoryForm from './Inventory/Forms/ChemicalInventoryForm'
 import MedicalInventoryForm from './Inventory/Forms/MedicalInventoryForm'
 import OtherInventoryForm from './Inventory/Forms/OtherInventoryForm' 
 
-import { handleFeedAdd,feed_inputSubmitForm } from './FormProps';
+import { handleFeedAdd,RHFAddFeed_input,handleWarehouseAdd,RHFAddWarehouse } from './FormProps';
 
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
   ({ theme, open, sidebarwidth }) => ({
@@ -79,9 +79,11 @@ function Body() {
           <Route path='add/feed-input' element={
                                   <FeedInputInventoryForm
                                     onSubmit={handleFeedAdd}
-                                    form={feed_inputSubmitForm}/>
+                                    form={RHFAddFeed_input}/>
                                   }/>
-          <Route path='add/warehouse' element={<WarehouseForm/>}/>
+          <Route path='add/warehouse' element={<WarehouseForm
+                                             onSubmit={handleWarehouseAdd}
+                                             form={RHFAddWarehouse}/>}/>
           <Route path='add/equipment' element={<EquipmentInventoryForm/>}/>
           <Route path='add/chemical' element={<ChemicalInventoryForm/>}/>
           <Route path='add/other' element={<OtherInventoryForm/>}/>

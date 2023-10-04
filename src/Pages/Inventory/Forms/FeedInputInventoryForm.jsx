@@ -42,47 +42,6 @@ function FeedInputInventoryForm(props) {
     clearErrors();
     navigate("/inventory")
   }
-  const notify = ()=>{
-    toast.success('Inventory Added', {
-      position: "top-right",
-      autoClose: 2500,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: false,
-      draggable: true,
-      progress: undefined,
-      theme: "light",
-      });
-  }
-
-  const onSubmit=(data) =>{
-    notify()
-    // const livestockWithId = {
-    //   ...data,
-    //   livestock_id: uuidv4(), // Generate a UUIDv4 for the employee ID
-    // };    
-    // dispatch(addLivestock(livestockWithId))
-    // form.reset()
-    // form.clearErrors();
-
-    // const inputDate = new Date(data.date_time.$d);
-
-    // const formattedDate = inputDate.toISOString();
-    // //for django and also in react-hook-form use this as minimum value for date picker
-    //     console.log(formattedDate)
-    //     console.log(data.date_time.$d)
-    console.log(data)
-    
-    console.log("skipped notify")
-  }
-    
-  
-  
-
-
-
-   
-
 
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>

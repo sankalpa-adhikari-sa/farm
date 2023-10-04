@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import {ToastContainer, toast} from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
 
+//Toast Notification
 const notify = (success_message)=>{
     toast.success(success_message, {
       position: "top-right",
@@ -18,6 +19,7 @@ const notify = (success_message)=>{
       });
   }
 
+// FeedInputInventoryForm props
 const handleFeedAdd = (data) =>{
     console.log(data)
     notify("Inventory Added")
@@ -34,12 +36,33 @@ const handleFeedUpdate = (e) =>{
     e.preventDefault()
 
 }
-const feed_inputSubmitForm= ()=>{
+const RHFAddFeed_input= ()=>{
     const form = useForm()
     return form
 }
-const feed_inputUpdateForm= ()=>{
-    useForm()
+const RHFUpdateFeed_input= ()=>{
+    const form = useForm()
+    return form
 }
 
-export {handleFeedAdd,handleFeedUpdate,feed_inputSubmitForm}
+// WarehouseForm props
+
+const handleWarehouseAdd = (data) =>{
+    console.log(data)
+    notify("Warehouse Added")
+}
+
+const handleWarehouseUpdate = (e) =>{
+    e.preventDefault()
+
+}
+const RHFAddWarehouse= ()=>{
+    const form = useForm()
+    return form
+}
+const RHFUpdateWarehouse= ()=>{
+    const form = useForm()
+    return form
+}
+export {handleFeedAdd,handleFeedUpdate,RHFAddFeed_input,RHFUpdateFeed_input,
+        handleWarehouseAdd,handleWarehouseUpdate,RHFAddWarehouse,RHFUpdateWarehouse }

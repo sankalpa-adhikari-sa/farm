@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import "./EmployeeTable.scss"
+// import "./EmployeeTable.scss"
 import {useReactTable, getCoreRowModel, flexRender, getFilteredRowModel} from "@tanstack/react-table"
 import Data from '../../assets/data.json'
 import Button from "../../UI Components/Button"

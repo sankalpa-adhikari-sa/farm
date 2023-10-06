@@ -11,7 +11,7 @@ import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import { useNavigate } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
-import {useForm} from 'react-hook-form'
+import {useWatch} from 'react-hook-form'
 import {ToastContainer, toast} from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
 import { DateTimePicker, LocalizationProvider } from '@mui/x-date-pickers';
@@ -19,7 +19,7 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { DatePicker } from '@mui/x-date-pickers';
 import { DateTimeField } from '@mui/x-date-pickers';
 import dayjs from 'dayjs';
-function MedicalInventoryForm(props) {
+function ResourceInventoryForm(props) {
   //Themeing
   const theme = useTheme();
   const ModeStyle = (theme, onLightMode, onDarkMode) => {
@@ -42,21 +42,47 @@ function MedicalInventoryForm(props) {
     clearErrors();
     navigate("/inventory")
   }
+  const inv_type = useWatch({ control, name: 'inventory_type', defaultValue: 'feed' });
+
 
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
     <form className="FormWrapper" onSubmit={handleSubmit(props.onSubmit)}>
           <Grid rowSpacing={3} container >
-
+        
             <Grid container item  className="FormGroup">
-              <Typography sx={{fontWeight:600}}>Medical Inventory</Typography>
+              <Typography sx={{fontWeight:600}}>Resource Inventory</Typography>
             </Grid>
               <Divider sx={{width:"100%",mt:1,mb:2, mx:0}}  orientation='horizontal' variant='middle' light/>
-            
-            
-
+            {/* main */}
             <Grid rowSpacing={2} columnSpacing={8} container item >
 
+            <Grid item xs={12} sm={6} className="FormControl">
+                    <InputLabel required sx={{mb:1, fontSize:14, color: ModeStyle(theme,"black","white")}}
+                                error={!!errors.inventory_type}
+                                htmlFor="inventory_type" >Inventory Type </InputLabel>
+                    <FormControl fullWidth error={!!errors.inventory_type}>
+
+                    <Select name="inventory_type" 
+                            
+                            fullWidth
+                            sx={{height:'40px',mr:1,mt:1,fontSize:14}}
+                            defaultValue="feed"
+                            {...register('inventory_type',
+                            {required:{value:true,
+                                      message:"Inventory Type is Required"}}
+                            )}
+                            >
+
+                      <MenuItem sx={{fontSize:14}} value="feed">Feed</MenuItem>
+                      <MenuItem sx={{fontSize:14}} value="input">Input</MenuItem>
+                      <MenuItem sx={{fontSize:14}} value="medical">Medical</MenuItem>
+                      <MenuItem sx={{fontSize:14}} value="chemicals">Chemicals</MenuItem>
+                      <MenuItem sx={{fontSize:14}} value="others">Others</MenuItem>
+                    </Select>
+                    <FormHelperText > {errors.inventory_type?.message || "Enter Inventory Type"}</FormHelperText>
+                    </FormControl>
+                  </Grid>
 
                 {/* -------Form Control------ */}
                 <Grid container item xs={12} sm={6} className="FormControl">
@@ -70,7 +96,7 @@ function MedicalInventoryForm(props) {
                             fullWidth 
                             variant='outlined' 
                             type="text" 
-                            placeholder='FMD Vaccine'
+                            placeholder='Mixed Feed'
                             InputProps={{
                               sx:{height:'40px'},
                             }}
@@ -86,35 +112,38 @@ function MedicalInventoryForm(props) {
                             />
                   </Grid>
                 </Grid>
-
-                {/* -------Form Control------ */}
-                <Grid container item xs={12} sm={6} className="FormControl">
-                  <Grid item xs={12}>
+                {inv_type ==="chemicals" && 
+                <>
+                 <Grid item xs={12} sm={6} className="FormControl">
                     <InputLabel required sx={{mb:1, fontSize:14, color: ModeStyle(theme,"black","white")}}
-                                error={!!errors.manufacturer}
-                                htmlFor="manufacturer" >Manufacturer</InputLabel>
-                  </Grid>
-                  <Grid item xs={12}>
-                  <TextField sx={{p:1, fontSize:14}} 
-                            fullWidth 
-                            variant='outlined' 
-                            type="text" 
-                            placeholder='X pharma'
-                            InputProps={{
-                              sx:{height:'40px'},
-                            }}
+                                error={!!errors.chemical_type}
+                                htmlFor="chemical_type" >Chemical Type </InputLabel>
+                    <FormControl fullWidth error={!!errors.chemical_type}>
 
-                            {...register('manufacturer',
-                                        {required: {
-                                        value: true,
-                                        message: "mMnufacturer is required"}
-                                        })
-                            } 
-                            error={!!errors.manufacturer} 
-                            helperText={errors.manufacturer?.message || "Enter Manufacturer"}
-                            />
+                    <Select name="chemical_type" 
+                            
+                            fullWidth
+                            sx={{height:'40px',mr:1,mt:1,fontSize:14}}
+                            defaultValue="fertilizer"
+                            {...register('chemical_type',
+                            {required:{value:true,
+                                      message:"Chemical Type is Required"}}
+                            )}
+                            >
+
+                      <MenuItem sx={{fontSize:14}} value="fertilizer">Fertilizer</MenuItem>
+                      <MenuItem sx={{fontSize:14}} value="Pesticide">Pesticide</MenuItem>
+                      <MenuItem sx={{fontSize:14}} value="Herbicide">Herbicide</MenuItem>
+                      <MenuItem sx={{fontSize:14}} value="others">Others</MenuItem>
+                    </Select>
+                    <FormHelperText > {errors.chemical_type?.message || "Enter Chemical Type"}</FormHelperText>
+                    </FormControl>
                   </Grid>
-                </Grid>
+                
+                
+                </>
+                
+                }
 
                 <Grid container item xs={12} rowSpacing={3} columnSpacing={8} >
                     <Grid container item xs={6} className="FormControl">
@@ -171,6 +200,83 @@ function MedicalInventoryForm(props) {
                   </Grid>
                 
                 </Grid>
+
+                {inv_type === 'medical' || inv_type === 'others' ? (
+                <>
+                 <Grid container item xs={12} rowSpacing={3} columnSpacing={8} >
+                <Grid container item xs={6} className="FormControl">
+                <Grid item xs={12}>
+                    <InputLabel  error={!!errors.expiration_date} required sx={{mb:2,fontSize:14, color: ModeStyle(theme,"black","white") }}
+                                htmlFor="expiration_date" >Expiration Date</InputLabel>
+                </Grid>
+
+                <Grid item xs={12}>
+                <Controller
+                    name="expiration_date"
+                    control={control}
+                    defaultValue={dayjs(new Date())}
+                    rules={{
+                       required:"Expiration date is required"
+                        
+                    }}
+                    render={({field}) =>(
+                            <DateTimePicker 
+                              defaultValue={dayjs(new Date())}
+                              minDate={dayjs("2023-07-17T15:30")}
+                             
+                              required
+                              sx={{width:"100%"}}
+                              InputProps={{sx:{height:'40px'}}}
+                              value={field.value|| null}  
+                              control={control}
+                              onChange={event => field.onChange(event)}
+                              slotProps={{ textField: { size:"small", 
+                                  error: Boolean(errors.expiration_date), 
+                                  helperText: errors.expiration_date?.message|| "Enter Expiration date" } }}
+                             
+                            />
+                    )}
+                />
+
+              </Grid>
+            </Grid>
+            <Grid container item xs={12} sm={6} className="FormControl">
+                  <Grid item xs={12}>
+                    <InputLabel required sx={{mb:1, fontSize:14, color: ModeStyle(theme,"black","white")}}
+                                error={!!errors.manufacturer}
+                                htmlFor="manufacturer" >Manufacturer</InputLabel>
+                  </Grid>
+                  <Grid item xs={12}>
+                  <TextField sx={{p:1, fontSize:14}} 
+                            fullWidth 
+                            variant='outlined' 
+                            type="text" 
+                            placeholder='X pharma'
+                            InputProps={{
+                              sx:{height:'40px'},
+                            }}
+
+                            {...register('manufacturer',
+                                        {required: {
+                                        value: true,
+                                        message: "mMnufacturer is required"}
+                                        })
+                            } 
+                            error={!!errors.manufacturer} 
+                            helperText={errors.manufacturer?.message || "Enter Manufacturer"}
+                            />
+                  </Grid>
+                </Grid>
+
+
+            </Grid>
+            </>
+                
+                ):null}
+
+
+
+                {/* -------Form Control------ */}
                 <Grid container item xs={12} rowSpacing={3} columnSpacing={8} >
                     <Grid container item xs={6} className="FormControl">
                         <Grid item xs={12}>
@@ -203,24 +309,24 @@ function MedicalInventoryForm(props) {
 
                     <Grid container item xs={6} className="FormControl">
                         <Grid item xs={12}>
-                            <InputLabel  error={!!errors.expiration_date} required sx={{mb:2,fontSize:14, color: ModeStyle(theme,"black","white") }}
-                                        htmlFor="expiration_date" >Expiration Date</InputLabel>
+                            <InputLabel  error={!!errors.addition_date} required sx={{mb:2,fontSize:14, color: ModeStyle(theme,"black","white") }}
+                                        htmlFor="addition_date" >Stocking Date</InputLabel>
                         </Grid>
 
                         <Grid item xs={12}>
                         <Controller
-                            name="expiration_date"
+                            name="addition_date"
                             control={control}
                             defaultValue={dayjs(new Date())}
                             rules={{
-                               required:"Expiration date is required"
+                               required:"Addition date is required"
                                 
                             }}
                             render={({field}) =>(
                                     <DateTimePicker 
                                       defaultValue={dayjs(new Date())}
                                       minDate={dayjs("2023-07-17T15:30")}
-                                     
+                                      maxDate={dayjs(new Date())}
                                       required
                                       sx={{width:"100%"}}
                                       InputProps={{sx:{height:'40px'}}}
@@ -228,8 +334,8 @@ function MedicalInventoryForm(props) {
                                       control={control}
                                       onChange={event => field.onChange(event)}
                                       slotProps={{ textField: { size:"small", 
-                                          error: Boolean(errors.expiration_date), 
-                                          helperText: errors.expiration_date?.message|| "Enter Expiration date" } }}
+                                          error: Boolean(errors.addition_date), 
+                                          helperText: errors.addition_date?.message|| "Enter addition date" } }}
                                      
                                     />
                             )}
@@ -317,53 +423,14 @@ function MedicalInventoryForm(props) {
                             {...register('vendor',
                                         {required: {
                                         value: true,
-                                        message: "Input Name is required"}
+                                        message: "Vendor Name is required"}
                                         })
                             } 
                             error={!!errors.vendor} 
-                            helperText={errors.vendor?.message || "Enter Input Name"}
+                            helperText={errors.vendor?.message || "Enter Vendor Name"}
                             />
                   </Grid>
                 </Grid>
-
-                 {/* -------Form Control------ */}
-                <Grid container item xs={12} className="FormControl">
-                        <Grid item xs={12}>
-                            <InputLabel  error={!!errors.addition_date} required sx={{mb:2,fontSize:14, color: ModeStyle(theme,"black","white") }}
-                                        htmlFor="addition_date" >Stocking Date</InputLabel>
-                        </Grid>
-
-                        <Grid item xs={12}>
-                        <Controller
-                            name="addition_date"
-                            control={control}
-                            defaultValue={dayjs(new Date())}
-                            rules={{
-                               required:"Addition date is required"
-                                
-                            }}
-                            render={({field}) =>(
-                                    <DateTimePicker 
-                                      defaultValue={dayjs(new Date())}
-                                      minDate={dayjs("2023-07-17T15:30")}
-                                      maxDate={dayjs(new Date())}
-                                      required
-                                      sx={{width:"100%"}}
-                                      InputProps={{sx:{height:'40px'}}}
-                                      value={field.value|| null}  
-                                      control={control}
-                                      onChange={event => field.onChange(event)}
-                                      slotProps={{ textField: { size:"small", 
-                                          error: Boolean(errors.addition_date), 
-                                          helperText: errors.addition_date?.message|| "Enter addition date" } }}
-                                     
-                                    />
-                            )}
-                        />
-
-                      </Grid>
-                    </Grid>
-
                   <Grid container item xs={12} className="FormControl">
                         <Grid item xs={12}>
                             <InputLabel required sx={{mb:2,fontSize:14, color: ModeStyle(theme,"black","white")}}
@@ -407,4 +474,4 @@ function MedicalInventoryForm(props) {
   )
 }
 
-export default MedicalInventoryForm
+export default ResourceInventoryForm

@@ -16,9 +16,6 @@ function Livestock() {
         <ActionBtn onClick={()=>{navigate("/livestock/add")}} sx={{px:2,}}color='success' variant='contained' startIcon={<PersonAddIcon sx={{fontWeight:"600",height:16}}/>}>Add Livestock</ActionBtn>
         <ActionBtn sx={{px:2}}color='success' variant='contained' startIcon={<PersonAddIcon sx={{fontWeight:"600",height:16}}/>}>Add Herd</ActionBtn>
 
-              {/* <div className="EmployeeCount">
-          <span className='CountLabel'>Total Employees :</span><span className='CountValue'> {employee_count}</span> 
-        </div> */}
       </div>
       <Outlet/>
         

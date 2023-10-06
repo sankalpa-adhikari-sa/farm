@@ -11,21 +11,21 @@ import EmployeeAdd from './Employees/EmployeeAdd';
 import LivestockAdd from './Livestock/LivestockAdd';
 import LivestockTable from './Livestock/LivestockTable';
 import InventoryTable from './Inventory/InventoryTable';
-
+import LivestockDetails from './Livestock/LivestockDetails'
 
 import { useDispatch, useSelector } from 'react-redux';
 
 import { styled, useTheme } from '@mui/material/styles';
 import { Box } from '@mui/material';
 import Inventory from './Inventory/Inventory';
-import FeedInputInventoryForm from './Inventory/Forms/FeedInputInventoryForm';
+import ResourceInventoryForm from './Inventory/Forms/ResourceInventoryForm';
 import WarehouseForm from './Inventory/Forms/WarehouseForm';
 import EquipmentInventoryForm from './Inventory/Forms/EquipmentInventoryForm'
 import ChemicalInventoryForm from './Inventory/Forms/ChemicalInventoryForm'
 import MedicalInventoryForm from './Inventory/Forms/MedicalInventoryForm'
 import OtherInventoryForm from './Inventory/Forms/OtherInventoryForm' 
 
-import {handleFeedAdd,handleFeedUpdate,RHFAddFeed_input,RHFUpdateFeed_input,
+import {handleResourceAdd,handleResourceUpdate,RHFAddResource,RHFUpdateResource,
   handleWarehouseAdd,handleWarehouseUpdate,RHFAddWarehouse,RHFUpdateWarehouse,
   handleOtherInventoryAdd,handleOtherInventoryUpdate,RHFAddOtherInventory,RHFUpdateOtherInventory,
   handleEquipmentAdd,handleEquipmentUpdate,RHFAddEquipment,RHFUpdateEquipment,
@@ -78,14 +78,15 @@ function Body() {
           <Route index element={<LivestockTable />} />
           <Route path='list' element ={<LivestockTable/>} />
           <Route path='add' element ={<LivestockAdd/>} />
+          <Route path=":id" element={<LivestockDetails />} />
         </Route>
         <Route path='/inventory' element={<Inventory/>}>
           <Route index element={<InventoryTable/>} />
           <Route path='list' element ={<InventoryTable/>} />
-          <Route path='add/feed-input' element={
-                                  <FeedInputInventoryForm
-                                    onSubmit={handleFeedAdd}
-                                    form={RHFAddFeed_input}/>
+          <Route path='add/resource' element={
+                                  <ResourceInventoryForm
+                                    onSubmit={handleResourceAdd}
+                                    form={RHFAddResource}/>
                                   }/>
           <Route path='add/warehouse' element={<WarehouseForm
                                              onSubmit={handleWarehouseAdd}
@@ -93,15 +94,6 @@ function Body() {
           <Route path='add/equipment' element={<EquipmentInventoryForm 
                                              onSubmit={handleEquipmentAdd}
                                              form={RHFAddEquipment}/>}/>
-          <Route path='add/chemical' element={<ChemicalInventoryForm 
-                                             onSubmit={handleChemicalInventoryAdd}
-                                             form={RHFAddChemicalInventory}/>}/>
-          <Route path='add/other' element={<OtherInventoryForm 
-                                             onSubmit={handleOtherInventoryAdd}
-                                             form={RHFAddOtherInventory}/>}/>
-          <Route path='add/medical' element={<MedicalInventoryForm           
-                                              onSubmit={handleMedicalInventoryAdd}
-                                              form={RHFAddMedicalInventory}/>}/>
          
         </Route>
 

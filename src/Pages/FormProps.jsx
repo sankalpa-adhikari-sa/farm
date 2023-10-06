@@ -20,7 +20,7 @@ const notify = (success_message)=>{
   }
 
 // FeedInputInventoryForm props
-const handleFeedAdd = (data) =>{
+const handleResourceAdd = (data) =>{
     console.log(data)
     notify("Inventory Added")
         // const inputDate = new Date(data.date_time.$d);
@@ -32,15 +32,15 @@ const handleFeedAdd = (data) =>{
 
 }
 
-const handleFeedUpdate = (e) =>{
+const handleResourceUpdate = (e) =>{
     e.preventDefault()
 
 }
-const RHFAddFeed_input= ()=>{
+const RHFAddResource= ()=>{
     const form = useForm()
     return form
 }
-const RHFUpdateFeed_input= ()=>{
+const RHFUpdateResource= ()=>{
     const form = useForm()
     return form
 }
@@ -140,7 +140,7 @@ const RHFUpdateChemicalInventory= ()=>{
     const form = useForm()
     return form
 }
-export {handleFeedAdd,handleFeedUpdate,RHFAddFeed_input,RHFUpdateFeed_input,
+export {handleResourceAdd,handleResourceUpdate,RHFAddResource,RHFUpdateResource,
         handleWarehouseAdd,handleWarehouseUpdate,RHFAddWarehouse,RHFUpdateWarehouse,
         handleOtherInventoryAdd,handleOtherInventoryUpdate,RHFAddOtherInventory,RHFUpdateOtherInventory,
         handleEquipmentAdd,handleEquipmentUpdate,RHFAddEquipment,RHFUpdateEquipment,

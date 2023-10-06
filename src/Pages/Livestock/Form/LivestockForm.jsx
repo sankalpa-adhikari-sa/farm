@@ -16,7 +16,6 @@ import styled from '@emotion/styled';
 function LivestockForm(props) {
   const dispatch= useDispatch()
   const livestock = useSelector(state => state.livestock.Livestock_Info);
-
   const DamOptions= livestock.map((items)=>{
    return({label:items.tag_no, id:items.livestock_id})
   })
@@ -29,37 +28,6 @@ function LivestockForm(props) {
     reset();
     clearErrors();
   }
-//   const AutoComplete = styled(Autocomplete)`
-//   & .MuiInputBase-input {
-//     height: 10px;
-//   }
-// `;
-  // const styles = {
-  //   valueContainer: (base) => ({
-  //     ...base,
-  //     // height: 20,
-      
-      
-  //     justifyContent:"center",
-  //     overflowY: "hidden"
-  //   }),
-  //   control: (base) => ({
-  //     ...base,
-  //     minHeight:20,
-  //     width:"100%",
-  //     ZIndex:10000,
-  //     height:20,
-  //     margin:0,
-  //     padding:0,
-  //     display:"flex",
-  //     flexDirection:"column",
-  //     backgroundColor:"#cbc9c9",
-  //     borderRadius:5,
-  //     justifyContent:"center",
-  //     overflowY: "auto"
-  //   }),
-  // };
-
   return (
 
         <form className="FormWrapper" onSubmit={handleSubmit(props.onSubmit)}>

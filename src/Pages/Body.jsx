@@ -77,8 +77,14 @@ function Body() {
           <Route path='add' element ={<LivestockForm
                                       isUpdate={false}
                                       notify={notify}
-                                      form={RHFAddLivestock}
+                                     
                                       submitBtnText="Submit"/>} 
+                                      />
+          <Route path=':id/update' element ={<LivestockForm
+                                      isUpdate={true}
+                                      notify={notify}
+                                     
+                                      submitBtnText="Update"/>} 
                                       />
           <Route path=":id" element={<LivestockDetails />} />
         </Route>

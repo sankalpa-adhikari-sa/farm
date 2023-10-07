@@ -19,21 +19,30 @@ import { useParams } from 'react-router-dom';
 import { useWatch,useForm } from 'react-hook-form';
 function LivestockForm(props) {
   const dispatch= useDispatch()
-  console.log(props.isUpdate)
+
   const livestock = useSelector(state => state.livestock.Livestock_Info);
     const DamOptions= livestock.map((items)=>{
    return({label:items.tag_no, id:items.livestock_id})
   })
+
+  let current_livestock= null
+  if (props.isUpdate) {
+    const { id } = useParams();
+    current_livestock = livestock.find(item => item.livestock_id == id);
+    console.log(livestock)
+    
+  }
+  
   const form = useForm(
-    (props.isUpdate) ? { defaultValues: current_livestock } : {}
+    (props.isUpdate) ? { 
+      defaultValues: current_livestock 
+    } : {}
   );
   const {register, control, handleSubmit,formState:{errors},reset, clearErrors}= form
 
 
 const onSubmitForm=(data) => {
   if (props.isUpdate){
-    const{id}= useParams()
-    const current_livestock= livestock.find((item => item.id == id))
     const updatedLivestock= {
       ...current_livestock,
       ...data

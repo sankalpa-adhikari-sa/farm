@@ -14,7 +14,7 @@ function LivestockTable() {
   const dispatch= useDispatch()
   const navigate= useNavigate()
   const livestock = useSelector(state => state.livestock.Livestock_Info);
-  console.log(livestock)
+ 
   const columns = [
     {
         accessorKey: "tag_no",
@@ -49,11 +49,11 @@ function LivestockTable() {
         accessorKey: "Action",
         header: "Action",
         cell:(props) => <div>
-         { console.log(props)}
+       
                 <IconButton onClick={()=>{navigate(`/livestock/${props.row.original.livestock_id}`)}}>
                   <VisibilityIcon/>
                 </IconButton>
-                <IconButton>
+                <IconButton onClick={()=>{navigate(`/livestock/${props.row.original.livestock_id}/update`)}}>
                   <EditIcon/>
                 </IconButton>
                 <IconButton>

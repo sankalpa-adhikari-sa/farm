@@ -21,7 +21,7 @@ const livestockSlice= createSlice({
         updateLivestock: (state, action) => {
             const updatedLivestock = action.payload;
             state.Livestock_Info = state.Livestock_Info.map(item =>
-                item.livestock_id === updatedLivestock.livestock_id ? updatedCattle : item
+                item.livestock_id === updatedLivestock.livestock_id ? updatedLivestock : item
       );
     }
     }

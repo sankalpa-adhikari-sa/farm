@@ -13,24 +13,61 @@ import Grid from '@mui/material/Grid';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import styled from '@emotion/styled';
+import { v4 as uuidv4 } from 'uuid';
+import { addLivestock, updateLivestock } from '../../../Features/Livestock/LivestockSlice';
+import { useParams } from 'react-router-dom';
+import { useWatch,useForm } from 'react-hook-form';
 function LivestockForm(props) {
   const dispatch= useDispatch()
+  console.log(props.isUpdate)
   const livestock = useSelector(state => state.livestock.Livestock_Info);
-  const DamOptions= livestock.map((items)=>{
+    const DamOptions= livestock.map((items)=>{
    return({label:items.tag_no, id:items.livestock_id})
   })
-  console.log("Livestock",livestock)
-  console.log(DamOptions)
+  const form = useForm(
+    (props.isUpdate) ? { defaultValues: current_livestock } : {}
+  );
+  const {register, control, handleSubmit,formState:{errors},reset, clearErrors}= form
 
-  const {register, control, handleSubmit,formState:{errors},reset, clearErrors}= props.form
+
+const onSubmitForm=(data) => {
+  if (props.isUpdate){
+    const{id}= useParams()
+    const current_livestock= livestock.find((item => item.id == id))
+    const updatedLivestock= {
+      ...current_livestock,
+      ...data
+    }
+      dispatch(updateLivestock(updatedLivestock))
+  }
+  else {
+    const livestockWithId = {
+      ...data,
+      livestock_id: uuidv4(),
+    };
+    dispatch(addLivestock(livestockWithId));
+    form.reset();
+    form.clearErrors();
+  
+    props.notify("hello");
+    console.log(livestockWithId)
+  }
+  
+}
+  
+
   const handleReset = (e) => {
     e.preventDefault()
     reset();
     clearErrors();
   }
+
+
+
+ 
   return (
 
-        <form className="FormWrapper" onSubmit={handleSubmit(props.onSubmit)}>
+        <form className="FormWrapper" onSubmit={handleSubmit(onSubmitForm)}>
           <Grid container >
           {/* -------Form Control------ */}
             <Grid container item  className="FormGroup">

@@ -3,11 +3,9 @@ import { Outlet } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
 import { ActionBtn, ActionBtnBlack } from '../../UI Components/CustomButtom'
 import PersonAddIcon from '@mui/icons-material/PersonAdd'
-import {MenuList, Menu,MenuItem,Paper, Box, Typography } from '@mui/material'
+import {Menu,MenuItem, Typography } from '@mui/material'
 import AgricultureIcon from '@mui/icons-material/Agriculture';
-import VaccinesIcon from '@mui/icons-material/Vaccines';
-import GrassIcon from '@mui/icons-material/Grass';
-import { GiCow } from 'react-icons/gi'
+
 import WarehouseIcon from '@mui/icons-material/Warehouse';
 import InventoryIcon from '@mui/icons-material/Inventory';
 function Inventory() {

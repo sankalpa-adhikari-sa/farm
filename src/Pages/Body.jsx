@@ -21,17 +21,13 @@ import Inventory from './Inventory/Inventory';
 import ResourceInventoryForm from './Inventory/Forms/ResourceInventoryForm';
 import WarehouseForm from './Inventory/Forms/WarehouseForm';
 import EquipmentInventoryForm from './Inventory/Forms/EquipmentInventoryForm'
-import ChemicalInventoryForm from './Inventory/Forms/ChemicalInventoryForm'
-import MedicalInventoryForm from './Inventory/Forms/MedicalInventoryForm'
-import OtherInventoryForm from './Inventory/Forms/OtherInventoryForm' 
+import { RHFAddLivestock } from './Livestock/LivestockFormProps';
 
-import {handleResourceAdd,handleResourceUpdate,RHFAddResource,RHFUpdateResource,
-  handleWarehouseAdd,handleWarehouseUpdate,RHFAddWarehouse,RHFUpdateWarehouse,
-  handleOtherInventoryAdd,handleOtherInventoryUpdate,RHFAddOtherInventory,RHFUpdateOtherInventory,
-  handleEquipmentAdd,handleEquipmentUpdate,RHFAddEquipment,RHFUpdateEquipment,
-  handleMedicalInventoryAdd,handleMedicalInventoryUpdate,RHFAddMedicalInventory,RHFUpdateMedicalInventory,
-  handleChemicalInventoryAdd,handleChemicalInventoryUpdate,RHFAddChemicalInventory,RHFUpdateChemicalInventory,
+import {handleResourceAdd,RHFAddResource,
+  handleWarehouseAdd,RHFAddWarehouse,
+  handleEquipmentAdd,RHFAddEquipment, notify,
 } from './FormProps';
+import LivestockForm from './Livestock/Form/LivestockForm';
 
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
   ({ theme, open, sidebarwidth }) => ({
@@ -77,7 +73,13 @@ function Body() {
         <Route path='/livestock' element ={<Livestock/>} >
           <Route index element={<LivestockTable />} />
           <Route path='list' element ={<LivestockTable/>} />
-          <Route path='add' element ={<LivestockAdd/>} />
+          {/* <Route path='add' element ={<LivestockAdd/>} /> */}
+          <Route path='add' element ={<LivestockForm
+                                      isUpdate={false}
+                                      notify={notify}
+                                      form={RHFAddLivestock}
+                                      submitBtnText="Submit"/>} 
+                                      />
           <Route path=":id" element={<LivestockDetails />} />
         </Route>
         <Route path='/inventory' element={<Inventory/>}>
@@ -85,6 +87,7 @@ function Body() {
           <Route path='list' element ={<InventoryTable/>} />
           <Route path='add/resource' element={
                                   <ResourceInventoryForm
+                                  isUpdate={false}
                                     onSubmit={handleResourceAdd}
                                     form={RHFAddResource}/>
                                   }/>

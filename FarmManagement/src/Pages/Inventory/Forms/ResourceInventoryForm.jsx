@@ -437,7 +437,7 @@ function ResourceInventoryForm(props) {
           <FormItem >
             <FormLabel>Manufacturer</FormLabel>
             <FormControl >
-              <Input placeholder="Manufacturer" type="number"
+              <Input placeholder="Manufacturer" 
                 {...field} 
                
               />
@@ -483,7 +483,7 @@ function ResourceInventoryForm(props) {
                     selected={field.value}
                     onSelect={field.onChange}
                     disabled={(date) =>
-                      date > new Date() || date < new Date("1900-01-01")
+                      date < new Date() 
                     }
                     initialFocus
                   />

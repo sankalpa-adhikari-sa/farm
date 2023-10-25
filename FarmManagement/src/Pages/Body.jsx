@@ -72,18 +72,15 @@ function Body() {
         <Route path='/farm' element ={<Farm/>} />
         <Route path='/livestock' element ={<Livestock/>} >
           <Route index element={<LivestockTable />} />
-          <Route path='list' element ={<LivestockTable/>} />
-          
+          <Route path='list' element ={<LivestockTable/>} /> 
           <Route path='add' element ={<LivestockForm
                                       isUpdate={false}
                                       notify={notify}
-                                     
                                       submitBtnText="Submit"/>} 
                                       />
           <Route path=':id/update' element ={<LivestockForm
                                       isUpdate={true}
                                       notify={notify}
-                                     
                                       submitBtnText="Update"/>} 
                                       />
         </Route>
@@ -96,14 +93,11 @@ function Body() {
             <Route path='add' element ={<LivestockYieldForm
                                         isUpdate={false}
                                         notify={notify}
-                                      
-                                        submitBtnText="Submit"/>} 
-                                        />
+                                        submitBtnText="Submit"/>} />
             <Route path='update' element ={<LivestockYieldForm
                                         isUpdate={true}
                                         notify={notify}
-                                        submitBtnText="Update"/>} 
-                                        />
+                                        submitBtnText="Update"/>} />
           </Route>
           <Route path='measurement' element={<LivestockMeasurement />} >
             <Route index element={<LivestockMeasurementTable />} />
@@ -111,14 +105,11 @@ function Body() {
             <Route path='add' element ={<LivestockMeasurementForm
                                         isUpdate={false}
                                         notify={notify}
-                                      
-                                        submitBtnText="Submit"/>} 
-                                        />
+                                        submitBtnText="Submit"/>} />
             <Route path='update' element ={<LivestockMeasurementForm
                                         isUpdate={true}
                                         notify={notify}
-                                        submitBtnText="Update"/>} 
-                                        />
+                                        submitBtnText="Update"/>} />
           </Route>
           <Route path='resource_usage' element={<LivestockRU />} >
             <Route index element={<LivestockRUTable />} />
@@ -126,13 +117,11 @@ function Body() {
             <Route path='add' element ={<LivestockRUForm
                                         isUpdate={false}
                                         notify={notify}
-                                        submitBtnText="Submit"/>} 
-                                        />
+                                        submitBtnText="Submit"/>} />
             <Route path='update' element ={<LivestockRUForm
                                         isUpdate={true}
                                         notify={notify}
-                                        submitBtnText="Update"/>} 
-                                        />
+                                        submitBtnText="Update"/>} />
           </Route>
           <Route path='treatment' element={<LivestockTreatment />} >
             <Route index element={<LivestockTreatmentTable />} />
@@ -140,31 +129,27 @@ function Body() {
             <Route path='add' element ={<LivestockTreatmentForm
                                         isUpdate={false}
                                         notify={notify}
-                                        submitBtnText="Submit"/>} 
-                                        />
+                                        submitBtnText="Submit"/>} />
             <Route path='update' element ={<LivestockTreatmentForm
                                         isUpdate={true}
                                         notify={notify}
-                                        submitBtnText="Update"/>} 
-                                        />
+                                        submitBtnText="Update"/>} />
           </Route>
         </Route>
+        
         <Route path='/inventory' element={<Inventory/>}>
           <Route index element={<InventoryTable/>} />
           <Route path='list' element ={<InventoryTable/>} />
-          <Route path='add/resource' element={
-                                  <ResourceInventoryForm
-                                  isUpdate={false}
-                                    onSubmit={handleResourceAdd}
-                                    form={RHFAddResource}/>
-                                  }/>
+          <Route path='add/resource' element={<ResourceInventoryForm
+                                            isUpdate={false}
+                                            onSubmit={handleResourceAdd}
+                                            form={RHFAddResource}/> }/>
           <Route path='add/warehouse' element={<WarehouseForm
                                              onSubmit={handleWarehouseAdd}
                                              form={RHFAddWarehouse}/>}/>
           <Route path='add/equipment' element={<EquipmentInventoryForm 
                                              onSubmit={handleEquipmentAdd}
                                              form={RHFAddEquipment}/>}/>
-         
         </Route>
 
         <Route path="*" element={<PageNotFound/>} />

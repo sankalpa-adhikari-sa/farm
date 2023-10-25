@@ -16,6 +16,19 @@ const fetchAllResource= async(id) => {
 const fetchResourceByid= async(id) => {
     return await pb.collection('resource').getOne(id);
 }
+const fetchResourceByWarehouse= async(id) => {
+    return await pb.collection('resource').getFullList({
+        filter: `storage_location = "${id}"`,
+        sort: '-created',
+    });
+}
+
+export const useResourceByWarehouse =(id) => {
+    return useQuery({
+        querykey:["resource_by_warehouse",id],
+        queryFn:()=> fetchResourceByWarehouse(id)
+    })
+}
 
 //list
 export const useResource = () => {

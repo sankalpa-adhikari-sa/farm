@@ -239,15 +239,15 @@ function LivestockYieldForm(props) {
          }}
           render={({field}) =>(
             <FormItem >
-              <FormLabel>Expected Revenue per unit</FormLabel>
+              <FormLabel>Expected Revenue</FormLabel>
               <FormControl >
-                <Input placeholder="2.3" type="number"
+                <Input placeholder="230" type="number"
                   {...field} 
                   onChange={(e) => field.onChange(parseFloat(e.target.value))} 
                 />
               </FormControl>
               <FormDescription className="text-xs">
-             Expected revenue per unit quantity
+             Expected revenue
               </FormDescription>
               <FormMessage className="text-xs" />
             </FormItem>

@@ -9,7 +9,6 @@ import LivestockTypeForm from '../Others/LivestockTypeForm'
 function LivestockDetails() {
   const {id}= useParams()
   const navigate= useNavigate();
-  console.log(id)
 
   return (
     <div className='mt-4'>

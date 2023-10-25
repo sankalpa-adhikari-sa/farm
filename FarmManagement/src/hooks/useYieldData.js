@@ -7,6 +7,18 @@ const addYield = async(data) => {
 const fetchAllYield= async(id) => {
     return await pb.collection('yield').getFullList();
 }
+const fetchYieldByLivestock= async(id) => {
+    return await pb.collection('yield').getFullList({
+        filter: `livestock = "${id}"`,
+        sort: '-yield_date',
+    });
+}
+export const useYieldByLivestock =(id) => {
+    return useQuery({
+        querykey:["yield",id],
+        queryFn:()=> fetchYieldByLivestock(id)
+    })
+}
 
 //list
 export const useYield = () => {

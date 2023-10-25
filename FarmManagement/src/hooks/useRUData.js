@@ -16,6 +16,20 @@ const fetchAllResourceUsage= async(id) => {
 const fetchResourceUsageByid= async(id) => {
     return await pb.collection('resource_usage').getOne(id);
 }
+const fetchResourceUsageByLivestock= async(id) => {
+    return await pb.collection('resource_usage').getFullList({
+        filter: `livestock = "${id}"`,
+        sort: '-created',
+    });
+}
+
+//list
+export const useResourceUsageByLivestock =(id) => {
+    return useQuery({
+        querykey:["resource_usage_by_livestock",id],
+        queryFn:()=> fetchResourceUsageByLivestock(id)
+    })
+}
 
 //list
 export const useResourceUsage = () => {

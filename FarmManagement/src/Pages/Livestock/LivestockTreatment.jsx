@@ -5,6 +5,7 @@ import { PlusCircle,TableProperties} from 'lucide-react';
 import { Outlet } from 'react-router-dom';
 function LivestockTreatment() {
   const navigate= useNavigate()
+  const {id} = useParams()
   return (
     <div className='p-3 mt-4 h-full w-full rounded-lg border bg-card text-card-foreground shadow-sm'>
     <div className='flex justify-between'>

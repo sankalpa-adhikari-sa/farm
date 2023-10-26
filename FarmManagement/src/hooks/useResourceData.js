@@ -11,7 +11,9 @@ const deleteResourceByid= async(id) => {
     return await pb.collection('resource').delete(id);
 }
 const fetchAllResource= async(id) => {
-    return await pb.collection('resource').getFullList();
+    return await pb.collection('resource').getFullList({
+        expand: 'storage_location'
+    });
 }
 const fetchResourceByid= async(id) => {
     return await pb.collection('resource').getOne(id);

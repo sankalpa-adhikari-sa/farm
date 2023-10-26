@@ -38,16 +38,17 @@ import { useResource } from '@/hooks/useResourceData';
 
 function LivestockRUForm() {
   const {id}= useParams()
-
   const form= useForm({
     defaultValues: {
       usage_quantity: 0,
       details: ''
     },
   })
-  const {data}= useResource()
-  const RESOURCES= data
-  console.log("Resource data: ", data)
+  const {data: resource_data}= useResource()
+  const RESOURCES= resource_data?resource_data.map(item => ({
+    label:`${item.input_name} | ${item.inventory_type} > ${item.current_quantity} ${item.quantity_unit} @ ${item.expand.storage_location.warehouse_name}`,
+    value: item.id
+  })):[]
 
   const onSubmitForm =(data) =>{
     const UsageWithId = {
@@ -68,6 +69,76 @@ function LivestockRUForm() {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmitForm)}>
+        {/* --------------------------------- */}
+        <FormField
+          control={form.control}
+          name="resource"
+          rules={{
+            required:"Resource is required"            
+         }}
+          render={({ field }) => (
+            <FormItem className="flex flex-col">
+              <FormLabel>Resource</FormLabel>
+              <Popover>
+                <PopoverTrigger asChild>
+                  <FormControl>
+                    <Button
+                      variant="outline"
+                      role="combobox"
+                      className={cn(
+                        "w-[200px] justify-between",
+                        !field.value && "text-muted-foreground"
+                      )}
+                    >
+                      {field.value
+                        ? RESOURCES.find(
+                            (type) => type.value === field.value
+                          )?.label
+                        : "Select Resource"}
+                      <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                    </Button>
+                  </FormControl>
+                </PopoverTrigger>
+                <PopoverContent className="w-[200px] p-0">
+                  <Command>
+                    <CommandInput placeholder="Search Resource..." />
+                    <CommandEmpty>No Resource found.</CommandEmpty>
+                    <CommandGroup>
+                    <ScrollArea className="h-72 w-48">
+                      {RESOURCES.map((type) => (
+                        <CommandItem
+                          value={type.label}
+                          key={type.value}
+                          onSelect={() => {
+                            form.setValue("resource", type.value)
+                          }}
+                        >
+                          <Check
+                            className={cn(
+                              "mr-2 h-4 w-4",
+                              type.value === field.value
+                                ? "opacity-100"
+                                : "opacity-0"
+                            )}
+                          />
+                          {type.label} 
+                        </CommandItem>
+                      ))}
+                      </ScrollArea>
+
+                    </CommandGroup>
+                  </Command>
+                </PopoverContent>
+              </Popover>
+              
+              <FormDescription>
+                This is the Resource that will be used in the dashboard.
+              </FormDescription>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
         {/* --------------------------------- */}
         <FormField  control={form.control}
           name="usage_quantity"

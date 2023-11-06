@@ -30,7 +30,9 @@ function Livestock() {
             Add
           </DropdownMenuTrigger>
           <DropdownMenuContent className="w-40 mt-1 mr-3" >
-            <DropdownMenuLabel>Add</DropdownMenuLabel>
+            <DropdownMenuItem  onClick={()=>{navigate("/livestock/type/add")}} className="h-10"> 
+              Livestock Type
+            </DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem  onClick={()=>{navigate("/livestock/add")}} className="h-10"> 
               <GiCow size={24} className='mr-3' />

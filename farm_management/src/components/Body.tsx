@@ -22,6 +22,7 @@ import Warehouse from '@/pages/Warehouse';
 import WarehouseForm from '@/pages/Warehouse/forms/WarehouseForm';
 import WarehouseTable from '@/pages/Warehouse/WarehouseTable';
 import EquipmentForm from '@/pages/Inventory/forms/EquipmentForm';
+import LivestockTypeForm from '@/pages/Livestock/forms/LivestockTypeForm';
 
 function Body() {
   return (
@@ -33,6 +34,10 @@ function Body() {
             <Route index element={<LivestockTable />} />
                 <Route path='list' element ={<LivestockTable/>} /> 
                 <Route path='add' element ={<LivestockForm
+                                      isUpdate={false}
+                                      submitBtnText="Submit"/>} 
+                                      />
+                <Route path='type/add' element ={<LivestockTypeForm
                                       isUpdate={false}
                                       submitBtnText="Submit"/>} 
                                       />

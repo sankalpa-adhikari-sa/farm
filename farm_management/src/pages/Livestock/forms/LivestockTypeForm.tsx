@@ -29,10 +29,6 @@ type LivestockTypeFormProps = {
   submitBtnText: string
 
 }
-
-
-
-
 function LivestockTypeForm(props:LivestockTypeFormProps) {
   const form= useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -48,9 +44,9 @@ function LivestockTypeForm(props:LivestockTypeFormProps) {
     control:form.control
   })
   const onSubmitForm =(data:z.infer<typeof formSchema>) =>{
+   
     const livestockYieldWithId = {
       ...data,
-      
     };
     form.reset();
     form.clearErrors();
@@ -93,7 +89,7 @@ function LivestockTypeForm(props:LivestockTypeFormProps) {
         <div>
           <FormLabel>Yield</FormLabel>
             { fields.map(({id},index)=>(
-            <div>
+            <div key={id}>
               <FormField key={id}
                 control={form.control}
                 name={`livestock_type_yield.${index}.yield_name`}
@@ -182,8 +178,6 @@ function LivestockTypeForm(props:LivestockTypeFormProps) {
         </Button>
           </div>
       </form>
-
-
 
     </Form>
   )

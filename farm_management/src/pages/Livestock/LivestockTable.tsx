@@ -2,7 +2,7 @@
 import { Button } from "@/components/ui/button"
 import ReusableTable from '@/components/Table';
 import { useNavigate } from 'react-router-dom';
-import { Pencil,Eye, Trash,PlusSquare,Group } from 'lucide-react';
+import { Pencil,Eye, Trash,PlusSquare,Group,MoreHorizontal } from 'lucide-react';
 import { DataTableColumnHeader } from '@/components/ui/table-header';
 import { Checkbox } from "@/components/ui/checkbox"
 import {
@@ -110,16 +110,32 @@ function LivestockTable() {
         id: "Action",
         header: "",
         cell:({row}) => <div>
-       
-                <Button size="icon" onClick={()=>{navigate(`/livestock/${row.original.id}`)}}>
-                  <Eye/>
-                </Button>
-                <Button size="icon" onClick={()=>{navigate(`/livestock/${row.original.id}/update`)}}>
-                  <Pencil/>
-                </Button>
-                <Button onClick={() => handleLivestockDelete(row.original.id)} variant="destructive" size="icon">
-                  <Trash />
-                </Button>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button
+                variant="ghost"
+                className="flex h-8 w-8 p-0 data-[state=open]:bg-muted"
+                >
+              <MoreHorizontal className='w-4 h-4'/>
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent className="w-30">
+              <DropdownMenuLabel>Action</DropdownMenuLabel>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem className="h-10 text-destructive" onClick={() => handleLivestockDelete(row.original.id)} >
+                <Trash className='w-4 h-4 mr-3 text-destructive' />
+                Delete
+              </DropdownMenuItem>
+              <DropdownMenuItem className="h-10 " onClick={()=>{navigate(`/livestock/${row.original.id}`)}} >
+                <Eye className='w-4 h-4 mr-3 ' />
+                View
+              </DropdownMenuItem>
+              <DropdownMenuItem className="h-10 " onClick={()=>{navigate(`/livestock/${row.original.id}/update`)}} >
+                <Pencil className='w-4 h-4 mr-3 ' />
+                Edit
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
                 </div>
     }
 ]
@@ -133,8 +149,9 @@ const DropdownMenuTriggerCSS="w-10 bg-primary text-primary-foreground hover:bg-p
 
 const selectionAction=(table:any)=>{
   const handleDeleteSelection= ()=>{
-    const sel = table.getSelectedRowModel().flatRows.map(row => row.original.livestock_id)
+    const sel = table.getSelectedRowModel().flatRows.map(row => row.original.id)
     console.log(sel)
+    console.log(table)
   }
   return ( 
     

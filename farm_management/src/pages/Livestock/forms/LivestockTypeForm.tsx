@@ -178,7 +178,6 @@ function LivestockTypeForm(props:LivestockTypeFormProps) {
         </Button>
           </div>
       </form>
-
     </Form>
   )
 }

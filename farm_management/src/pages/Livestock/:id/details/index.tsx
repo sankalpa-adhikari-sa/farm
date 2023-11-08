@@ -18,7 +18,7 @@ function LivestockDetails() {
           <LivestockDashboard/>
         </TabsContent>
         <TabsContent value="task">
-          <LivestockTypeForm />
+          Tasiks
         </TabsContent>
       </Tabs>
     </div>

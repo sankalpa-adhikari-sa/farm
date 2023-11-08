@@ -6,12 +6,14 @@ import {getSortedRowModel,
         flexRender, 
         getPaginationRowModel,
         getFilteredRowModel,
+        getFacetedRowModel,
+  getFacetedUniqueValues,
         SortingState,
         ColumnFiltersState} from "@tanstack/react-table"
 
 import { Button } from "@/components/ui/button"
 import { Input } from '@/components/ui/input';
-import { MenuSquare} from 'lucide-react';
+import { MenuSquare, XCircle} from 'lucide-react';
 import {
     DropdownMenu,
     DropdownMenuCheckboxItem,
@@ -29,62 +31,102 @@ import {
     TableRow} from "@/components/ui/table"
 
 import { DataTablePagination } from './ui/table-pagination';
+import { DataTableFacetedFilter } from './data-table-faceted-filter';
 
 interface DataTableProps<TData, TValue> {
     columns: ColumnDef<TData, TValue>[]
     table_data: TData[],
     filter:string,
     selection_option:Boolean,
-    selectionAction:any
+    selectionAction:any,
+    filterOptions:any,
 
   }
  
 function ReusableTable<TData, TValue>(props:DataTableProps<TData, TValue>) {
+    const [globalFilter, setGlobalFilter] = useState("");
     const [sorting, setSorting] = useState<SortingState>([])
     const [current_columns]= useState(()=>[...props.columns])
     const [columnVisibility, setColumnVisibility] = useState({})
     const [rowSelection, setRowSelection] =useState({})
-    const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([
-        {
-          id: props.filter,
-          value: ""
-        }
-      ]);
+    // const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([
+    //     {
+    //       id: props.filter,
+    //       value: ""
+    //     }
+    //   ]);
+    const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>(
+        []
+      )
 
-      const handleInputChange = (event:any) => {
-        const { value } = event.target;
-        setColumnFilters([{ id: props.filter, value }]);
-      };
+      const handleGlobalSearch = (event:any) =>{
+        const {value }= event.target;
+        setGlobalFilter(String(value))
+      }
       const table= useReactTable({
         data:props.table_data,
         columns:current_columns,
         state:{
+            globalFilter,
             columnFilters,
             columnVisibility,
             sorting,
             rowSelection,
         },
+        onGlobalFilterChange: setGlobalFilter,
         onRowSelectionChange: setRowSelection,
         onSortingChange: setSorting,
         onColumnVisibilityChange: setColumnVisibility,
+        onColumnFiltersChange: setColumnFilters,
         getCoreRowModel:getCoreRowModel(),
         getFilteredRowModel:getFilteredRowModel(),
         getPaginationRowModel: getPaginationRowModel(),
         getSortedRowModel: getSortedRowModel(),
+        getFacetedRowModel: getFacetedRowModel(),
+    getFacetedUniqueValues: getFacetedUniqueValues(),
 
     })
+    const isFiltered = table.getState().columnFilters.length > 0
     const [selectedRow, setSelectedRow]= useState([])
+   
    
   return (
 
     <div  className='pt-4' >
         <div  className='flex flex-row justify-between'>
             <div className='flex space-x-4'>
-                <Input onChange={handleInputChange} type="text" placeholder="Search..." />
+                {/* ---------------- Global Search--------------- */}
+            <Input
+                placeholder="Search all columns..."
+                value={globalFilter ?? ""}
+                onChange={handleGlobalSearch}
+                />
+                {/* ---------------- Selection (Need to work on later)--------------- */}
                 {table.getFilteredSelectedRowModel().rows.length > 0 && props.selection_option ? 
                     props.selectionAction(table):
                     null 
                 }
+
+                {/* ---------------- filter by Livestock Type --------------- */}
+                 {table.getColumn(`${props.filter}`) && (
+                    <DataTableFacetedFilter
+                        column={table.getColumn(`${props.filter}`)}
+                        title={`${props.filter}`}
+                        options={props.filterOptions}
+                    />
+                )}
+
+                {/* ---------------- Remove filter--------------- */}
+                {isFiltered && (
+          <Button
+            variant="ghost"
+            onClick={() => table.resetColumnFilters()}
+            className="h-8 px-2 lg:px-3"
+          >
+            Reset
+            <XCircle className="ml-2 h-4 w-4" />
+          </Button>
+        )}
             </div>
             <div  >
                 <DropdownMenu>

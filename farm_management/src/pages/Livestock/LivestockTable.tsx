@@ -1,8 +1,5 @@
-
-import { Button } from "@/components/ui/button"
 import ReusableTable from '@/components/Table';
-import { useNavigate } from 'react-router-dom';
-import { Pencil,Eye, Trash,PlusSquare,Group,MoreHorizontal } from 'lucide-react';
+import { Trash,PlusSquare,Group } from 'lucide-react';
 import { DataTableColumnHeader } from '@/components/ui/table-header';
 import { Checkbox } from "@/components/ui/checkbox"
 import {
@@ -16,6 +13,7 @@ import {
 import { ColumnDef } from "@tanstack/react-table"
 import { useDeleteLivestockByID, useLivestock } from './hooks/useLivestockData';
 import {z} from "zod";
+import TableRowActions from "@/components/TableRowActions";
 const taskSchema = z.object({
   id:z.string(),
   livestock_tag_no: z.string(),
@@ -26,10 +24,9 @@ const taskSchema = z.object({
 
 type Task = z.infer<typeof taskSchema>
 function LivestockTable() {
-  const navigate= useNavigate()
 
 
-  const {data=[]}= useLivestock()
+  const {data=[]}:any= useLivestock()
 
 
 
@@ -97,7 +94,10 @@ function LivestockTable() {
           <DataTableColumnHeader column={column} title="Livestock Type" />
         ),
         cell:({row}) => 
-            <div className='TableData'>{row.getValue("Livestock Type")}</div>
+           ( <div className='TableData'>{row.getValue("Livestock Type")}</div>),
+        filterFn: (row, id, value) => {
+            return value.includes(row.getValue(id))
+          },
     },
 
     // {
@@ -110,32 +110,9 @@ function LivestockTable() {
         id: "Action",
         header: "",
         cell:({row}) => <div>
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button
-                variant="ghost"
-                className="flex h-8 w-8 p-0 data-[state=open]:bg-muted"
-                >
-              <MoreHorizontal className='w-4 h-4'/>
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent className="w-30">
-              <DropdownMenuLabel>Action</DropdownMenuLabel>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem className="h-10 text-destructive" onClick={() => handleLivestockDelete(row.original.id)} >
-                <Trash className='w-4 h-4 mr-3 text-destructive' />
-                Delete
-              </DropdownMenuItem>
-              <DropdownMenuItem className="h-10 " onClick={()=>{navigate(`/livestock/${row.original.id}`)}} >
-                <Eye className='w-4 h-4 mr-3 ' />
-                View
-              </DropdownMenuItem>
-              <DropdownMenuItem className="h-10 " onClick={()=>{navigate(`/livestock/${row.original.id}/update`)}} >
-                <Pencil className='w-4 h-4 mr-3 ' />
-                Edit
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
+          <TableRowActions deletefn={() => handleLivestockDelete(row.original.id)} 
+          view={`/livestock/${row.original.id}`} 
+          edit={`/livestock/${row.original.id}/update`} />
                 </div>
     }
 ]
@@ -147,12 +124,14 @@ function LivestockTable() {
 
 const DropdownMenuTriggerCSS="w-10 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-2 py-2 inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50"
 
-const selectionAction=(table:any)=>{
+const selectionAction=(table)=>{
+  console.log(table)
   const handleDeleteSelection= ()=>{
     const sel = table.getSelectedRowModel().flatRows.map(row => row.original.id)
     console.log(sel)
     console.log(table)
   }
+
   return ( 
     
   <DropdownMenu>
@@ -174,14 +153,27 @@ const selectionAction=(table:any)=>{
 </DropdownMenu>
   )
 }
+
+const FilterOptions = [
+  {
+    value: "goat",
+    label: "Goat",
+  },
+  {
+      value: "poultry",
+      label: "Poultry",
+    },
+]
   return (
     <div>
       
       <ReusableTable selection_option={true} 
       selectionAction={selectionAction} 
       columns={columns} 
-      filter="Tag No" 
-      table_data={data} />
+      filter="Livestock Type" //supports currently only one need to modify it to array of [{filter:"Livestock Type",options:[{label:"Poultry",value:"poultyr"},{}]}]
+      filterOptions={FilterOptions} //remve this after supporting above
+      table_data={data}
+      />
     </div>
   )
 }

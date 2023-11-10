@@ -14,6 +14,7 @@ import { ColumnDef } from "@tanstack/react-table"
 import { useDeleteLivestockByID, useLivestock } from './hooks/useLivestockData';
 import {z} from "zod";
 import TableRowActions from "@/components/TableRowActions";
+import { useLivestockType } from './hooks/useLivestockTypeData';
 const taskSchema = z.object({
   id:z.string(),
   livestock_tag_no: z.string(),
@@ -153,17 +154,21 @@ const selectionAction=(table)=>{
 </DropdownMenu>
   )
 }
-
-const FilterOptions = [
-  {
-    value: "goat",
-    label: "Goat",
-  },
-  {
-      value: "poultry",
-      label: "Poultry",
-    },
-]
+const l_type_Query= useLivestockType()
+const FilterOptions= l_type_Query.data?l_type_Query.data.map(item => ({
+  label: item.type,
+  value:item.type
+})):[]
+// const FilterOptions = [
+//   {
+//     value: "goat",
+//     label: "Goat",
+//   },
+//   {
+//       value: "poultry",
+//       label: "Poultry",
+//     },
+// ]
   return (
     <div>
       

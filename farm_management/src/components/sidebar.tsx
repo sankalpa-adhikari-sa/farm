@@ -2,7 +2,7 @@ import { NavLink } from 'react-router-dom'
 import { Button } from '@/components/ui/button';
 import { GiCow } from 'react-icons/gi'
 
-import { Users,Home,ShoppingBasket, Warehouse } from "lucide-react"
+import { Users,Home,ShoppingBasket, Warehouse, ListTodo } from "lucide-react"
 import { useAppSelector } from '@/store';
 function Sidebar() {
  
@@ -49,6 +49,14 @@ function Sidebar() {
           <Button variant={isActive ? "default" : "ghost"} className="w-full justify-start" >
             <Warehouse className='w-4 h-4 mr-2'/>
             Warehouse
+          </Button>
+          )}
+        </NavLink>
+        <NavLink  to="/tasks">
+          {({isActive}) => ( 
+          <Button variant={isActive ? "default" : "ghost"} className="w-full justify-start" >
+            <ListTodo className='w-4 h-4 mr-2'/>
+            Tasks
           </Button>
           )}
         </NavLink>

@@ -14,7 +14,7 @@ function Warehouse() {
           <TableProperties className='w-4 h-4 mr-3'/>
           Warehouse
         </Button>
-        <Button className="font-bold"  onClick={()=>{navigate("/warehouse/add/warehouse")}} >
+        <Button className="font-bold"  onClick={()=>{navigate("/warehouse/add")}} >
         <PlusCircle className='w-4 h-4 mr-3' />
           Add
         </Button>

@@ -23,7 +23,9 @@ import WarehouseForm from '@/pages/Warehouse/forms/WarehouseForm';
 import WarehouseTable from '@/pages/Warehouse/WarehouseTable';
 import EquipmentForm from '@/pages/Inventory/forms/EquipmentForm';
 import LivestockTypeForm from '@/pages/Livestock/forms/LivestockTypeForm';
-
+import Tasks from '@/pages/Tasks';
+import TasksList from '@/pages/Tasks/TasksList';
+import TasksForm from '@/pages/Tasks/forms/TasksForm';
 function Body() {
   return (
     <div className="pt-4 pl-4 pr-4 w-full h-full" >
@@ -99,7 +101,15 @@ function Body() {
           <Route path='/warehouse' element={<Warehouse/>}>
           <Route index element={<WarehouseTable/>} />
             <Route path='list' element ={<WarehouseTable/>} />
-            <Route path='add/warehouse' element={<WarehouseForm
+            <Route path='add' element={<WarehouseForm
+                                            isUpdate={false}
+                                            submitBtnText="Submit"
+                                           /> }/>
+          </Route>
+          <Route path='/tasks' element={<Tasks/>}>
+          <Route index element={<TasksList/>} />
+            <Route path='list' element ={<TasksList/>} />
+            <Route path='add' element={<TasksForm
                                             isUpdate={false}
                                             submitBtnText="Submit"
                                            /> }/>

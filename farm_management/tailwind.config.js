@@ -19,12 +19,12 @@ module.exports = {
       colors: {
         border: "hsl(var(--border))",
         borderAlert: "hsl(var(--border-alert))",
-        borderTertinary: "hsl(var(--border-tertinary))",
+        borderTertiary: "hsl(var(--border-tertiary))",
 
         input: "hsl(var(--input))",
         inputAlert: "hsl(var(--input-alert))",
-        inputTertinary: "hsl(var(--input-tertinary))",
-        
+        inputTertiary: "hsl(var(--input-tertiary))",
+      
         ring: "hsl(var(--ring))",
         ringSuccess: "hsl(var(--ring-success))", //custom
         ringAlert: "hsl(var(--ring-alert))", //custom
@@ -80,9 +80,9 @@ module.exports = {
           DEFAULT: "hsl(var(--muted-alert))",
           foreground: "hsl(var(--muted-alert-foreground))",//same
         },
-        mutedTertinary: {
-          DEFAULT: "hsl(var(--muted-tertinary))",
-          foreground: "hsl(var(--muted-tertinary-foreground))",//same
+        mutedTertiary: {
+          DEFAULT: "hsl(var(--muted-tertiary))",
+          foreground: "hsl(var(--muted-tertiary-foreground))",//same
         },
         accent: {
           DEFAULT: "hsl(var(--accent))",
@@ -100,9 +100,9 @@ module.exports = {
           DEFAULT: "hsl(var(--accent-alert))",
           foreground: "hsl(var(--accent-alert-foreground))",
         },
-        accentTertinary: {
-          DEFAULT: "hsl(var(--accent-tertinary))",
-          foreground: "hsl(var(--accent-tertinary-foreground))",
+        accentTertiary: {
+          DEFAULT: "hsl(var(--accent-tertiary))",
+          foreground: "hsl(var(--accent-tertiary-foreground))",
         },
         popover: {
           DEFAULT: "hsl(var(--popover))",
@@ -120,9 +120,9 @@ module.exports = {
           DEFAULT: "hsl(var(--popover-alert))",
           foreground: "hsl(var(--popover-alert-foreground))",
         },
-        popoverTertinary: {
-          DEFAULT: "hsl(var(--popover-tertinary))",
-          foreground: "hsl(var(--popover-tertinary-foreground))",
+        popoverTertiary: {
+          DEFAULT: "hsl(var(--popover-tertiary))",
+          foreground: "hsl(var(--popover-tertiary-foreground))",
         },
         card: {
           DEFAULT: "hsl(var(--card))",
@@ -140,9 +140,9 @@ module.exports = {
           DEFAULT: "hsl(var(--card-success))",
           foreground: "hsl(var(--card-success-foreground))",
         },
-        cardTertinary: {
-          DEFAULT: "hsl(var(--card-tertinary))",
-          foreground: "hsl(var(--card-tertinary-foreground))",
+        cardTertiary: {
+          DEFAULT: "hsl(var(--card-tertiary))",
+          foreground: "hsl(var(--card-tertiary-foreground))",
         },
       },
       borderRadius: {

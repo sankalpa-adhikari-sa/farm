@@ -14,7 +14,7 @@ import { GiCow, GiWalk } from "react-icons/gi"
 import { AiFillFire } from "react-icons/ai"
 function TasksCard() {
   return (
-    <Card className="cursor-pointer">
+    <Card className="cursor-pointer ">
         <CardHeader>
             <div className="flex items-center justify-between mb-2">
             <Avatar className="w-7 h-7">

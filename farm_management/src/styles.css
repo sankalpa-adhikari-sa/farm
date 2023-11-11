@@ -25,6 +25,62 @@
     --input: 240 5.9% 90%;
     --ring: 240 5% 64.9%;
     --radius: 0.5rem;
+    /* added custom */
+    --background-success: 0 0% 100%;
+    --foreground-success: 240 10% 3.9%;
+    --success: 142.1 76.2% 36.3%;
+    --success-foreground: 355.7 100% 97.3%;
+    --ring-success: 142.1 76.2% 36.3%;
+    --card-success:  0 0% 100%;
+    --card-success-foreground: 240 10% 3.9%;
+    --popover-success: 0 0% 100%;
+    --popover-success-foreground: 240 10% 3.9%;
+    --muted-success: 240 4.8% 95.9%;
+    --accent-success: 240 4.8% 95.9%;
+
+    --warning: 346.8 77.2% 49.8%;
+    --warning-foreground: 355.7 100% 97.3%;
+    --card-warning:  0 0% 100%;
+    --card-warning-foreground: 240 10% 3.9%;
+    --popover-warning: 0 0% 100%;
+    --popover-warning-foreground: 240 10% 3.9%;
+    --muted-warning: 240 4.8% 95.9%;
+    --muted-warning-foreground: 240 3.8% 46.1%;
+    --accent-warning: 240 4.8% 95.9%;
+    --accent-warning-foreground: 240 5.9% 10%;
+    --ring-warning: 346.8 77.2% 49.8%;
+    
+
+    --alert: 24.6 95% 53.1%;
+    --alert-foreground: 60 9.1% 97.8%;
+    --card-alert: 0 0% 100%;
+    --card-alert-foreground: 20 14.3% 4.1%;
+    --popover-alert: 0 0% 100%;
+    --popover-alert-foreground: 20 14.3% 4.1%;
+    --muted-alert: 60 4.8% 95.9%;
+    --muted-alert-foreground: 25 5.3% 44.7%;
+    --accent-alert: 60 4.8% 95.9%;
+    --accent-alert-foreground: 24 9.8% 10%;
+    --ring-alert: 24.6 95% 53.1%;
+    --border-alert: 20 5.9% 90%;
+    --input-alert: 20 5.9% 90%;
+
+    --background-tertiary: 0 0% 100%;
+    --foreground-tertiary: 224 71.4% 4.1%;
+    --tertiary: 262.1 83.3% 57.8%;
+    --tertiary-foreground: 210 20% 98%;
+    --ring-tertiary: 262.1 83.3% 57.8%;
+    --card-tertinary: 0 0% 100%;
+    --card-tertinary-foreground: 224 71.4% 4.1%;
+    --popover-tertinary: 0 0% 100%;
+    --popover-tertinary-foreground: 224 71.4% 4.1%;
+    --muted-tertinary: 220 14.3% 95.9%;
+    --muted-tertinary-foreground: 220 8.9% 46.1%;
+    --accent-tertinary: 220 14.3% 95.9%;
+    --accent-tertinary-foreground: 220.9 39.3% 11%;
+    --border-tertinary: 220 13% 91%;
+    --input-tertinary: 220 13% 91%;
+
   }
 
   .dark {
@@ -47,8 +103,69 @@
     --border: 240 3.7% 15.9%;
     --input: 240 3.7% 15.9%;
     --ring: 240 4.9% 83.9%;
+   
+     /* added custom */
+    --background-success: 20 14.3% 4.1%;
+    --foreground-success: 0 0% 95%;
+    --success: 142.1 70.6% 45.3%;
+    --success-foreground: 144.9 80.4% 10%;
+    --ring-success: 142.4 71.8% 29.2%;
+    --card-success: 24 9.8% 10%;
+    --card-success-foreground: 0 0% 95%;
+    --popover-success: 0 0% 9%;
+    --popover-success-foreground: 0 0% 95%;
+    --muted-success: 0 0% 15%;
+    --accent-success: 12 6.5% 15.1%;
+
+    --background-warning: 240 10% 3.9%;
+    --foreground-warning: 0 0% 98%;
+    --warning: 346.8 77.2% 49.8%;
+    --warning-foreground: 355.7 100% 97.3%;
+    --ring-warning: 346.8 77.2% 49.8%;
+    --card-warning: 24 9.8% 10%;
+    --card-warning-foreground: 0 0% 95%;
+    --popover-warning: 0 0% 9%;
+    --popover-warning-foreground: 0 0% 95%;
+    --accent-warning: 12 6.5% 15.1%;
+    --accent-warning-foreground: 0 0% 98%;
+    --muted-warning: 0 0% 15%;
+    --muted-warning-foreground: 240 5% 64.9%;
+
+    --ring-alert: 20.5 90.2% 48.2%;
+    --border-alert: 12 6.5% 15.1%;
+    --input-alert: 12 6.5% 15.1%;
+    --background-alert: 20 14.3% 4.1%;
+    --foreground-alert: 60 9.1% 97.8%;
+    --card-alert: 20 14.3% 4.1%;
+    --card-alert-foreground: 60 9.1% 97.8%;
+    --popover-alert: 20 14.3% 4.1%;
+    --popover-alert-foreground: 60 9.1% 97.8%;
+    --muted-alert: 12 6.5% 15.1%;
+    --muted-alert-foreground: 24 5.4% 63.9%;
+    --accent-alert: 12 6.5% 15.1%;
+    --accent-alert-foreground: 60 9.1% 97.8%;
+
+    --background-tertiary: 224 71.4% 4.1%;
+    --foreground-tertiary: 210 20% 98%;
+    --tertiary: 263.4 70% 50.4%;
+    --tertiary-foreground: 210 20% 98%;
+    --card-tertiary: 224 71.4% 4.1%;
+    --card-tertiary-foreground: 210 20% 98%;
+    --popover-tertiary: 224 71.4% 4.1%;
+    --popover-tertiary-foreground: 210 20% 98%;
+    --muted-tertiary: 215 27.9% 16.9%;
+    --muted-tertiary-foreground: 217.9 10.6% 64.9%;
+    --accent-tertiary: 215 27.9% 16.9%;
+    --accent-tertiary-foreground: 210 20% 98%;
+    --border-tertiary: 215 27.9% 16.9%;
+    --input-tertiary: 215 27.9% 16.9%;
+    --ring-tertiary: 263.4 70% 50.4%;
+    
+   
+
   }
 }
+
 @layer base {
   * {
     @apply border-border;

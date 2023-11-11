@@ -4,7 +4,9 @@ import {useForm, useWatch} from 'react-hook-form'
 import { cn } from "@/lib/utils";
 import { Calendar } from "@/components/ui/calendar"
 import { format } from "date-fns"
-import { CalendarIcon, CheckIcon, PlusCircleIcon } from "lucide-react"
+import {BsFillArrowDownCircleFill}from "react-icons/bs"
+import {TbAlertOctagonFilled}from "react-icons/tb"
+import {  AlertOctagonIcon, CalendarIcon, CheckCircleIcon, CheckIcon, ClockIcon, HammerIcon, PlusCircleIcon } from "lucide-react"
 import {
   Form,
   FormControl,
@@ -26,6 +28,13 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
 import { RadioGroup,RadioGroupItem } from "@/components/ui/radio-group"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { Button } from "@/components/ui/button"
@@ -43,7 +52,9 @@ type TasksFormProps = {
 const formSchema = z.object({
   task_title:z.string().min(5,{message:"Title must be at least 5 characters"}),
   task_description:z.string().min(10,{message:"Title must be at least 10 characters"}),
+  associated_to:z.enum(["livestock","crops","inventory","employees","others"]),
   task_priority:z.enum(["high","low","medium"]),
+  task_status:z.enum(["todo","ongoing","completed"]),
   task_deadline:z.date().optional(),
   assigned_to: z.array(z.string())
 
@@ -73,13 +84,20 @@ function TasksForm(props:TasksFormProps) {
     defaultValues:{
       task_title:"",
       task_description:"",
-      task_priority:"medium"
+      task_priority:"medium",
+      task_status:"todo",
+      associated_to:"livestock"
     }
 })
 const watchedPriority = useWatch({
   control: form.control,
   name: 'task_priority',
   defaultValue: 'medium', // Set the default value
+});
+const watchedStatus = useWatch({
+  control: form.control,
+  name: 'task_status',
+  defaultValue: 'todo', // Set the default value
 });
 
   const onSubmitForm =(data:z.infer<typeof formSchema>) =>{
@@ -130,6 +148,37 @@ const watchedPriority = useWatch({
                 <FormMessage className="text-xs" />
               </FormItem>
             )}/>
+
+
+          <FormField
+          control={form.control}
+          name="associated_to"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Associated to</FormLabel>
+              <Select onValueChange={field.onChange} defaultValue="livestock">
+                <FormControl>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select what is this task associated to" />
+                  </SelectTrigger>
+                </FormControl>
+                <SelectContent>
+                  <SelectItem value="livestock">Livestock</SelectItem>
+                  <SelectItem value="crops">Crops</SelectItem>
+                  <SelectItem value="inventory">Inventory</SelectItem>
+                  <SelectItem value="employees">Employees</SelectItem>
+                  <SelectItem value="others">Others</SelectItem>
+                </SelectContent>
+              </Select>
+              <FormDescription className="text-xs">
+              Select what is this task associated to
+              </FormDescription>
+              <FormMessage  className="text-xs" />
+            </FormItem>
+          )}
+        />
+
+
       <FormField control={form.control}
       name="task_priority"
       rules={{required: "Priority is required"}}
@@ -149,12 +198,11 @@ const watchedPriority = useWatch({
     'flex flex-col gap-3 items-center justify-between rounded-md border-2 border-muted bg-popover p-4',
     {
       'hover:bg-accent hover:text-accent-foreground':watchedPriority !== 'high',
-      'border-primary':watchedPriority === 'high',
       'peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary':
        watchedPriority === 'high',
     }
   )}>
-                  <AiFillFire />
+                  <AiFillFire className="text-destructive" />
                     High
                   </FormLabel>
                 </FormItem>
@@ -172,7 +220,7 @@ const watchedPriority = useWatch({
        watchedPriority === 'medium',
     }
   )} >
-                    <AiFillFire />
+                    <TbAlertOctagonFilled className="text-alert" />
                       Medium
                     </FormLabel>
                 </FormItem>
@@ -185,12 +233,12 @@ const watchedPriority = useWatch({
     'flex flex-col gap-3 items-center justify-between rounded-md border-2 border-muted bg-popover p-4',
     {
       'hover:bg-accent hover:text-accent-foreground':watchedPriority !== 'low',
-      'border-primary':watchedPriority === 'low',
       'peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary':
        watchedPriority === 'low',
     }
+
   )}>
-                  <AiFillFire />
+                  <BsFillArrowDownCircleFill className="text-success" />
                     Low
                   </FormLabel>
                 </FormItem>
@@ -249,6 +297,81 @@ const watchedPriority = useWatch({
               </FormItem>
             )}
           />
+
+<FormField control={form.control}
+      name="task_status"
+      rules={{required: "Status is required"}}
+      render = {({field}) => (
+        <FormItem>
+          <FormLabel>
+            Status
+          </FormLabel>
+          <FormControl>
+            <RadioGroup className="items-center grid grid-cols-3 gap-4" onValueChange={field.onChange}
+                        defaultValue="medium">
+                <FormItem >
+                  <FormControl className="peer sr-only">
+                    <RadioGroupItem  value="todo" />
+                  </FormControl>
+                  <FormLabel className={cn(
+    'flex flex-col gap-3 items-center justify-between rounded-md border-2 border-muted bg-popover p-4',
+    {
+      'hover:bg-accent hover:text-accent-foreground':watchedStatus !== 'todo',
+      'border-primary':watchedStatus === 'todo',
+      'peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary':
+       watchedStatus === 'todo',
+    }
+  )}>
+                  <HammerIcon className="w-3.5 h-3.5" />
+                    Todo
+                  </FormLabel>
+                </FormItem>
+
+                <FormItem>
+                  <FormControl>
+                    <RadioGroupItem className="peer sr-only"  value="ongoing" />
+                  </FormControl>
+                    <FormLabel  className={cn(
+    'flex flex-col gap-3 items-center justify-between rounded-md border-2 border-muted bg-popover p-4',
+    {
+      'hover:bg-accent hover:text-accent-foreground':watchedStatus !== 'ongoing',
+      
+      'peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary':
+       watchedStatus === 'ongoing',
+    }
+  )} >
+                    <ClockIcon className="w-3.5 h-3.5" />
+                      Ongoing
+                    </FormLabel>
+                </FormItem>
+
+                <FormItem>
+                  <FormControl>
+                    <RadioGroupItem className="peer sr-only" value="completed"/>
+                  </FormControl>
+                  <FormLabel className={cn(
+    'flex flex-col gap-3 items-center justify-between rounded-md border-2 border-muted bg-popover p-4',
+    {
+      'hover:bg-accent hover:text-accent-foreground':watchedStatus !== 'completed',
+      'peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary':
+       watchedStatus === 'completed',
+    }
+
+  )}>
+                  <CheckCircleIcon className="w-3.5 h-3.5" />
+                    Completed
+                  </FormLabel>
+                </FormItem>
+            </RadioGroup>
+          </FormControl>
+          <FormDescription className="text-xs">
+                  Enter Status
+          </FormDescription>
+          <FormMessage className="text-xs" />
+        </FormItem>
+      )}
+      
+      />
 
 
               <FormField
@@ -361,7 +484,7 @@ const watchedPriority = useWatch({
 
 
 
-            <Button>submit</Button>
+            <Button >submit</Button>
         </form>
       </Form>
      

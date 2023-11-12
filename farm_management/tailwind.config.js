@@ -2,11 +2,11 @@
 module.exports = {
   darkMode: ["class"],
   content: [
-    './pages/**/*.{ts,tsx}',
-    './components/**/*.{ts,tsx}',
-    './app/**/*.{ts,tsx}',
-    './src/**/*.{ts,tsx}',
-	],
+    "./pages/**/*.{ts,tsx}",
+    "./components/**/*.{ts,tsx}",
+    "./app/**/*.{ts,tsx}",
+    "./src/**/*.{ts,tsx}",
+  ],
   theme: {
     container: {
       center: true,
@@ -24,7 +24,7 @@ module.exports = {
         input: "hsl(var(--input))",
         inputAlert: "hsl(var(--input-alert))",
         inputTertiary: "hsl(var(--input-tertiary))",
-      
+
         ring: "hsl(var(--ring))",
         ringSuccess: "hsl(var(--ring-success))", //custom
         ringAlert: "hsl(var(--ring-alert))", //custom
@@ -49,17 +49,17 @@ module.exports = {
           DEFAULT: "hsl(var(--success))",
           foreground: "hsl(var(--success-foreground))",
         },
-         //custom
+        //custom
         warning: {
           DEFAULT: "hsl(var(--warning))",
           foreground: "hsl(var(--warning-foreground))",
         },
-         //custom
+        //custom
         alert: {
           DEFAULT: "hsl(var(--alert))",
           foreground: "hsl(var(--alert-foreground))",
         },
-         //custom
+        //custom
         tertiary: {
           DEFAULT: "hsl(var(--tertiary))",
           foreground: "hsl(var(--tertiary-foreground))",
@@ -74,15 +74,15 @@ module.exports = {
         },
         mutedSuccess: {
           DEFAULT: "hsl(var(--muted-success))",
-          foreground: "hsl(var(--muted-foreground))",//same
+          foreground: "hsl(var(--muted-foreground))", //same
         },
         mutedAlert: {
           DEFAULT: "hsl(var(--muted-alert))",
-          foreground: "hsl(var(--muted-alert-foreground))",//same
+          foreground: "hsl(var(--muted-alert-foreground))", //same
         },
         mutedTertiary: {
           DEFAULT: "hsl(var(--muted-tertiary))",
-          foreground: "hsl(var(--muted-tertiary-foreground))",//same
+          foreground: "hsl(var(--muted-tertiary-foreground))", //same
         },
         accent: {
           DEFAULT: "hsl(var(--accent))",
@@ -94,7 +94,7 @@ module.exports = {
         },
         accentSuccess: {
           DEFAULT: "hsl(var(--accent-success))",
-          foreground: "hsl(var(--accent-foreground))",//same
+          foreground: "hsl(var(--accent-foreground))", //same
         },
         accentAlert: {
           DEFAULT: "hsl(var(--accent-alert))",
@@ -166,5 +166,5 @@ module.exports = {
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
-}
+  plugins: [require("@tailwindcss/typography"), require("tailwindcss-animate")],
+};

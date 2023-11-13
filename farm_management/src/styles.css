@@ -1,7 +1,6 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
- 
 
 @layer base {
   :root {
@@ -31,7 +30,7 @@
     --success: 142.1 76.2% 36.3%;
     --success-foreground: 355.7 100% 97.3%;
     --ring-success: 142.1 76.2% 36.3%;
-    --card-success:  0 0% 100%;
+    --card-success: 0 0% 100%;
     --card-success-foreground: 240 10% 3.9%;
     --popover-success: 0 0% 100%;
     --popover-success-foreground: 240 10% 3.9%;
@@ -40,7 +39,7 @@
 
     --warning: 346.8 77.2% 49.8%;
     --warning-foreground: 355.7 100% 97.3%;
-    --card-warning:  0 0% 100%;
+    --card-warning: 0 0% 100%;
     --card-warning-foreground: 240 10% 3.9%;
     --popover-warning: 0 0% 100%;
     --popover-warning-foreground: 240 10% 3.9%;
@@ -49,7 +48,6 @@
     --accent-warning: 240 4.8% 95.9%;
     --accent-warning-foreground: 240 5.9% 10%;
     --ring-warning: 346.8 77.2% 49.8%;
-    
 
     --alert: 24.6 95% 53.1%;
     --alert-foreground: 60 9.1% 97.8%;
@@ -80,7 +78,6 @@
     --accent-tertiary-foreground: 220.9 39.3% 11%;
     --border-tertiary: 220 13% 91%;
     --input-tertiary: 220 13% 91%;
-
   }
 
   .dark {
@@ -103,8 +100,8 @@
     --border: 240 3.7% 15.9%;
     --input: 240 3.7% 15.9%;
     --ring: 240 4.9% 83.9%;
-   
-     /* added custom */
+
+    /* added custom */
     --background-success: 20 14.3% 4.1%;
     --foreground-success: 0 0% 95%;
     --success: 142.1 70.6% 45.3%;
@@ -162,9 +159,6 @@
     --border-tertiary: 215 27.9% 16.9%;
     --input-tertiary: 215 27.9% 16.9%;
     --ring-tertiary: 263.4 70% 50.4%;
-    
-   
-
   }
 }
 

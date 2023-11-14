@@ -1,20 +1,10 @@
 import ReusableTable from "@/components/Table";
-import { Trash, PlusSquare, Group } from "lucide-react";
 import { DataTableColumnHeader } from "@/components/ui/table-header";
 import { Checkbox } from "@/components/ui/checkbox";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 import { ColumnDef } from "@tanstack/react-table";
 import { z } from "zod";
 import TableRowActions from "@/components/TableRowActions";
 import {
-  useYield,
   useDeleteYieldByID,
   useYieldByLivestock,
 } from "../../hooks/useYieldData";
@@ -109,7 +99,7 @@ function LivestockYieldTable() {
       ),
       //     enableSorting: false,
       // enableHiding: false,
-      cell: ({ row }) => (
+      cell: ({ row }: { row: any }) => (
         <div>
           {row.getValue("Yield Loss") <= 0 ? (
             <div className="text-success">No</div>

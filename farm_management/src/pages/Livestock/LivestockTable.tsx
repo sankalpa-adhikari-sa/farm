@@ -144,6 +144,7 @@ function LivestockTable() {
           <DropdownMenuLabel>Action</DropdownMenuLabel>
           <DropdownMenuSeparator />
           <DropdownMenuItem
+            // @ts-ignore
             onClick={() => handleDeleteSelection(table)}
             className="h-10 text-destructive"
           >

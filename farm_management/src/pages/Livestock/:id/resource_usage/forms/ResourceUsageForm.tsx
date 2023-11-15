@@ -1,10 +1,10 @@
-import { Button } from '@/components/ui/button'
-import {useForm} from 'react-hook-form'
+import { Button } from "@/components/ui/button";
+import { useForm } from "react-hook-form";
 import { cn } from "@/lib/utils";
-import {ChevronsUpDown,Check } from "lucide-react";
-import { Calendar } from "@/components/ui/calendar"
-import { format } from "date-fns"
-import { CalendarIcon } from "lucide-react"
+import { ChevronsUpDown, Check } from "lucide-react";
+import { Calendar } from "@/components/ui/calendar";
+import { format } from "date-fns";
+import { CalendarIcon } from "lucide-react";
 import {
   Command,
   CommandEmpty,
@@ -21,63 +21,73 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form"
-import {Input} from "@/components/ui/input"
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { ScrollArea } from "@/components/ui/scroll-area"
-import { Textarea } from "@/components/ui/textarea"
-import { useParams } from 'react-router-dom';
-import { useResource } from '@/pages/Inventory/hooks/useInventoryData';
-import { zodResolver } from '@hookform/resolvers/zod';
-import * as z from "zod"
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { Textarea } from "@/components/ui/textarea";
+import { useParams } from "react-router-dom";
+import { useResource } from "@/pages/Inventory/hooks/useInventoryData";
+import { zodResolver } from "@hookform/resolvers/zod";
+import * as z from "zod";
 
 type LivestockRUFormProps = {
-    isUpdate:Boolean
-    submitBtnText: string
-
-}
+  isUpdate: Boolean;
+  submitBtnText: string;
+};
 const formSchema = z.object({
-    resource:z.string(),
-    usage_quantity: z.number(),
-    details: z.string(),
-    usage_date: z.date(),
-})
+  resource: z.string(),
+  usage_quantity: z.number(),
+  details: z.string(),
+  usage_date: z.date(),
+});
 
-
-function LivestockRUForm(props:LivestockRUFormProps) {
-  const {id}= useParams()
-  const form= useForm<z.infer<typeof formSchema>>({
+function LivestockRUForm(props: LivestockRUFormProps) {
+  const { id } = useParams();
+  const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       usage_quantity: 0,
-      details: ''
+      details: "",
     },
-  })
-  const {data: resource_data}= useResource()
-  const RESOURCES= resource_data?resource_data.map(item => ({
-    label:`${item.input_name} | ${item.inventory_type} > ${item.current_quantity} ${item.quantity_unit} @ ${item.expand?item.expand.storage_location.warehouse_name:""}`,
-    value: item.id
-  })):[]
+  });
+  const { data: resource_data } = useResource();
+  const RESOURCES = resource_data
+    ? resource_data.map((item) => ({
+        label: `${item.input_name} | ${item.inventory_type} > ${
+          item.current_quantity
+        } ${item.quantity_unit} @ ${
+          item.expand ? item.expand.storage_location.warehouse_name : ""
+        }`,
+        value: item.id,
+        //add current_quantity so that it is easier to reduce the resource
+      }))
+    : [];
 
-  const onSubmitForm =(data:z.infer<typeof formSchema>) =>{
+  const onSubmitForm = (data: z.infer<typeof formSchema>) => {
     const UsageWithId = {
       ...data,
       livestock: id,
     };
-    console.log(UsageWithId)
+    console.log(UsageWithId);
+    console.log("ResourceId:", UsageWithId.resource);
+    //fetch the current quantity of this resource(it may be in Resources)
+    // new current quantity= current quantity - usage quantity
+    //update the resource
+    //add the resource usage
     form.reset();
     form.clearErrors();
-  }
+  };
 
   const handleReset = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
     form.reset();
     form.clearErrors();
-  }
+  };
 
   return (
     <Form {...form}>
@@ -87,8 +97,8 @@ function LivestockRUForm(props:LivestockRUFormProps) {
           control={form.control}
           name="resource"
           rules={{
-            required:"Resource is required"            
-         }}
+            required: "Resource is required",
+          }}
           render={({ field }) => (
             <FormItem className="flex flex-col">
               <FormLabel>Resource</FormLabel>
@@ -104,9 +114,8 @@ function LivestockRUForm(props:LivestockRUFormProps) {
                       )}
                     >
                       {field.value
-                        ? RESOURCES.find(
-                            (type) => type.value === field.value
-                          )?.label
+                        ? RESOURCES.find((type) => type.value === field.value)
+                            ?.label
                         : "Select Resource"}
                       <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                     </Button>
@@ -117,33 +126,32 @@ function LivestockRUForm(props:LivestockRUFormProps) {
                     <CommandInput placeholder="Search Resource..." />
                     <CommandEmpty>No Resource found.</CommandEmpty>
                     <CommandGroup>
-                    <ScrollArea className="h-72 w-48">
-                      {RESOURCES.map((type) => (
-                        <CommandItem
-                          value={type.label}
-                          key={type.value}
-                          onSelect={() => {
-                            form.setValue("resource", type.value)
-                          }}
-                        >
-                          <Check
-                            className={cn(
-                              "mr-2 h-4 w-4",
-                              type.value === field.value
-                                ? "opacity-100"
-                                : "opacity-0"
-                            )}
-                          />
-                          {type.label} 
-                        </CommandItem>
-                      ))}
+                      <ScrollArea className="h-72 w-48">
+                        {RESOURCES.map((type) => (
+                          <CommandItem
+                            value={type.label}
+                            key={type.value}
+                            onSelect={() => {
+                              form.setValue("resource", type.value);
+                            }}
+                          >
+                            <Check
+                              className={cn(
+                                "mr-2 h-4 w-4",
+                                type.value === field.value
+                                  ? "opacity-100"
+                                  : "opacity-0"
+                              )}
+                            />
+                            {type.label}
+                          </CommandItem>
+                        ))}
                       </ScrollArea>
-
                     </CommandGroup>
                   </Command>
                 </PopoverContent>
               </Popover>
-              
+
               <FormDescription>
                 This is the Resource that will be used in the dashboard.
               </FormDescription>
@@ -153,32 +161,37 @@ function LivestockRUForm(props:LivestockRUFormProps) {
         />
 
         {/* --------------------------------- */}
-        <FormField  control={form.control}
+        <FormField
+          control={form.control}
           name="usage_quantity"
           rules={{
-            required:"Resource Usage Quantity is required"
+            required: "Resource Usage Quantity is required",
           }}
-          render={({field}) =>(
-            <FormItem >
+          render={({ field }) => (
+            <FormItem>
               <FormLabel>Resource Usage Quantity</FormLabel>
-              <FormControl >
-                <Input placeholder="20" type="number"
-                  {...field} 
-                  onChange={(e) => field.onChange(parseFloat(e.target.value))} 
+              <FormControl>
+                <Input
+                  placeholder="20"
+                  type="number"
+                  {...field}
+                  onChange={(e) => field.onChange(parseFloat(e.target.value))}
                 />
               </FormControl>
               <FormDescription className="text-xs">
-              Resource Usage Quantity will be showed as option while adding yield
+                Resource Usage Quantity will be showed as option while adding
+                yield
               </FormDescription>
               <FormMessage className="text-xs" />
             </FormItem>
-          )}/>   
+          )}
+        />
 
         <FormField
           control={form.control}
           name="usage_date"
           rules={{
-            required:"Usage Date is required"
+            required: "Usage Date is required",
           }}
           render={({ field }) => (
             <FormItem className="flex flex-col">
@@ -222,33 +235,33 @@ function LivestockRUForm(props:LivestockRUFormProps) {
           )}
         />
         {/* --------------------------------- */}
-        <FormField control={form.control}
+        <FormField
+          control={form.control}
           name="details"
-          render={({field}) =>(
+          render={({ field }) => (
             <FormItem>
               <FormLabel>Details</FormLabel>
               <FormControl>
-              <Textarea placeholder="Details..."
-                className="resize-none"
-                {...field} 
-               
-              />
+                <Textarea
+                  placeholder="Details..."
+                  className="resize-none"
+                  {...field}
+                />
               </FormControl>
               <FormDescription className="text-xs">
                 Information about this yield type
               </FormDescription>
               <FormMessage className="text-xs" />
             </FormItem>
-          )}/>
-        <Button type="submit">
-          {props.submitBtnText}
-        </Button>
+          )}
+        />
+        <Button type="submit">{props.submitBtnText}</Button>
         <Button variant="destructive" onClick={handleReset}>
           clear
         </Button>
       </form>
     </Form>
-  )
+  );
 }
 
-export default LivestockRUForm
+export default LivestockRUForm;

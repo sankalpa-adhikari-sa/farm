@@ -1,17 +1,20 @@
 import { useEffect, useRef, useState } from "react";
 import * as echarts from "echarts";
-import darkmode from "./ThemeDark.json"
+import darkmode from "./ThemeDark.json";
 
 interface EchartsProps {
   option: echarts.EChartsOption;
 }
 export default function Echarts({ option }: EchartsProps) {
   const chartRef = useRef<HTMLDivElement | null>(null); // Reference to the DOM element
-  const [chartInstance, setChartInstance] = useState<echarts.ECharts | null>(null); // Reference to the ECharts instance
+  // @ts-ignore
+  const [chartInstance, setChartInstance] = useState<echarts.ECharts | null>(
+    null
+  ); // Reference to the ECharts instance
 
   useEffect(() => {
     // Initialize the ECharts instance when it's not available
-    echarts.registerTheme("dark mode",darkmode)
+    echarts.registerTheme("dark mode", darkmode);
     const chart = echarts.init(chartRef.current);
     // Set the ECharts instance in the state
     setChartInstance(chart);

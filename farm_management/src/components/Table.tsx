@@ -86,7 +86,7 @@ function ReusableTable<TData, TValue>(props: DataTableProps<TData, TValue>) {
     getFacetedUniqueValues: getFacetedUniqueValues(),
   });
   const isFiltered = table.getState().columnFilters.length > 0;
-  const [selectedRow, setSelectedRow] = useState([]);
+  // const [selectedRow, setSelectedRow] = useState([]);
 
   return (
     <div className="pt-4">

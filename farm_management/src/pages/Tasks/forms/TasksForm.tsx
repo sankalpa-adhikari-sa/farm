@@ -78,6 +78,7 @@ const formSchema = z.object({
   assigned_to: z.array(z.string()),
 });
 
+// @ts-ignore
 function TasksForm(props: TasksFormProps) {
   const assigned = [
     { value: "One", label: "1" },

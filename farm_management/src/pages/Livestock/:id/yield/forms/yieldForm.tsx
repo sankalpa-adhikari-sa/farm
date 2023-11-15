@@ -55,6 +55,7 @@ type YieldFormProps = {
   submitBtnText: string;
 };
 
+// @ts-ignore
 type Yield_type = {
   label: string;
   value: string;

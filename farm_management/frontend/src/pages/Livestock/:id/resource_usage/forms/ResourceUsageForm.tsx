@@ -32,6 +32,10 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Textarea } from "@/components/ui/textarea";
 import { useParams } from "react-router-dom";
 import { useResource } from "@/pages/Inventory/hooks/useInventoryData";
+import {
+  // useAddResourceUsageData,
+  useAddResourceUsageDataCustom,
+} from "@/pages/Livestock/hooks/useResourceUsageData";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 
@@ -67,13 +71,14 @@ function LivestockRUForm(props: LivestockRUFormProps) {
         //add current_quantity so that it is easier to reduce the resource
       }))
     : [];
-
+  const { mutate: AddCustomRU } = useAddResourceUsageDataCustom();
   const onSubmitForm = (data: z.infer<typeof formSchema>) => {
     const UsageWithId = {
       ...data,
       livestock: id,
     };
     console.log(UsageWithId);
+    AddCustomRU(UsageWithId);
     console.log("ResourceId:", UsageWithId.resource);
     //fetch the current quantity of this resource(it may be in Resources)
     // new current quantity= current quantity - usage quantity

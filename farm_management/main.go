@@ -29,7 +29,8 @@ func main() {
 		})
 		pocketBaseApp.Bootstrap()
 
-		// pocketBaseApp.OnBeforeServe().Add(hello(pocketBaseApp))
+		pocketBaseApp.OnBeforeServe().Add(addUsage(pocketBaseApp))
+		pocketBaseApp.OnBeforeServe().Add(hello(pocketBaseApp))
 
 		serveCmd := cmd.NewServeCommand(pocketBaseApp, true)
 		serveCmd.Execute()
@@ -41,7 +42,7 @@ func main() {
 
 	// Create application with options
 	err := wails.Run(&options.App{
-		Title:  "myproject",
+		Title:  "farm_management",
 		Width:  1024,
 		Height: 768,
 		AssetServer: &assetserver.Options{

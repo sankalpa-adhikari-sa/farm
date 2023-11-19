@@ -1,5 +1,5 @@
 import { Route, Routes } from "react-router-dom";
-import Home from "../pages/Home/Home";
+import Home from "../pages/Home";
 import Livestock from "@/pages/Livestock";
 import LivestockTable from "@/pages/Livestock/LivestockTable";
 import LivestockForm from "@/pages/Livestock/forms/LivestockForm";
@@ -26,11 +26,13 @@ import LivestockTypeForm from "@/pages/Livestock/forms/LivestockTypeForm";
 import Tasks from "@/pages/Tasks";
 import TasksList from "@/pages/Tasks/TasksList";
 import TasksForm from "@/pages/Tasks/forms/TasksForm";
+import Auth from "@/pages/Auth";
 function Body() {
   return (
     <div className="pt-4 pl-4 pr-4 w-full h-full">
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/auth" element={<Auth />} />
         <Route path="/settings" element={<Settings />} />
         <Route path="/livestock" element={<Livestock />}>
           <Route index element={<LivestockTable />} />

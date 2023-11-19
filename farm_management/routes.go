@@ -16,6 +16,7 @@ func addUsage(app *pocketbase.PocketBase) func(e *core.ServeEvent) error {
 		return nil
 	}
 }
+// to use api/collection...... need to be admin so using agi instead of api for now
 func hello(app *pocketbase.PocketBase) func(e *core.ServeEvent) error {
 	return func(e *core.ServeEvent) error {
 		e.Router.GET("/agi/collections/hello/", sayHello(app))
@@ -24,7 +25,7 @@ func hello(app *pocketbase.PocketBase) func(e *core.ServeEvent) error {
 }
 
 
-
+//This doesnot work status 204
 // func resourceUsageTransaction(app *pocketbase.PocketBase) func(c echo.Context) error {
 //     return func(c echo.Context) error {
 //         var record *models.Record
@@ -59,9 +60,10 @@ func hello(app *pocketbase.PocketBase) func(e *core.ServeEvent) error {
 // }
 
 
-/////////////////////////////////////////////////////////
-//This works...
 
+
+/////////////////////////////////////////////////////////
+//This works... (Not safe, Need to use Transactions)
 func resourceUsageTransaction(app *pocketbase.PocketBase) func(c echo.Context) error {
 	return func(c echo.Context) error {
 			usageCollection, err := app.Dao().FindCollectionByNameOrId("resource_usage")

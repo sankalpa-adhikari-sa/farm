@@ -1,0 +1,4 @@
+Task 1 : Need to put safeguards in fronted. Like can't add livestock if no Livestock type, 
+can't add resource and yield if no warehouse
+Task 2: Add Snackbar to show the actions
+Task 3 : Add Update forms

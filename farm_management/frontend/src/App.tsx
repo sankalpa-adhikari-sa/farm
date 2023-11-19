@@ -6,7 +6,8 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import Navbar from "./components/Navbar";
 import Sidebar from "./components/sidebar";
 import Body from "./components/Body";
-
+// import { atom } from "jotai";
+// export const isAuthenticatedAtom = atom(false);
 function App() {
   const queryClient = new QueryClient();
   return (

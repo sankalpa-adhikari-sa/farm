@@ -6,6 +6,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import Navbar from "./components/Navbar";
 import Sidebar from "./components/sidebar";
 import Body from "./components/Body";
+import { Toaster } from "sonner";
 // import { atom } from "jotai";
 // export const isAuthenticatedAtom = atom(false);
 function App() {
@@ -14,6 +15,7 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
         <div className="flex bg-background h-screen w-screen">
+          <Toaster />
           <Sidebar />
           <div className="w-full h-full">
             <Navbar />

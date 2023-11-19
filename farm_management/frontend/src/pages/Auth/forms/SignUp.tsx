@@ -12,23 +12,34 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-
+import { useAddUserData } from "../hooks/useAuth";
+import { useState } from "react";
 const signUpSchema = z
   .object({
     email: z.string().email({ message: "Email must be valid" }),
+    emailVisibility: z.boolean(),
+    first_name: z
+      .string()
+      .min(3, { message: "First Name must be at least 3 characters." }),
+    middle_name: z.string().optional(),
+    last_name: z
+      .string()
+      .min(3, { message: "Last Name must be at least 3 characters." }),
     password: z
       .string()
       .min(8, { message: "Password must be at least 8 characters." }),
-    confirm_password: z
+    passwordConfirm: z
       .string()
       .min(8, { message: "Password must be at least 8 characters." }),
   })
-  .refine((data) => data.password === data.confirm_password, {
-    path: ["confirm_password"],
+  .refine((data) => data.password === data.passwordConfirm, {
+    path: ["passwordConfirm"],
     message: "Password did not match.",
   });
 
 function SignUp() {
+  const [isLoading, setIsLoading] = useState(false);
+  const { mutate: AddUserData } = useAddUserData();
   const form = useForm<z.infer<typeof signUpSchema>>({
     resolver: zodResolver(signUpSchema),
     mode: "onBlur",
@@ -37,17 +48,69 @@ function SignUp() {
     defaultValues: {
       email: "",
       password: "",
-      confirm_password: "",
+      passwordConfirm: "",
+      emailVisibility: true,
+      first_name: "",
+      middle_name: "",
+      last_name: "",
     },
   });
   const onSubmitForm = (data: z.infer<typeof signUpSchema>) => {
-    console.log(data);
+    setIsLoading(true);
+    AddUserData(data);
     form.reset();
     form.clearErrors();
+    setIsLoading(false);
   };
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmitForm)} className="space-y-4">
+        <FormField
+          control={form.control}
+          name="first_name"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>First Name</FormLabel>
+              <FormControl>
+                <Input placeholder="First Name" {...field} />
+              </FormControl>
+              <FormDescription>
+                This name will be publicly visible.
+              </FormDescription>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="middle_name"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Middle Name</FormLabel>
+              <FormControl>
+                <Input placeholder="Middle Name" {...field} />
+              </FormControl>
+              <FormDescription>Optional</FormDescription>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="last_name"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Last Name</FormLabel>
+              <FormControl>
+                <Input placeholder="Last Name" {...field} />
+              </FormControl>
+              <FormDescription>
+                This name will be publicly visible.
+              </FormDescription>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
         <FormField
           control={form.control}
           name="email"
@@ -55,7 +118,7 @@ function SignUp() {
             <FormItem>
               <FormLabel>Email</FormLabel>
               <FormControl>
-                <Input placeholder="use@mail.com" {...field} />
+                <Input type="email" placeholder="use@mail.com" {...field} />
               </FormControl>
               <FormDescription>This is your Email.</FormDescription>
               <FormMessage />
@@ -78,7 +141,7 @@ function SignUp() {
         />
         <FormField
           control={form.control}
-          name="confirm_password"
+          name="passwordConfirm"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Confirm Password</FormLabel>
@@ -94,7 +157,9 @@ function SignUp() {
             </FormItem>
           )}
         />
-        <Button type="submit">Submit</Button>
+        <Button type="submit" disabled={isLoading}>
+          Submit
+        </Button>
       </form>
     </Form>
   );

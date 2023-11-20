@@ -178,7 +178,7 @@ function LivestockYieldTable() {
     },
   ];
   return (
-    <div>
+    <div className="w-full">
       <ReusableTable
         selection_option={false}
         columns={columns}

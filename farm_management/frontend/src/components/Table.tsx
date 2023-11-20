@@ -189,10 +189,10 @@ function ReusableTable<TData, TValue>(props: DataTableProps<TData, TValue>) {
             ) : (
               <TableRow>
                 <TableCell
-                  colSpan={props.table_data.length}
+                  colSpan={props.columns.length}
                   className="h-24 text-center"
                 >
-                  No results.
+                  No results Found.
                 </TableCell>
               </TableRow>
             )}

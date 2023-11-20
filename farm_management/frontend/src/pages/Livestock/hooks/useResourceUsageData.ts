@@ -31,6 +31,7 @@ const fetchResourceUsageByLivestock = async (id: string) => {
   return await pb.collection("resource_usage").getFullList({
     filter: `livestock = "${id}"`,
     sort: "-created",
+    expand: "resource",
   });
 };
 

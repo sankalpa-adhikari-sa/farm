@@ -1,5 +1,6 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import pb from "@/Pocketbase/pocketbase";
+import { toast } from "sonner";
 
 type Data = any;
 const addYield = async (data: Data) => {
@@ -55,7 +56,17 @@ export const useYieldByID = (id: string) => {
 };
 //create
 export const useAddYieldData = () => {
-  return useMutation({ mutationFn: addYield });
+  return useMutation({
+    mutationFn: addYield,
+    onSuccess: () => {
+      toast.success("Yield Added");
+    },
+    onError: (error) => {
+      toast.error("Yield Addition Failed!", {
+        description: `${error}`,
+      });
+    },
+  });
 };
 
 //update
@@ -65,7 +76,13 @@ export const useUpdateYieldByID = () => {
     mutationFn: ({ id, data }: { id: string; data: Data }) =>
       updateYieldByid({ id, data }),
     onSuccess: () => {
+      toast.success("Yield Updated");
       queryClient.invalidateQueries({ queryKey: ["yield"] });
+    },
+    onError: (error) => {
+      toast.error("Yield Update Failed!", {
+        description: `${error}`,
+      });
     },
   });
 };
@@ -76,7 +93,13 @@ export const useDeleteYieldByID = () => {
   return useMutation({
     mutationFn: (id: string) => deleteYieldByid(id),
     onSuccess: () => {
+      toast.success("Yield Deleted");
       queryClient.invalidateQueries({ queryKey: ["yield"] });
+    },
+    onError: (error) => {
+      toast.error("Yield Deletion Failed!", {
+        description: `${error}`,
+      });
     },
   });
 };

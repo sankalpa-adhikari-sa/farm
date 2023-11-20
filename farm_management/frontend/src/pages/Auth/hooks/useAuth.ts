@@ -1,7 +1,7 @@
 import { useMutation } from "@tanstack/react-query";
 import pb from "@/Pocketbase/pocketbase";
 import { useNavigate } from "react-router-dom";
-import { CustomToast } from "../customtoast";
+import { toast } from "sonner";
 type Data = any;
 
 const addUser = async (data: Data) => {
@@ -21,19 +21,13 @@ export const useLoginUser = () => {
   const naviagate = useNavigate();
   return useMutation({
     mutationFn: loginUser,
-    onError: () => {
-      CustomToast({
-        title: "Scheduled: Catch up",
-        description: "Friday, February 10, 2023 at 5:57 PM",
-        variant: "destructive",
+    onError: (error) => {
+      toast.error("Login Failed", {
+        description: `${error}`,
       });
     },
     onSuccess: () => {
-      CustomToast({
-        title: "Scheduled: Catch up",
-        description: "Friday, February 10, 2023 at 5:57 PM",
-        variant: "success",
-      });
+      toast.success("Login Successful");
       naviagate("/");
     },
   });

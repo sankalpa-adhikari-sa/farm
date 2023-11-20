@@ -1,6 +1,7 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import pb from "@/Pocketbase/pocketbase";
 import axios from "axios";
+import { toast } from "sonner";
 
 type Data = any;
 const addResourceUsage = async (data: Data) => {
@@ -53,11 +54,31 @@ export const useResourceUsage = () => {
 };
 //create
 export const useAddResourceUsageData = () => {
-  return useMutation({ mutationFn: addResourceUsage });
+  return useMutation({
+    mutationFn: addResourceUsage,
+    onSuccess: () => {
+      toast.success("Resource Usage  Added");
+    },
+    onError: (error) => {
+      toast.error("Resource Usage Addition Failed!", {
+        description: `${error}`,
+      });
+    },
+  });
 };
 //create
 export const useAddResourceUsageDataCustom = () => {
-  return useMutation({ mutationFn: addResourceUsageCustom });
+  return useMutation({
+    mutationFn: addResourceUsageCustom,
+    onSuccess: () => {
+      toast.success("Resource Usage  Added");
+    },
+    onError: (error) => {
+      toast.error("Resource Usage Addition Failed!", {
+        description: `${error}`,
+      });
+    },
+  });
 };
 
 //read
@@ -72,6 +93,14 @@ export const useUpdateResourceUsageData = () => {
   return useMutation({
     mutationFn: ({ id, data }: { id: string; data: Data }) =>
       updateResourceUsage({ id, data }),
+    onSuccess: () => {
+      toast.success("Resource Usage  Updated");
+    },
+    onError: (error) => {
+      toast.error("Resource Usage Update Failed!", {
+        description: `${error}`,
+      });
+    },
   });
 };
 
@@ -81,8 +110,14 @@ export const useDeleteResourceUsageByID = () => {
   return useMutation({
     mutationFn: (id: string) => deleteResourceUsageByid(id),
     onSuccess: () => {
+      toast.success("Resource Usage  Deleted");
       queryClient.invalidateQueries({
         queryKey: ["resource_usage_by_livestock"],
+      });
+    },
+    onError: (error) => {
+      toast.error("Resource Usage Deletion Failed!", {
+        description: `${error}`,
       });
     },
   });

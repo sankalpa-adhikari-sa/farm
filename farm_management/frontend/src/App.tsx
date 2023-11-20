@@ -10,7 +10,7 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
         <div className="flex bg-background h-screen w-screen">
-          <Toaster />
+          <Toaster richColors closeButton />
           <Body />
         </div>
       </ThemeProvider>

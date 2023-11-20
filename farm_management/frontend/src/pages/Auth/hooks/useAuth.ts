@@ -1,7 +1,9 @@
 import { useMutation } from "@tanstack/react-query";
 import pb from "@/Pocketbase/pocketbase";
+import { useNavigate } from "react-router-dom";
 import { CustomToast } from "../customtoast";
 type Data = any;
+
 const addUser = async (data: Data) => {
   return await pb.collection("users").create(data);
 };
@@ -16,6 +18,7 @@ export const useAddUserData = () => {
   });
 };
 export const useLoginUser = () => {
+  const naviagate = useNavigate();
   return useMutation({
     mutationFn: loginUser,
     onError: () => {
@@ -31,6 +34,7 @@ export const useLoginUser = () => {
         description: "Friday, February 10, 2023 at 5:57 PM",
         variant: "success",
       });
+      naviagate("/");
     },
   });
 };

@@ -1,14 +1,9 @@
 import "./App.css";
 import { ThemeProvider } from "@/components/theme-provider";
-// import { ModeToggle } from "./mode-toggle";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import Navbar from "./components/Navbar";
-import Sidebar from "./components/sidebar";
 import Body from "./components/Body";
 import { Toaster } from "sonner";
-// import { atom } from "jotai";
-// export const isAuthenticatedAtom = atom(false);
 function App() {
   const queryClient = new QueryClient();
   return (
@@ -16,11 +11,7 @@ function App() {
       <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
         <div className="flex bg-background h-screen w-screen">
           <Toaster />
-          <Sidebar />
-          <div className="w-full h-full">
-            <Navbar />
-            <Body />
-          </div>
+          <Body />
         </div>
       </ThemeProvider>
       <ReactQueryDevtools />

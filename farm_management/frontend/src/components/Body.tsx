@@ -27,12 +27,15 @@ import Tasks from "@/pages/Tasks";
 import TasksList from "@/pages/Tasks/TasksList";
 import TasksForm from "@/pages/Tasks/forms/TasksForm";
 import Auth from "@/pages/Auth";
+import Protected from "./Protected";
+import PageNotFound from "@/pages/404";
 function Body() {
   return (
-    <div className="pt-4 pl-4 pr-4 w-full h-full">
-      <Routes>
+    // <div className="pt-4 pl-4 pr-4 w-full h-full">
+    <Routes>
+      <Route path="/auth" element={<Auth />} />
+      <Route element={<Protected />}>
         <Route path="/" element={<Home />} />
-        <Route path="/auth" element={<Auth />} />
         <Route path="/settings" element={<Settings />} />
         <Route path="/livestock" element={<Livestock />}>
           <Route index element={<LivestockTable />} />
@@ -138,8 +141,10 @@ function Body() {
             element={<TasksForm isUpdate={false} submitBtnText="Submit" />}
           />
         </Route>
-      </Routes>
-    </div>
+        <Route path="*" element={<PageNotFound />} />
+      </Route>
+    </Routes>
+    // </div>
   );
 }
 

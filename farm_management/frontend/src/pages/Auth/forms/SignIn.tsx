@@ -12,21 +12,15 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { useAtom } from "jotai";
-import { isAuthenticatedAtom } from "@/Features/atoms";
 import { useState } from "react";
 import { useLoginUser } from "../hooks/useAuth";
-// import { toast } from "sonner";
-// import { CustomToast } from "../customtoast";
 const signInSchema = z.object({
   email: z.string().email({ message: "Email must be valid" }),
   password: z
     .string()
     .min(8, { message: "Password must be at least 8 characters." }),
 });
-
 function SignIn() {
-  const [_, setIsAutenticated] = useAtom(isAuthenticatedAtom);
   const [isLoading, setIsLoading] = useState(false);
   const form = useForm<z.infer<typeof signInSchema>>({
     resolver: zodResolver(signInSchema),
@@ -45,11 +39,6 @@ function SignIn() {
     form.reset();
     form.clearErrors();
     setIsLoading(false);
-    // CustomToast({
-    //   title: "Scheduled: Catch up",
-    //   description: "Friday, February 10, 2023 at 5:57 PM",
-    //   variant: "default",
-    // });
   };
   return (
     <Form {...form}>

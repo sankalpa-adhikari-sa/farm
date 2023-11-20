@@ -18,7 +18,7 @@ function Sidebar() {
           {({ isActive }) => (
             <Button
               variant={isActive ? "default" : "ghost"}
-              className="w-full justify-start font-semibold"
+              className="w-full justify-start"
             >
               <Home className="w-4 h-4 mr-2" />
               Home

@@ -29,6 +29,7 @@ import TasksForm from "@/pages/Tasks/forms/TasksForm";
 import Auth from "@/pages/Auth";
 import Protected from "./Protected";
 import PageNotFound from "@/pages/404";
+import IndvWarehouse from "@/pages/Warehouse/:id";
 function Body() {
   return (
     // <div className="pt-4 pl-4 pr-4 w-full h-full">
@@ -133,6 +134,7 @@ function Body() {
             element={<WarehouseForm isUpdate={false} submitBtnText="Submit" />}
           />
         </Route>
+        <Route path="/warehouse/:id" element={<IndvWarehouse />} />
         <Route path="/tasks" element={<Tasks />}>
           <Route index element={<TasksList />} />
           <Route path="list" element={<TasksList />} />

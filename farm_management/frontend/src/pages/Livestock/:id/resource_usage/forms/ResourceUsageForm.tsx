@@ -38,19 +38,26 @@ import {
 } from "@/pages/Livestock/hooks/useResourceUsageData";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
+import { useState } from "react";
 
 type LivestockRUFormProps = {
   isUpdate: Boolean;
   submitBtnText: string;
 };
-const formSchema = z.object({
-  resource: z.string(),
-  usage_quantity: z.number(),
-  details: z.string(),
-  usage_date: z.date(),
-});
 
 function LivestockRUForm(props: LivestockRUFormProps) {
+  const [currentQty, setCurrentQty] = useState();
+  const formSchema = z
+    .object({
+      resource: z.string(),
+      usage_quantity: z.number().gt(0),
+      details: z.string(),
+      usage_date: z.date(),
+    })
+    .refine((data) => data.usage_quantity <= currentQty!, {
+      path: ["usage_quantity"],
+      message: "Usage Quantity must be Less than or equal to Resource.",
+    });
   const { id } = useParams();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -61,16 +68,19 @@ function LivestockRUForm(props: LivestockRUFormProps) {
   });
   const { data: resource_data } = useResource();
   const RESOURCES = resource_data
-    ? resource_data.map((item) => ({
-        label: `${item.input_name} | ${item.inventory_type} > ${
-          item.current_quantity
-        } ${item.quantity_unit} @ ${
-          item.expand ? item.expand.storage_location.warehouse_name : ""
-        }`,
-        value: item.id,
-        //add current_quantity so that it is easier to reduce the resource
-      }))
+    ? resource_data
+        .filter((item) => item.current_quantity > 0)
+        .map((item) => ({
+          label: `${item.input_name} | ${item.inventory_type} > ${
+            item.current_quantity
+          } ${item.quantity_unit} @ ${
+            item.expand ? item.expand.storage_location.warehouse_name : ""
+          }`,
+          value: item.id,
+          current_quantity: item.current_quantity,
+        }))
     : [];
+
   const { mutate: AddCustomRU } = useAddResourceUsageDataCustom();
   const onSubmitForm = (data: z.infer<typeof formSchema>) => {
     const UsageWithId = {
@@ -138,6 +148,7 @@ function LivestockRUForm(props: LivestockRUFormProps) {
                             key={type.value}
                             onSelect={() => {
                               form.setValue("resource", type.value);
+                              setCurrentQty(type.current_quantity);
                             }}
                           >
                             <Check

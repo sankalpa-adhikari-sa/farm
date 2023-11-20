@@ -5,6 +5,7 @@ import { Separator } from "@/components/ui/separator";
 import { ModeToggle } from "@/components/mode-toggle";
 import { useAtom } from "jotai";
 import { sidebarAtom } from "@/Features/atoms";
+import UserAvatar from "./UserAvatar";
 
 function Navbar() {
   const [SidebarOpen, setSidebarOpen] = useAtom(sidebarAtom);
@@ -20,6 +21,8 @@ function Navbar() {
           <Menu />
         </Button>
         <div>
+          <UserAvatar />
+
           <Button
             onClick={() => navigate("/settings")}
             variant="ghost"

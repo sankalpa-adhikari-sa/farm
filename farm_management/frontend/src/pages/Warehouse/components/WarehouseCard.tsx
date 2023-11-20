@@ -8,6 +8,8 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { ShoppingBasket, User } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
+import { useNavigate } from "react-router-dom";
+
 type WarehouseCardProps = {
   cardTitle: string;
   cardSubtitle?: string;
@@ -15,10 +17,15 @@ type WarehouseCardProps = {
   cardLocation: string;
   cardMaintainer?: string;
   cardContactNumber?: string;
+  warehouseID: string;
 };
 function WarehouseCard(props: WarehouseCardProps) {
+  const navigate = useNavigate();
+  const handleOpenWarehouse = () => {
+    navigate(`/warehouse/${props.warehouseID}`);
+  };
   return (
-    <Card className="cursor-pointer">
+    <Card onClick={handleOpenWarehouse} className="cursor-pointer">
       <CardHeader>
         <div>
           <img

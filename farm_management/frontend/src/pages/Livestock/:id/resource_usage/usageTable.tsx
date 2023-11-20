@@ -29,7 +29,7 @@ type LivestockId = {
 function LivestockRUTable() {
   const { id } = useParams<LivestockId>();
   const { data = [] }: any = useResourceUsageByLivestock(id!);
-
+  console.log(data);
   const deleteUsageData = useDeleteResourceUsageByID();
   const handleUsageDelete = (id: string) => {
     return deleteUsageData.mutate(id);
@@ -64,6 +64,17 @@ function LivestockRUTable() {
 
       cell: ({ row }) => (
         <div className="capitalize">{row.getValue("Resource")}</div>
+      ),
+    },
+    {
+      id: "Type",
+      accessorKey: "expand.resource.inventory_type",
+      header: ({ column }) => (
+        <DataTableColumnHeader column={column} title="Type" />
+      ),
+
+      cell: ({ row }) => (
+        <div className="capitalize">{row.getValue("Type")}</div>
       ),
     },
     {

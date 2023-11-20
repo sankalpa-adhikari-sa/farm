@@ -81,7 +81,9 @@ export const useDeleteResourceUsageByID = () => {
   return useMutation({
     mutationFn: (id: string) => deleteResourceUsageByid(id),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["resource_usage"] });
+      queryClient.invalidateQueries({
+        queryKey: ["resource_usage_by_livestock"],
+      });
     },
   });
 };

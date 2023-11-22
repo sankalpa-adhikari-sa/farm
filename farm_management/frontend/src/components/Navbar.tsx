@@ -1,15 +1,23 @@
-import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Menu, Settings } from "lucide-react";
+import { Menu, SettingsIcon } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 import { ModeToggle } from "@/components/mode-toggle";
 import { useAtom } from "jotai";
 import { sidebarAtom } from "@/Features/atoms";
 import UserAvatar from "./UserAvatar";
-
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import Settings from "@/pages/Settings";
 function Navbar() {
   const [SidebarOpen, setSidebarOpen] = useAtom(sidebarAtom);
-  const navigate = useNavigate();
   const handleSidebar = () => {
     setSidebarOpen(!SidebarOpen);
   };
@@ -23,13 +31,16 @@ function Navbar() {
         <div>
           <UserAvatar />
 
-          <Button
-            onClick={() => navigate("/settings")}
-            variant="ghost"
-            size="icon"
-          >
-            <Settings />
-          </Button>
+          <Dialog>
+            <DialogTrigger>
+              <Button variant="ghost" size="icon">
+                <SettingsIcon />
+              </Button>
+            </DialogTrigger>
+            <DialogContent className="md:w-[93%] md:rounded-xl h-[95%]">
+              <Settings />
+            </DialogContent>
+          </Dialog>
           <ModeToggle />
         </div>
       </div>

@@ -196,7 +196,6 @@ function ResourceForm(props: ResourceFormProps) {
   const inv_type = useWatch({
     control: form.control,
     name: "inventory_type",
-    // defaultValue: "feed",
   });
 
   const { mutate: addResourceData } = useAddResourceData();
@@ -225,13 +224,11 @@ function ResourceForm(props: ResourceFormProps) {
     form.reset();
     form.clearErrors();
   };
-  console.log("length", Object.keys(current_resource).length);
 
   return (
     <>
-      {!props.isUpdate || Object.keys(current_resource).length > 1 ? (
+      {!props.isUpdate || Object.keys(current_resource).length > 0 ? (
         <>
-          {current_resource.inventory_type}
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmitForm)}>
               {/* <Button type="submit" onSubmit={onSubmitForm}>hi</Button> */}

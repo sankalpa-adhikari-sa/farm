@@ -30,6 +30,7 @@ import Auth from "@/pages/Auth";
 import Protected from "./Protected";
 import PageNotFound from "@/pages/404";
 import IndvWarehouse from "@/pages/Warehouse/:id";
+import ResourceIndv from "@/pages/Inventory/:id/ResourceIndv";
 function Body() {
   return (
     // <div className="pt-4 pl-4 pr-4 w-full h-full">
@@ -125,7 +126,13 @@ function Body() {
             path="add/equipment"
             element={<EquipmentForm isUpdate={false} submitBtnText="Submit" />}
           />
+
+          <Route
+            path="resource/:id/update"
+            element={<ResourceForm isUpdate={true} submitBtnText="Update" />}
+          />
         </Route>
+        <Route path="/inventory/resource/:id" element={<ResourceIndv />} />
         <Route path="/warehouse" element={<Warehouse />}>
           <Route index element={<WarehouseTable />} />
           <Route path="list" element={<WarehouseTable />} />

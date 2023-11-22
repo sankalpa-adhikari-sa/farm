@@ -19,7 +19,9 @@ const fetchAllResource = async () => {
   });
 };
 const fetchResourceByid = async (id: string) => {
-  return await pb.collection("resource").getOne(id);
+  return await pb.collection("resource").getOne(id, {
+    expand: "storage_location",
+  });
 };
 const fetchResourceByWarehouse = async (id: string) => {
   return await pb.collection("resource").getFullList({

@@ -154,8 +154,8 @@ function InventoryTable() {
         <div>
           <TableRowActions
             deletefn={() => handleResourceDelete(row.original.id)}
-            view={`/inventory/${row.original.id}`}
-            edit={`/inventory/${row.original.id}/update`}
+            view={`/inventory/resource/${row.original.id}`}
+            edit={`/inventory/resource/${row.original.id}/update`}
           />
         </div>
       ),

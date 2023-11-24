@@ -1,12 +1,35 @@
 import { useState } from "react";
 import Echarts from "./Echarts";
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+} from "@/components/ui/command";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { Button } from "@/components/ui/button";
+import { Check, ChevronsUpDownIcon } from "lucide-react";
+import { cn } from "@/lib/utils";
 type YieldChartPropsType = {
   type: any;
   data: any;
 };
 type optionType = echarts.EChartsOption;
 export default function YieldChart(props: YieldChartPropsType) {
-  const [dataset, setDataset] = useState(props.type);
+  const [dataset, setDataset] = useState(
+    props.type.length > 0 ? props.type[0].value : null
+  );
+  const [unit, setUnit] = useState(
+    props.type.length > 0 ? props.type[0].unit : null
+  );
+  const [open, setOpen] = useState(false);
+  console.log(props.type);
   const option: optionType = {
     dataset: [
       {
@@ -115,7 +138,7 @@ export default function YieldChart(props: YieldChartPropsType) {
         interval: 10,
         position: "right",
         axisLabel: {
-          formatter: "{value} kg",
+          formatter: `{value} ${unit}`,
         },
         splitLine: {
           show: false,
@@ -198,21 +221,52 @@ export default function YieldChart(props: YieldChartPropsType) {
       },
     ],
   };
-  const onOptionChangeHandler = (event: any) => {
-    setDataset(event.target.value);
-  };
   return (
     <div className="h-full">
-      <label>Filter By:</label>
-      <select
-        className="p-1 m-2 w-32 h-8 rounded-md "
-        onChange={onOptionChangeHandler}
-        name="yield_type"
-        id="yield_type"
-      >
-        <option value="Milk">milk</option>
-        <option value="Egg">Egg</option>
-      </select>
+      <Popover open={open} onOpenChange={setOpen}>
+        <PopoverTrigger asChild>
+          <Button
+            variant="outline"
+            role="combobox"
+            aria-expanded={open}
+            className="w-[200px] justify-between"
+          >
+            {dataset
+              ? props.type.find((TYPE: any) => TYPE.value === dataset)?.label
+              : "Select framework..."}
+            <ChevronsUpDownIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+          </Button>
+        </PopoverTrigger>
+        <PopoverContent className="w-[200px] p-0">
+          <Command>
+            <CommandInput placeholder="Search framework..." />
+            <CommandEmpty>No framework found.</CommandEmpty>
+            <CommandGroup>
+              {props.type.map((TYPE: any) => (
+                <CommandItem
+                  key={TYPE.value}
+                  value={TYPE.value}
+                  onSelect={(currentValue) => {
+                    //@ts-ignore
+                    setDataset(currentValue === dataset ? "" : currentValue);
+                    setUnit(TYPE.unit);
+                    setOpen(false);
+                  }}
+                >
+                  <Check
+                    className={cn(
+                      "mr-2 h-4 w-4",
+                      dataset === TYPE.value ? "opacity-100" : "opacity-0"
+                    )}
+                  />
+                  {TYPE.label}
+                </CommandItem>
+              ))}
+            </CommandGroup>
+          </Command>
+        </PopoverContent>
+      </Popover>
+
       {props.data.length > 0 ? (
         <div className="w-full h-[540px] p-3 shadow-md  rounded-md">
           {/* @ts-ignore */}

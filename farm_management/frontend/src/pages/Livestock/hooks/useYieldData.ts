@@ -16,6 +16,22 @@ const fetchYieldByLivestock = async (id: string) => {
     expand: "storage_location",
   });
 };
+const fetchYieldTypesByLivestock = async (id: string) => {
+  const value_ret = await pb.collection("livestock").getOne(id, {
+    fields: "expand.livestock_type.livestock_type_yield",
+    expand: "livestock_type",
+  });
+  //@ts-ignore
+  const type_data = value_ret.expand.livestock_type.livestock_type_yield;
+  // console.log(type_data);
+  return type_data;
+};
+export const useYieldTypeByLivestockID = (livestock_id: string) => {
+  return useQuery({
+    queryKey: ["livestock_yield_types", livestock_id],
+    queryFn: () => fetchYieldTypesByLivestock(livestock_id),
+  });
+};
 
 //show only one
 const fetchYieldByid = async (id: string) => {

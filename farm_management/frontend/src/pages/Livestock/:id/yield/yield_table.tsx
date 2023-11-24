@@ -7,6 +7,7 @@ import TableRowActions from "@/components/TableRowActions";
 import {
   useDeleteYieldByID,
   useYieldByLivestock,
+  useYieldTypeByLivestockID,
 } from "../../hooks/useYieldData";
 import { useParams } from "react-router-dom";
 import { DollarSignIcon } from "lucide-react";
@@ -33,8 +34,14 @@ type LivestockId = {
 function LivestockYieldTable() {
   const { id } = useParams<LivestockId>();
   const { data = [] }: any = useYieldByLivestock(id!);
-  console.log(data);
-
+  const { data: LivestockYieldTypes } = useYieldTypeByLivestockID(id!);
+  const YIELD_TYPES = LivestockYieldTypes
+    ? LivestockYieldTypes.map((item: any) => ({
+        label: `${item.yield_name}, (${item.yield_unit})`,
+        value: item.yield_name,
+        unit: item.yield_unit,
+      }))
+    : [];
   const deleteYieldData = useDeleteYieldByID();
   const handleYieldDelete = (id: string) => {
     return deleteYieldData.mutate(id);
@@ -180,7 +187,10 @@ function LivestockYieldTable() {
   ];
   return (
     <div className="w-full">
-      <YieldChart type="Milk" data={data} />
+      {YIELD_TYPES.length > 0 && data.length > 0 ? (
+        <YieldChart type={YIELD_TYPES} data={data} />
+      ) : null}
+
       <ReusableTable
         selection_option={false}
         columns={columns}

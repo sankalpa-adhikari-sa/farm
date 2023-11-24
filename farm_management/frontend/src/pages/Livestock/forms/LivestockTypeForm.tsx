@@ -17,12 +17,12 @@ import * as z from "zod";
 import { useAddLivestockTypeData } from "../hooks/useLivestockTypeData";
 
 const formSchema = z.object({
-  type: z.string(),
+  type: z.string().toLowerCase(),
   livestock_type_info: z.string(),
   livestock_type_yield: z.array(
     z.object({
-      yield_name: z.string().optional(),
-      yield_unit: z.string().optional(),
+      yield_name: z.string().toLowerCase().optional(),
+      yield_unit: z.string().toLowerCase().optional(),
     })
   ),
 });
@@ -47,12 +47,8 @@ function LivestockTypeForm(props: LivestockTypeFormProps) {
   });
   const onSubmitForm = (data: z.infer<typeof formSchema>) => {
     AddLivestockType(data);
-    const livestockYieldWithId = {
-      ...data,
-    };
     form.reset();
     form.clearErrors();
-    console.log(livestockYieldWithId);
   };
   const handleReset = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();

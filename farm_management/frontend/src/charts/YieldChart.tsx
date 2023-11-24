@@ -6,15 +6,14 @@ type YieldChartPropsType = {
 };
 type optionType = echarts.EChartsOption;
 export default function YieldChart(props: YieldChartPropsType) {
-  console.log(props.data);
-  const [dataset, setDataset] = useState(props.type[0]["yield_name"]);
+  const [dataset, setDataset] = useState(props.type);
   const option: optionType = {
     dataset: [
       {
         id: "All",
         dimensions: [
           "yield_date",
-          "expected_revenue",
+          { name: "expected_revenue", displayName: "Expeceted Revenue" },
           "net_yield_quantity",
           "yield_type",
           "yield_unit",
@@ -45,6 +44,20 @@ export default function YieldChart(props: YieldChartPropsType) {
         label: {
           backgroundColor: "#6a7985",
         },
+      },
+      formatter: function (props) {
+        //@ts-ignore
+        let tooltipContent = props[0].axisValueLabel + "<br/>";
+        //@ts-ignore
+        props.forEach(function (item: any) {
+          let value =
+            item.seriesName === "Expected Revenue"
+              ? item.data.expected_revenue
+              : item.data.net_yield_quantity;
+
+          tooltipContent += item.seriesName + ": " + value + "<br/>";
+        });
+        return tooltipContent;
       },
     },
     legend: {
@@ -82,7 +95,7 @@ export default function YieldChart(props: YieldChartPropsType) {
         name: "Expected Revenue",
         type: "value",
         min: 0,
-        max: 80,
+        // max: 80,
         interval: 10,
         axisLabel: {
           formatter: "{value} $",
@@ -98,8 +111,8 @@ export default function YieldChart(props: YieldChartPropsType) {
         name: "Yield",
         type: "value",
         min: 0,
-        max: 800,
-        interval: 100,
+        // max: 800,
+        interval: 10,
         position: "right",
         axisLabel: {
           formatter: "{value} kg",
@@ -161,15 +174,26 @@ export default function YieldChart(props: YieldChartPropsType) {
         emphasis: {
           focus: "series",
         },
+
         tooltip: {
-          valueFormatter: function (value: any) {
-            return value + " Kg";
+          // valueFormatter: function (value: any) {
+          //   console.log("hi");
+          //   return value;
+          // },
+          formatter: function (params) {
+            console.log("please", params);
+            return params.name;
           },
         },
         label: {
           show: true,
           position: "top",
-          formatter: "{@net_yield_quantity} kg",
+          // formatter: "{@net_yield_quantity} {@yield_unit}",
+          formatter: function (params: any) {
+            return (
+              params.value.net_yield_quantity + " " + params.value.yield_unit
+            );
+          },
         },
       },
     ],
@@ -186,8 +210,8 @@ export default function YieldChart(props: YieldChartPropsType) {
         name="yield_type"
         id="yield_type"
       >
+        <option value="Milk">milk</option>
         <option value="Egg">Egg</option>
-        <option value="Meat">Meat</option>
       </select>
       {props.data.length > 0 ? (
         <div className="w-full h-[540px] p-3 shadow-md  rounded-md">

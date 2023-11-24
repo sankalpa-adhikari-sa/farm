@@ -5,16 +5,7 @@ import { ModeToggle } from "@/components/mode-toggle";
 import { useAtom } from "jotai";
 import { sidebarAtom } from "@/Features/atoms";
 import UserAvatar from "./UserAvatar";
-import {
-  Dialog,
-  DialogClose,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import Settings from "@/pages/Settings";
 function Navbar() {
   const [SidebarOpen, setSidebarOpen] = useAtom(sidebarAtom);

@@ -12,6 +12,7 @@ import { useParams } from "react-router-dom";
 import { DollarSignIcon } from "lucide-react";
 import { BsFillCircleFill } from "react-icons/bs";
 import { format, parseISO } from "date-fns";
+import YieldChart from "@/charts/YieldChart";
 const YieldSchema = z.object({
   id: z.string(),
   yield_details: z.string().optional(),
@@ -179,6 +180,7 @@ function LivestockYieldTable() {
   ];
   return (
     <div className="w-full">
+      <YieldChart type="Milk" data={data} />
       <ReusableTable
         selection_option={false}
         columns={columns}

@@ -4,6 +4,7 @@ go 1.18
 
 require (
 	github.com/labstack/echo/v5 v5.0.0-20230722203903-ec5b858dab61
+	github.com/pocketbase/dbx v1.10.1
 	github.com/pocketbase/pocketbase v0.19.4
 	github.com/wailsapp/wails/v2 v2.6.0
 )
@@ -62,7 +63,6 @@ require (
 	github.com/mgutz/ansi v0.0.0-20200706080929-d51e80ef957d // indirect
 	github.com/pkg/browser v0.0.0-20210911075715-681adbf594b8 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
-	github.com/pocketbase/dbx v1.10.1 // indirect
 	github.com/remyoudompheng/bigfft v0.0.0-20230129092748-24d4a6f8daec // indirect
 	github.com/rivo/uniseg v0.4.4 // indirect
 	github.com/samber/lo v1.38.1 // indirect

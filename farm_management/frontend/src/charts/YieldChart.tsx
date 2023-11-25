@@ -12,7 +12,6 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { ScrollArea } from "@/components/ui/scroll-area";
 import { Button } from "@/components/ui/button";
 import { Check, ChevronsUpDownIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -57,9 +56,6 @@ export default function YieldChart(props: YieldChartPropsType) {
       },
     ],
 
-    title: {
-      text: "Yield ",
-    },
     tooltip: {
       trigger: "axis",
       axisPointer: {

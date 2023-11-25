@@ -47,12 +47,18 @@ type LivestockRUFormProps = {
 
 function LivestockRUForm(props: LivestockRUFormProps) {
   const [currentQty, setCurrentQty] = useState();
+  const [quantityUnit, setQuantityUnit] = useState();
+  const [resourceType, setResourceType] = useState();
+  const [unitPrice, setUnitPrice] = useState();
   const formSchema = z
     .object({
       resource: z.string(),
       usage_quantity: z.number().gt(0),
       details: z.string(),
       usage_date: z.date(),
+      quantity_unit: z.string().optional(),
+      resource_type: z.string().optional(),
+      price: z.string().optional(),
     })
     .refine((data) => data.usage_quantity <= currentQty!, {
       path: ["usage_quantity"],
@@ -78,22 +84,21 @@ function LivestockRUForm(props: LivestockRUFormProps) {
           }`,
           value: item.id,
           current_quantity: item.current_quantity,
+          resource_type: item.inventory_type,
+          quantity_unit: item.quantity_unit,
+          unit_price: item.per_unit_price,
         }))
     : [];
-
   const { mutate: AddCustomRU } = useAddResourceUsageDataCustom();
   const onSubmitForm = (data: z.infer<typeof formSchema>) => {
     const UsageWithId = {
       ...data,
       livestock: id,
+      resource_type: resourceType,
+      quantity_unit: quantityUnit,
+      price: unitPrice! * data.usage_quantity,
     };
-    console.log(UsageWithId);
     AddCustomRU(UsageWithId);
-    console.log("ResourceId:", UsageWithId.resource);
-    //fetch the current quantity of this resource(it may be in Resources)
-    // new current quantity= current quantity - usage quantity
-    //update the resource
-    //add the resource usage
     form.reset();
     form.clearErrors();
   };
@@ -149,6 +154,9 @@ function LivestockRUForm(props: LivestockRUFormProps) {
                             onSelect={() => {
                               form.setValue("resource", type.value);
                               setCurrentQty(type.current_quantity);
+                              setResourceType(type.resource_type);
+                              setQuantityUnit(type.quantity_unit);
+                              setUnitPrice(type.unit_price);
                             }}
                           >
                             <Check

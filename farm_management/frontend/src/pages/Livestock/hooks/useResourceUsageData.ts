@@ -8,7 +8,11 @@ const addResourceUsage = async (data: Data) => {
   return await pb.collection("resource_usage").create(data);
 };
 const addResourceUsageCustom = async (data: Data) => {
-  return await axios.post("http://127.0.0.1:8090/custom_records/", data);
+  return await axios.post("http://127.0.0.1:8090/custom_records/", data, {
+    headers: {
+      Authorization: `${pb.authStore.token}`,
+    },
+  });
 };
 const updateResourceUsage = async ({
   id,

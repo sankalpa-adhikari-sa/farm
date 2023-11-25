@@ -5,6 +5,8 @@ import (
 
 	"github.com/labstack/echo/v5"
 	"github.com/pocketbase/pocketbase"
+
+	"github.com/pocketbase/dbx"
 	"github.com/pocketbase/pocketbase/apis"
 	"github.com/pocketbase/pocketbase/core"
 	"github.com/pocketbase/pocketbase/forms"
@@ -12,56 +14,39 @@ import (
 )
 func addUsage(app *pocketbase.PocketBase) func(e *core.ServeEvent) error {
 	return func(e *core.ServeEvent) error {
-		e.Router.POST("/custom_records/", resourceUsageTransaction(app) )
+		e.Router.POST("/custom_records/", resourceUsageTransaction(app),apis.RequireRecordAuth())
 		return nil
 	}
 }
 // to use api/collection...... need to be admin so using agi instead of api for now
-func hello(app *pocketbase.PocketBase) func(e *core.ServeEvent) error {
+func getIndvYieldByType(app *pocketbase.PocketBase) func(e *core.ServeEvent) error {
 	return func(e *core.ServeEvent) error {
-		e.Router.GET("/agi/collections/hello/", sayHello(app))
+		e.Router.GET("/api/collections/yield/totalyieldbylivestock/:id", yieldTotalByType(app),apis.RequireRecordAuth())
 		return nil
 }
 }
+func yieldTotalByType(app *pocketbase.PocketBase)  func(c echo.Context) error {
+	return func(c echo.Context) error {
+		id := c.PathParam("id")
+		type YIELD struct {
+			LivestockId     string          `db:"livestock_id" json:"livestock_id"`
+			YieldUnit     string          `db:"yield_unit" json:"yield_unit"`
+			Yieldtype string            `db:"yield_type" json:"yield_type"`
+			TotalYield    float64        `db:"total_yield" json:"total_yield"`
+			TotalLoss    float64        `db:"total_loss" json:"total_loss"`
+			TotalExpectedRevenue    float64        `db:"total_expected_revenue" json:"total_expected_revenue"`
+		}
+		result := []YIELD{}
 
-
-//This doesnot work status 204
-// func resourceUsageTransaction(app *pocketbase.PocketBase) func(c echo.Context) error {
-//     return func(c echo.Context) error {
-//         var record *models.Record
-//         txErr := app.Dao().RunInTransaction(func(txDao *daos.Dao) error {
-//             usageCollection, err := app.Dao().FindCollectionByNameOrId("resource_usage")
-//             if err != nil {
-//                 return apis.NewNotFoundError("Failed to fetch resource_usage collection.", err)
-//             }
-
-//             // Use the existing 'record' variable, don't redeclare it
-//             record = models.NewRecord(usageCollection)
-
-//             form := forms.NewRecordUpsert(app, record)
-
-//             if err := form.LoadRequest(c.Request(), ""); err != nil {
-//                 return apis.NewBadRequestError("Failed to load the submitted data.", err)
-//             }
-
-//             if err := form.Submit(); err != nil {
-//                 return apis.NewBadRequestError("Failed to create the record.", err)
-//             }
-
-//             return nil
-//         })
-
-//         if txErr != nil {
-//             return txErr
-//         }
-
-//         return c.JSON(http.StatusOK, record)
-//     }
-// }
-
-
-
-
+		err:= app.Dao().DB().NewQuery("SELECT livestock as livestock_id,yield_unit,yield_type,SUM(net_yield_quantity) as total_yield,SUM(yield_loss_quantity) as total_loss,SUM(expected_revenue) as total_expected_revenue FROM yield WHERE livestock = {:livestock_id} GROUP BY livestock_id, yield_type").
+		Bind(dbx.Params{"livestock_id": id}).
+		All(&result)
+		if err != nil {
+			return err
+		}
+		return c.JSON(http.StatusOK, result)
+	}
+}
 /////////////////////////////////////////////////////////
 //This works... (Not safe, Need to use Transactions)
 func resourceUsageTransaction(app *pocketbase.PocketBase) func(c echo.Context) error {
@@ -111,10 +96,5 @@ func resourceUsageTransaction(app *pocketbase.PocketBase) func(c echo.Context) e
 			return  c.JSON(http.StatusOK, record)
 		
 
-	}
-}
-func sayHello(app *pocketbase.PocketBase) func(c echo.Context) error {
-	return  func(c echo.Context) error {
-		return c.String(http.StatusOK, "Hello, world!")
 	}
 }

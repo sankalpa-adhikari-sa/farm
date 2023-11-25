@@ -1,7 +1,7 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import pb from "@/Pocketbase/pocketbase";
 import { toast } from "sonner";
-
+import axios from "axios";
 type Data = any;
 const addYield = async (data: Data) => {
   return await pb.collection("yield").create(data);
@@ -15,6 +15,17 @@ const fetchYieldByLivestock = async (id: string) => {
     sort: "-yield_date",
     expand: "storage_location",
   });
+};
+const fetchTotalYieldByLivestock = async (id: string) => {
+  const response = await axios.get(
+    `http://127.0.0.1:8090/api/collections/yield/totalyieldbylivestock/${id}`,
+    {
+      headers: {
+        Authorization: `${pb.authStore.token}`,
+      },
+    }
+  );
+  return response.data;
 };
 const fetchYieldTypesByLivestock = async (id: string) => {
   const value_ret = await pb.collection("livestock").getOne(id, {
@@ -30,6 +41,12 @@ export const useYieldTypeByLivestockID = (livestock_id: string) => {
   return useQuery({
     queryKey: ["livestock_yield_types", livestock_id],
     queryFn: () => fetchYieldTypesByLivestock(livestock_id),
+  });
+};
+export const useTotalYieldByLivestockID = (livestock_id: string) => {
+  return useQuery({
+    queryKey: ["total_yield_by_livestock", livestock_id],
+    queryFn: () => fetchTotalYieldByLivestock(livestock_id),
   });
 };
 

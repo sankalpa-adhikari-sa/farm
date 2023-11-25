@@ -30,12 +30,10 @@ func main() {
 		pocketBaseApp.Bootstrap()
 
 		pocketBaseApp.OnBeforeServe().Add(addUsage(pocketBaseApp))
-		pocketBaseApp.OnBeforeServe().Add(hello(pocketBaseApp))
+		pocketBaseApp.OnBeforeServe().Add(getIndvYieldByType(pocketBaseApp))
 
 		serveCmd := cmd.NewServeCommand(pocketBaseApp, true)
 		serveCmd.Execute()
-
-
 	  }()
 	
 	

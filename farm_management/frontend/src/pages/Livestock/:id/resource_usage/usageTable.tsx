@@ -20,6 +20,7 @@ const ResourceUsageSchema = z.object({
   usage_quantity: z.number(),
   expand: z.any(),
   usage_date: z.date(),
+  quantity_unit: z.string(),
 });
 
 type ResourceUsageDef = z.infer<typeof ResourceUsageSchema>;
@@ -68,7 +69,7 @@ function LivestockRUTable() {
     },
     {
       id: "Type",
-      accessorKey: "expand.resource.inventory_type",
+      accessorKey: "resource_type",
       header: ({ column }) => (
         <DataTableColumnHeader column={column} title="Type" />
       ),
@@ -88,7 +89,8 @@ function LivestockRUTable() {
           <div className="flex gap-2 items-center capitalize">
             <div>{row.getValue("Quantity")}</div>
             <div className="text-muted-foreground text-xs">
-              {row.original.expand.resource.quantity_unit}
+              {/* {row.original.expand.resource.quantity_unit} */}
+              {row.original.quantity_unit}
             </div>
           </div>
         </>

@@ -47,6 +47,31 @@ func yieldTotalByType(app *pocketbase.PocketBase)  func(c echo.Context) error {
 		return c.JSON(http.StatusOK, result)
 	}
 }
+func getIndvRUTotalByRT(app *pocketbase.PocketBase) func(e *core.ServeEvent) error {
+	return func(e *core.ServeEvent) error {
+		e.Router.GET("/api/collections/resource_usage/IndvRUTotalByRT/:id", RUTotalByResourceType(app),apis.RequireRecordAuth())
+		return nil
+}
+}
+func RUTotalByResourceType(app *pocketbase.PocketBase)  func(c echo.Context) error {
+	return func(c echo.Context) error {
+		id := c.PathParam("id")
+		type YIELD struct {
+			LivestockId     string          `db:"livestock_id" json:"livestock_id"`
+			Resourcetype string            `db:"resource_type" json:"resource_type"`
+			TotalUsagePrice    float64        `db:"total_usage_price" json:"total_usage_price"`
+		}
+		result := []YIELD{}
+
+		err:= app.Dao().DB().NewQuery("SELECT livestock as livestock_id,resource_type,SUM(price) as total_usage_price FROM resource_usage WHERE livestock = {:livestock_id} GROUP BY livestock_id, resource_type").
+		Bind(dbx.Params{"livestock_id": id}).
+		All(&result)
+		if err != nil {
+			return err
+		}
+		return c.JSON(http.StatusOK, result)
+	}
+}
 /////////////////////////////////////////////////////////
 //This works... (Not safe, Need to use Transactions)
 func resourceUsageTransaction(app *pocketbase.PocketBase) func(c echo.Context) error {

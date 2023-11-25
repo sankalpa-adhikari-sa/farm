@@ -31,7 +31,7 @@ func main() {
 
 		pocketBaseApp.OnBeforeServe().Add(addUsage(pocketBaseApp))
 		pocketBaseApp.OnBeforeServe().Add(getIndvYieldByType(pocketBaseApp))
-
+		pocketBaseApp.OnBeforeServe().Add(getIndvRUTotalByRT(pocketBaseApp))
 		serveCmd := cmd.NewServeCommand(pocketBaseApp, true)
 		serveCmd.Execute()
 	  }()

@@ -30,9 +30,9 @@ type LivestockId = {
 function LivestockRUTable() {
   const { id } = useParams<LivestockId>();
   const { data = [] }: any = useResourceUsageByLivestock(id!);
-  console.log(data);
   const deleteUsageData = useDeleteResourceUsageByID();
   const handleUsageDelete = (id: string) => {
+    console.log(id);
     return deleteUsageData.mutate(id);
   };
   const columns: ColumnDef<ResourceUsageDef>[] = [

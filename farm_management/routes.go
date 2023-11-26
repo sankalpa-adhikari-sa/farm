@@ -72,6 +72,40 @@ func RUTotalByResourceType(app *pocketbase.PocketBase)  func(c echo.Context) err
 		return c.JSON(http.StatusOK, result)
 	}
 }
+func getIndvRUTotalByR(app *pocketbase.PocketBase) func(e *core.ServeEvent) error {
+	return func(e *core.ServeEvent) error {
+		e.Router.GET("/api/collections/resource_usage/IndvRUTotalByR/:id", RUTotalByResource(app),apis.RequireRecordAuth())
+		return nil
+}
+}
+func RUTotalByResource(app *pocketbase.PocketBase)  func(c echo.Context) error {
+	return func(c echo.Context) error {
+		id := c.PathParam("id")
+		type YIELD struct {
+			LivestockId     string          `db:"livestock_id" json:"livestock_id"`
+			Resourcetype string            `db:"resource_type" json:"resource_type"`
+			ResourceId string            `db:"resourceId" json:"resourceId"`
+			ResourceName string            `db:"resource_name" json:"resource_name"`
+			QuanityUnit string            `db:"quantity_unit" json:"quantity_unit"`
+			TotalUsagePrice    float64        `db:"total_usage_price" json:"total_usage_price"`
+			TotalUsageQuantity    float64        `db:"total_usage_quantity" json:"total_usage_quantity"`
+
+		}
+		result := []YIELD{}
+
+		err:= app.Dao().DB().NewQuery("SELECT livestock as livestock_id,resource_type,resource_name,quantity_unit,resource as resourceId,SUM(price) as total_usage_price,SUM(usage_quantity) as total_usage_quantity FROM resource_usage WHERE livestock = {:livestock_id} GROUP BY livestock_id, resource").
+		Bind(dbx.Params{"livestock_id": id}).
+		All(&result)
+		if err != nil {
+			return err
+		}
+		return c.JSON(http.StatusOK, result)
+	}
+}
+
+//// do same thing for for Resources, i.e RUTotalByResourceType  == groub by resource >>> livestock_id, resource_type, total_usage_price, total_usage_amount
+
+
 /////////////////////////////////////////////////////////
 //This works... (Not safe, Need to use Transactions)
 func resourceUsageTransaction(app *pocketbase.PocketBase) func(c echo.Context) error {

@@ -25,6 +25,17 @@ const fetchIndvRUTotalByRT = async (id: string) => {
   );
   return response.data;
 };
+const fetchIndvRUTotalByR = async (id: string) => {
+  const response = await axios.get(
+    `http://127.0.0.1:8090/api/collections/resource_usage/IndvRUTotalByR/${id}`,
+    {
+      headers: {
+        Authorization: `${pb.authStore.token}`,
+      },
+    }
+  );
+  return response.data;
+};
 
 const updateResourceUsage = async ({
   id,
@@ -59,12 +70,23 @@ export const useResourceUsageByLivestock = (id: string) => {
     queryFn: () => fetchResourceUsageByLivestock(id),
   });
 };
+
+//list
 export const useIndvRUTotalByRT = (livestock_id: string) => {
   return useQuery({
     queryKey: ["total_indv_RU_by_RT", livestock_id],
     queryFn: () => fetchIndvRUTotalByRT(livestock_id),
   });
 };
+
+//list
+export const useIndvRUTotalByR = (livestock_id: string) => {
+  return useQuery({
+    queryKey: ["total_indv_RU_by_R", livestock_id],
+    queryFn: () => fetchIndvRUTotalByR(livestock_id),
+  });
+};
+
 //list
 export const useResourceUsage = () => {
   return useQuery({

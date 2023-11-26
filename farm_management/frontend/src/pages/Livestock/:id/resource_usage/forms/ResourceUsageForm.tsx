@@ -50,6 +50,7 @@ function LivestockRUForm(props: LivestockRUFormProps) {
   const [quantityUnit, setQuantityUnit] = useState();
   const [resourceType, setResourceType] = useState();
   const [unitPrice, setUnitPrice] = useState();
+  const [resourceName, setResourceName] = useState();
   const formSchema = z
     .object({
       resource: z.string(),
@@ -58,7 +59,8 @@ function LivestockRUForm(props: LivestockRUFormProps) {
       usage_date: z.date(),
       quantity_unit: z.string().optional(),
       resource_type: z.string().optional(),
-      price: z.string().optional(),
+      price: z.number().optional(),
+      resource_name: z.string().optional(),
     })
     .refine((data) => data.usage_quantity <= currentQty!, {
       path: ["usage_quantity"],
@@ -87,6 +89,7 @@ function LivestockRUForm(props: LivestockRUFormProps) {
           resource_type: item.inventory_type,
           quantity_unit: item.quantity_unit,
           unit_price: item.per_unit_price,
+          resource_name: item.input_name,
         }))
     : [];
   const { mutate: AddCustomRU } = useAddResourceUsageDataCustom();
@@ -96,6 +99,7 @@ function LivestockRUForm(props: LivestockRUFormProps) {
       livestock: id,
       resource_type: resourceType,
       quantity_unit: quantityUnit,
+      resource_name: resourceName,
       price: unitPrice! * data.usage_quantity,
     };
     AddCustomRU(UsageWithId);
@@ -157,6 +161,7 @@ function LivestockRUForm(props: LivestockRUFormProps) {
                               setResourceType(type.resource_type);
                               setQuantityUnit(type.quantity_unit);
                               setUnitPrice(type.unit_price);
+                              setResourceName(type.resource_name);
                             }}
                           >
                             <Check

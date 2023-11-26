@@ -20,7 +20,6 @@ type ResourceDef = z.infer<typeof ResourceSchema>;
 
 function InventoryTable() {
   const { data = [] }: any = useResource();
-  console.log(data);
   const deleteResourceData = useDeleteResourceByID();
   const handleResourceDelete = (id: string) => {
     console.log(id);

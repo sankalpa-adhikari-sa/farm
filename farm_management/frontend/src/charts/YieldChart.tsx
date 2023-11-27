@@ -200,7 +200,6 @@ export default function YieldChart(props: YieldChartPropsType) {
           //   return value;
           // },
           formatter: function (params) {
-            console.log("please", params);
             return params.name;
           },
         },

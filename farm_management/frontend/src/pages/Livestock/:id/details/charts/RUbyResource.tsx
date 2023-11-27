@@ -105,6 +105,15 @@ function RUbyResource(props: RUChartPropsType) {
         return tooltipContent;
       },
     },
+    toolbox: {
+      show: true,
+      feature: {
+        mark: { show: true },
+        dataView: { show: true, readOnly: false },
+        restore: { show: true },
+        saveAsImage: { show: true },
+      },
+    },
     xAxis: [
       {
         type: "value",
@@ -129,24 +138,6 @@ function RUbyResource(props: RUChartPropsType) {
             return params.value.total_usage_price + " $";
           },
         },
-        itemStyle: {
-          color(params) {
-            console.log(params);
-            if (params.seriesName === "others") {
-              return "#73c0de";
-            } else if (params.seriesName === "medical") {
-              return "#ee6666";
-            } else if (params.seriesName === "chemical") {
-              return "#5470c6";
-            } else if (params.seriesName === "feed") {
-              return "#91cc75";
-            } else if (params.seriesName === "input") {
-              return "#fac858";
-            } else {
-              return "gray";
-            }
-          },
-        },
       },
     ],
   };
@@ -154,7 +145,7 @@ function RUbyResource(props: RUChartPropsType) {
   return (
     <div>
       <Select onValueChange={(value) => setDataset(value)}>
-        <SelectTrigger className="w-[280px]">
+        <SelectTrigger className="w-[180px]">
           <SelectValue placeholder="Select Resource" />
         </SelectTrigger>
         <SelectContent>

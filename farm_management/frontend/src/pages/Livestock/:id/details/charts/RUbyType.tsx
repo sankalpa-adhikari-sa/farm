@@ -56,7 +56,6 @@ function RUbyType(props: RUChartPropsType) {
         name: "Resource Type",
         type: "pie",
         radius: ["40%", "70%"],
-        // roseType: "area",
         avoidLabelOverlap: false,
         itemStyle: {
           borderRadius: 10,

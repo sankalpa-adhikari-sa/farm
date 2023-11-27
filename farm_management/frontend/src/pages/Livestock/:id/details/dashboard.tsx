@@ -17,7 +17,7 @@ function LivestockDashboard() {
   const { data: TotalResourceUsageByR } = useIndvRUTotalByR(id!);
 
   return (
-    <div>
+    <div className="w-full">
       <h3>Total Yield</h3>
       <br></br>
       {TotalYield?.length > 0 ? (
@@ -65,18 +65,18 @@ function LivestockDashboard() {
       ) : (
         <p>null </p>
       )}
-      <Separator />
-      {TotalResourceUsageByRT?.length > 0 ? (
-        <RUbyType data={TotalResourceUsageByRT} />
-      ) : null}
 
-      <Separator />
-      <h3>Total Resource Usage by Resource</h3>
-      {TotalResourceUsageByR?.length > 0 ? (
-        <RUbyResource data={TotalResourceUsageByR} />
-      ) : (
-        <p>null </p>
-      )}
+      <div className="flex flex-wrap w-full">
+        {TotalResourceUsageByRT?.length > 0 ? (
+          <RUbyType data={TotalResourceUsageByRT} />
+        ) : null}
+
+        {TotalResourceUsageByR?.length > 0 ? (
+          <RUbyResource data={TotalResourceUsageByR} />
+        ) : (
+          <p>null </p>
+        )}
+      </div>
     </div>
   );
 }

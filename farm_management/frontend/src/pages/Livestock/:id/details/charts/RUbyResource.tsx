@@ -114,6 +114,12 @@ function RUbyResource(props: RUChartPropsType) {
         saveAsImage: { show: true },
       },
     },
+    grid: {
+      left: "3%",
+      right: "30px",
+      bottom: "3%",
+      containLabel: true,
+    },
     xAxis: [
       {
         type: "value",
@@ -143,9 +149,9 @@ function RUbyResource(props: RUChartPropsType) {
   };
 
   return (
-    <div>
+    <div className="w-full md:w-6/12  h-[540px] p-3 shadow-md  rounded-md">
       <Select onValueChange={(value) => setDataset(value)}>
-        <SelectTrigger className="w-[180px]">
+        <SelectTrigger className="w-[180px] mb-2">
           <SelectValue placeholder="Select Resource" />
         </SelectTrigger>
         <SelectContent>
@@ -158,9 +164,9 @@ function RUbyResource(props: RUChartPropsType) {
         </SelectContent>
       </Select>
       {props.data.length > 0 ? (
-        <div className="w-full h-[540px] p-3 shadow-md  rounded-md">
+        <div className="w-full h-full">
           {/* @ts-ignore */}
-          <Echarts option={option} resize={true} />
+          <Echarts option={option} />
         </div>
       ) : (
         <p>No records available. You can add data by clicking in Add button</p>

@@ -41,6 +41,7 @@ function RUbyType(props: RUChartPropsType) {
       left: "center",
       top: "top",
     },
+
     toolbox: {
       show: true,
       feature: {
@@ -50,6 +51,7 @@ function RUbyType(props: RUChartPropsType) {
         saveAsImage: { show: true },
       },
     },
+
     series: [
       {
         datasetId: "RU by Type",
@@ -62,21 +64,21 @@ function RUbyType(props: RUChartPropsType) {
           borderColor: "#fff",
           borderWidth: 2,
         },
-        label: {
-          formatter: function (props) {
-            //@ts-ignore
-            return props.name + " ( " + props.value.total_usage_price + " $ ) ";
-          },
-        },
+        // label: {
+        //   formatter: function (props) {
+        //     //@ts-ignore
+        //     return props.name + " ( " + props.value.total_usage_price + " $ ) ";
+        //   },
+        // },
       },
     ],
   };
   return (
-    <div>
+    <div className="w-full md:w-6/12  h-[540px] p-3 shadow-md  rounded-md">
       {props.data.length > 0 ? (
-        <div className="w-full h-[540px] p-3 shadow-md  rounded-md">
+        <div className="w-full h-full">
           {/* @ts-ignore */}
-          <Echarts option={option} resize={true} />
+          <Echarts option={option} />
         </div>
       ) : (
         <p>No records available. You can add data by clicking in Add button</p>

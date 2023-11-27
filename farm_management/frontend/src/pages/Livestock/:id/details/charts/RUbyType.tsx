@@ -17,6 +17,7 @@ function RUbyType(props: RUChartPropsType) {
       trigger: "item",
       //   formatter: "{a} <br/>{b} : {c} ({d}%)",
       formatter: function (props) {
+        console.log(props);
         let tooltipContent =
           //@ts-ignore
           props.seriesName +

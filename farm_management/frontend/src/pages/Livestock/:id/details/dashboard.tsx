@@ -77,23 +77,6 @@ function LivestockDashboard() {
       ) : (
         <p>null </p>
       )}
-      {TotalResourceUsageByR?.length > 0 ? (
-        <div>
-          {TotalResourceUsageByR.map((item: any) => (
-            <div key={item.resourceId}>
-              <p>Resource: {item.resource_name}</p>
-              <p>Type: {item.resource_type}</p>
-              <p>Usage Price: {item.total_usage_price} $</p>
-              <p>
-                Usage quantity: {item.total_usage_quantity} {item.quantity_unit}
-              </p>
-              <br></br>
-            </div>
-          ))}
-        </div>
-      ) : (
-        <p>null </p>
-      )}
     </div>
   );
 }

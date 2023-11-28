@@ -20,10 +20,24 @@ const deleteLivestockTypeByid = async (id: string) => {
 const fetchAllLivestockType = async () => {
   return await pb.collection("livestock_type").getFullList();
 };
+const fetchLivestockSummary = async () => {
+  return await pb.collection("Analytics_livestock_type").getFullList({
+    expand: "type",
+    fields:
+      "id,archived_count,male_count,female_count,ill_count,livestock_count_by_type,expand.type.type",
+  });
+};
 const fetchLivestockTypeByid = async (id: string) => {
   return await pb.collection("livestock_type").getOne(id);
 };
 
+//list
+export const useLivestockSummary = () => {
+  return useQuery({
+    queryKey: ["livestock_summary"],
+    queryFn: fetchLivestockSummary,
+  });
+};
 //list
 export const useLivestockType = () => {
   return useQuery({

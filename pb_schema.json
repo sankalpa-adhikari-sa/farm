@@ -1184,77 +1184,6 @@
     "options": {}
   },
   {
-    "id": "rheg2d4o8lv420t",
-    "name": "Analytics_livestock_type",
-    "type": "view",
-    "system": false,
-    "schema": [
-      {
-        "system": false,
-        "id": "uxlptfzo",
-        "name": "male_count",
-        "type": "json",
-        "required": false,
-        "presentable": false,
-        "unique": false,
-        "options": {}
-      },
-      {
-        "system": false,
-        "id": "safkujpr",
-        "name": "female_count",
-        "type": "json",
-        "required": false,
-        "presentable": false,
-        "unique": false,
-        "options": {}
-      },
-      {
-        "system": false,
-        "id": "vcr1bwy1",
-        "name": "archived_count",
-        "type": "json",
-        "required": false,
-        "presentable": false,
-        "unique": false,
-        "options": {}
-      },
-      {
-        "system": false,
-        "id": "7m8dmmn0",
-        "name": "ill_count",
-        "type": "json",
-        "required": false,
-        "presentable": false,
-        "unique": false,
-        "options": {}
-      },
-      {
-        "system": false,
-        "id": "yxoz7u7m",
-        "name": "total_count",
-        "type": "number",
-        "required": false,
-        "presentable": false,
-        "unique": false,
-        "options": {
-          "min": null,
-          "max": null,
-          "noDecimal": false
-        }
-      }
-    ],
-    "indexes": [],
-    "listRule": null,
-    "viewRule": null,
-    "createRule": null,
-    "updateRule": null,
-    "deleteRule": null,
-    "options": {
-      "query": "SELECT livestock_type as id,\n  SUM(CASE WHEN livestock_gender = 'male' THEN 1 ELSE 0 END) as male_count,\n  SUM(CASE WHEN livestock_gender = 'female' THEN 1 ELSE 0 END) as female_count,\n  SUM(CASE WHEN isarchived = TRUE THEN 1 ELSE 0 END) as archived_count,\n  SUM(CASE WHEN issick = TRUE THEN 1 ELSE 0 END) as ill_count,\n  COUNT(*) as total_count \nFROM livestock \nGROUP BY livestock_type\n"
-    }
-  },
-  {
     "id": "h6xlajcqlvkcsnv",
     "name": "yield",
     "type": "base",
@@ -1785,5 +1714,92 @@
     "updateRule": "",
     "deleteRule": "@collection.resource_usage.resource.id != id || @collection.resource_usage.id = \"\" ",
     "options": {}
+  },
+  {
+    "id": "rheg2d4o8lv420t",
+    "name": "Analytics_livestock_type",
+    "type": "view",
+    "system": false,
+    "schema": [
+      {
+        "system": false,
+        "id": "9tsa8rgt",
+        "name": "type",
+        "type": "relation",
+        "required": false,
+        "presentable": false,
+        "unique": false,
+        "options": {
+          "collectionId": "whek0w9culwulam",
+          "cascadeDelete": false,
+          "minSelect": null,
+          "maxSelect": 1,
+          "displayFields": null
+        }
+      },
+      {
+        "system": false,
+        "id": "hvm69hdg",
+        "name": "male_count",
+        "type": "json",
+        "required": false,
+        "presentable": false,
+        "unique": false,
+        "options": {}
+      },
+      {
+        "system": false,
+        "id": "3kidwrmd",
+        "name": "female_count",
+        "type": "json",
+        "required": false,
+        "presentable": false,
+        "unique": false,
+        "options": {}
+      },
+      {
+        "system": false,
+        "id": "vgws47st",
+        "name": "archived_count",
+        "type": "json",
+        "required": false,
+        "presentable": false,
+        "unique": false,
+        "options": {}
+      },
+      {
+        "system": false,
+        "id": "jleyg7ef",
+        "name": "ill_count",
+        "type": "json",
+        "required": false,
+        "presentable": false,
+        "unique": false,
+        "options": {}
+      },
+      {
+        "system": false,
+        "id": "1gfu9qxe",
+        "name": "livestock_count_by_type",
+        "type": "number",
+        "required": false,
+        "presentable": false,
+        "unique": false,
+        "options": {
+          "min": null,
+          "max": null,
+          "noDecimal": false
+        }
+      }
+    ],
+    "indexes": [],
+    "listRule": "",
+    "viewRule": "",
+    "createRule": null,
+    "updateRule": null,
+    "deleteRule": null,
+    "options": {
+      "query": "SELECT livestock_type as id,\n  livestock_type as type,\n  SUM(CASE WHEN livestock_gender = 'male' THEN 1 ELSE 0 END) as male_count,\n  SUM(CASE WHEN livestock_gender = 'female' THEN 1 ELSE 0 END) as female_count,\n  SUM(CASE WHEN isarchived = TRUE THEN 1 ELSE 0 END) as archived_count,\n  SUM(CASE WHEN issick = TRUE THEN 1 ELSE 0 END) as ill_count,\n  COUNT(*) as livestock_count_by_type \nFROM livestock \nGROUP BY livestock_type\n"
+    }
   }
 ]

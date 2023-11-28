@@ -31,18 +31,21 @@ const deleteLivestockByid = async (id: string) => {
   return await pb.collection("livestock").delete(id);
 };
 
+// list
 export const useLivestock = () => {
   return useQuery({
     queryKey: ["livestock"],
     queryFn: fetchAllLivestock,
   });
 };
+//view
 export const useLivestockByID = (id: string) => {
   return useQuery({
     queryKey: ["livestock", id],
     queryFn: () => fetchLivestockByid(id),
   });
 };
+//delete
 export const useDeleteLivestockByID = () => {
   const queryClient = useQueryClient();
   return useMutation({
@@ -58,6 +61,8 @@ export const useDeleteLivestockByID = () => {
     },
   });
 };
+
+//Update
 export const useUpdateLivestockByID = () => {
   const queryClient = useQueryClient();
   return useMutation({
@@ -74,6 +79,7 @@ export const useUpdateLivestockByID = () => {
     },
   });
 };
+// Create
 export const useAddLivestockData = () => {
   const queryClient = useQueryClient();
   return useMutation({

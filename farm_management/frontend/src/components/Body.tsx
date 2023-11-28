@@ -1,7 +1,6 @@
 import { Route, Routes } from "react-router-dom";
 import Home from "../pages/Home";
 import Livestock from "@/pages/Livestock";
-import LivestockTable from "@/pages/Livestock/LivestockTable";
 import LivestockForm from "@/pages/Livestock/forms/LivestockForm";
 import IndvLivestock from "@/pages/Livestock/:id";
 import LivestockDetails from "@/pages/Livestock/:id/details";
@@ -31,6 +30,7 @@ import Protected from "./Protected";
 import PageNotFound from "@/pages/404";
 import IndvWarehouse from "@/pages/Warehouse/:id";
 import ResourceIndv from "@/pages/Inventory/:id/ResourceIndv";
+import LivestockList from "@/pages/Livestock/LivestockList";
 function Body() {
   return (
     // <div className="pt-4 pl-4 pr-4 w-full h-full">
@@ -40,8 +40,8 @@ function Body() {
         <Route path="/" element={<Home />} />
         <Route path="/settings" element={<Settings />} />
         <Route path="/livestock" element={<Livestock />}>
-          <Route index element={<LivestockTable />} />
-          <Route path="list" element={<LivestockTable />} />
+          <Route index element={<LivestockList />} />
+          <Route path="list" element={<LivestockList />} />
           <Route
             path="add"
             element={<LivestockForm isUpdate={false} submitBtnText="Submit" />}

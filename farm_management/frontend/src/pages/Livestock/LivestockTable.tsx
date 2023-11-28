@@ -67,9 +67,7 @@ function LivestockTable() {
     },
     {
       id: "Breed",
-      // Accessor Key should be same as key of a dictionary
       accessorKey: "livestock_breed",
-      //Header is Something you want to show in the header
       header: ({ column }) => (
         <DataTableColumnHeader column={column} title="Breed" />
       ),
@@ -81,10 +79,7 @@ function LivestockTable() {
     },
     {
       id: "Livestock Type",
-      // Accessor Key should be same as key of a dictionary
-      // to get data inside of expand "expand.relationalfield.field inside another collection"
       accessorKey: "expand.livestock_type.type",
-      //Header is Something you want to show in the header
       header: ({ column }) => (
         <DataTableColumnHeader column={column} title="Livestock Type" />
       ),
@@ -96,12 +91,6 @@ function LivestockTable() {
       },
     },
 
-    // {
-    //     accessorKey: "Status",
-    //     header: "Status",
-    //     cell:(props) =>
-    //         <div className='TableData'>{props.getValue() == "Work"? <div> <MdCircle fontSize={16} color='green'/> {props.getValue()}</div>:<div> <MdCircle fontSize={16} color='red'/> {props.getValue()} </div> }</div>
-    // },
     {
       id: "Action",
       header: "",
@@ -166,16 +155,7 @@ function LivestockTable() {
         value: item.type,
       }))
     : [];
-  // const FilterOptions = [
-  //   {
-  //     value: "goat",
-  //     label: "Goat",
-  //   },
-  //   {
-  //       value: "poultry",
-  //       label: "Poultry",
-  //     },
-  // ]
+
   return (
     <div>
       <ReusableTable
